@@ -1,30 +1,26 @@
 package blueportal.finsandstails.network;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.ClientHitComboData;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-import java.util.function.Supplier;
+public record HitComboSyncS2CPacket(int hitCombo) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<HitComboSyncS2CPacket> TYPE = new CustomPacketPayload.Type<>(FinsAndTails.id("hit_combo_sync"));
 
-public class HitComboSyncS2CPacket {
-    private final int hit_combo;
+    public static final StreamCodec<RegistryFriendlyByteBuf, HitComboSyncS2CPacket> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, HitComboSyncS2CPacket::hitCombo,
+            HitComboSyncS2CPacket::new
+    );
 
-    public HitComboSyncS2CPacket(int hit_combo) {
-        this.hit_combo = hit_combo;
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public HitComboSyncS2CPacket(FriendlyByteBuf buf) {
-        this.hit_combo = buf.readInt();
-    }
-
-    public void toBytes(FriendlyByteBuf buf)
-    {
-        buf.writeInt(hit_combo);
-    }
-
-    public void handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> ClientHitComboData.set(hit_combo));
-        return;
+    public static void handle(HitComboSyncS2CPacket packet) {
+        ClientHitComboData.set(packet.hitCombo());
     }
 }
