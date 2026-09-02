@@ -63,7 +63,7 @@ public class FTBlocks {
 
         CRAB_CRUNCHER = register("crab_cruncher", CrabCruncherBlock::new, BlockBehaviour.Properties.of().strength(5.0f).sound(SoundType.STONE));
 
-        CHAINED_TENTACLE = register("chained_tentacle", ChainedTentacleBlock::new, BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion());
+        CHAINED_TENTACLE = register("chained_tentacle", ChainedTentacleBlock::new, BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.CHAIN).noOcclusion().lightLevel(state -> 12));
 
         FLATBACK_SHELL_BRICKS = register("flatback_shell_bricks", Block::new, shellProperties());
         FLATBACK_SHELL_BRICK_STAIRS = registerStairs("flatback_shell_brick_stairs", FLATBACK_SHELL_BRICKS);

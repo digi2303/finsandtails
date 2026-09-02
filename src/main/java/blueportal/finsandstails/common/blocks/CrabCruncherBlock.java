@@ -10,7 +10,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -29,15 +29,13 @@ public class CrabCruncherBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(handIn);
-
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand handIn, BlockHitResult hit) {
         Map<Item, Item> crabToGem = ImmutableMap.of(
-                FTItems.AMBER_SPINDLY_GEM_CRAB.get(), FTItems.SPINDLY_AMBER.get(),
-                FTItems.PEARL_SPINDLY_GEM_CRAB.get(), FTItems.SPINDLY_PEARL.get(),
-                FTItems.SAPPHIRE_SPINDLY_GEM_CRAB.get(), FTItems.SPINDLY_SAPPHIRE.get(),
-                FTItems.RUBY_SPINDLY_GEM_CRAB.get(), FTItems.SPINDLY_RUBY.get(),
-                FTItems.EMERALD_SPINDLY_GEM_CRAB.get(), FTItems.SPINDLY_EMERALD.get()
+                FTItems.AMBER_SPINDLY_GEM_CRAB, FTItems.SPINDLY_AMBER,
+                FTItems.PEARL_SPINDLY_GEM_CRAB, FTItems.SPINDLY_PEARL,
+                FTItems.SAPPHIRE_SPINDLY_GEM_CRAB, FTItems.SPINDLY_SAPPHIRE,
+                FTItems.RUBY_SPINDLY_GEM_CRAB, FTItems.SPINDLY_RUBY,
+                FTItems.EMERALD_SPINDLY_GEM_CRAB, FTItems.SPINDLY_EMERALD
         );
 
         if (crabToGem.containsKey(stack.getItem())) {
@@ -53,7 +51,7 @@ public class CrabCruncherBlock extends Block {
 
             if (level instanceof ServerLevel server) {
                 double d0 = 0.5D;
-                double d1 = FTBlocks.CRAB_CRUNCHER.get().defaultBlockState().getShape(level, pos).max(Direction.Axis.Y);
+                double d1 = FTBlocks.CRAB_CRUNCHER.defaultBlockState().getShape(level, pos).max(Direction.Axis.Y);
 
                 double d2 = 0.0D;
                 double d3 = 0.0D;
@@ -71,26 +69,4 @@ public class CrabCruncherBlock extends Block {
 
         return InteractionResult.PASS;
     }
-
-/*
-    private static final Component CONTAINER_NAME = Component.translatable("container." + FinsAndTails.MOD_ID + ".crab_cruncher");
-
-    @Nullable
-    public MenuProvider getMenuProvider(BlockState p_48821_, Level p_48822_, BlockPos p_48823_) {
-        return new SimpleMenuProvider((p_48785_, p_48786_, p_48787_) -> new CrabCruncherContainer(p_48785_, p_48786_, ContainerLevelAccess.create(p_48822_, p_48823_)), CONTAINER_NAME);
-    }
-*/
-
-/*    @Override
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof Container) {
-                Containers.dropContents(worldIn, pos, (Container)tileentity);
-                worldIn.updateNeighbourForOutputSignal(pos, this);
-            }
-
-            super.onRemove(state, worldIn, pos, newState, isMoving);
-        }
-    }*/
 }
