@@ -1,16 +1,12 @@
 {
   "required": true,
-  "package": "blueportal.finsandstails.mixin",
+  "package": "blueportal.finsandstails.mixin.neo",
   "compatibilityLevel": "JAVA_25",
   "mixinextras": {
     "minVersion": "0.5.0"
   },
-  "mixins": [
-    "server.EntityMixin"
-  ],
-  "client": [
-    "client.HumanoidArmorLayerMixin"
-  ],
+  "mixins": [],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "finsandtails",
+  "version": "${version}",
+  "name": "Fins and Tails",
+  "description": "Fins and Tails is minecraft mod that aims to add more fictional ambient life to your minecraft world, ranging from small fish to strange crustaceans, all designed to spice up your gameplay.",
+  "authors": [
+    "codyhuh",
+    "Ninni",
+    "Tazz",
+    "VakyPanda",
+    "Inzaenity"
+  ],
+  "contributors": [
+    "Mr. Esuoh",
+    "Ash",
+    "EB MARIO",
+    "bagu_chan"
+  ],
+  "contact": {
+    "homepage": "https://github.com/digi2303/finsandtails",
+    "sources": "https://github.com/digi2303/finsandtails",
+    "issues": "https://github.com/digi2303/finsandtails/issues"
+  },
+  "license": "LGPL-3.0-or-later",
+  "environment": "*",
+  "entrypoints": {
+    "yumi:init": [
+      "blueportal.finsandstails.impl.FinsAndTailsMain"
+    ],
+    "yumi:client_init": [
+      "blueportal.finsandstails.impl.client.FinsAndTailsClient"
+    ],
+    "fabric-datagen": [
+      "blueportal.finsandstails.datagen.FinsAndTailsDataGenerator"
+    ]
+  },
+  "accessWidener": "finsandtails.classtweaker",
+  "mixins": [
+    "finsandtails.mixins.json",
+    "finsandtails.fabric.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${mc_major}.x",
+    "fabricloader": ">=0.18.0",
+    "fabric-api": "*",
+    "yumi_mc_core": ">=1.0.0+26.1"
+  }
+}

@@ -1,0 +1,42 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "LGPLv3"
+issueTrackerURL = "https://github.com/digi2303/finsandtails/issues"
+
+[[mods]]
+	modId = "finsandtails"
+	version = "${version}"
+	displayName = "Fins and Tails"
+	displayURL = "https://github.com/digi2303/finsandtails"
+	description = "Fins and Tails is minecraft mod that aims to add more fictional ambient life to your minecraft world, ranging from small fish to strange crustaceans, all designed to spice up your gameplay."
+	authors = "codyhuh, Ninni, Tazz, VakyPanda, Inzaenity"
+	credits = "Mr. Esuoh, Ash, EB MARIO, bagu_chan"
+
+[[accessTransformers]]
+	file = "META-INF/accesstransformer.cfg"
+
+[[mixins]]
+	config = "finsandtails.mixins.json"
+
+[[mixins]]
+	config = "finsandtails.neo.mixins.json"
+
+[[dependencies.finsandtails]]
+	modId = "minecraft"
+	type = "required"
+	versionRange = "[${mc_major},${mc_next})"
+	ordering = "NONE"
+	side = "BOTH"
+
+[[dependencies.finsandtails]]
+	modId = "yumi_mc_core"
+	type = "required"
+	versionRange = "[${yumi_version},)"
+	ordering = "NONE"
+	side = "BOTH"
+
+[[modproperties.finsandtails."yumi:entrypoints"."yumi:init"]]
+	value = "blueportal.finsandstails.impl.FinsAndTailsMain"
+
+[[modproperties.finsandtails."yumi:entrypoints"."yumi:client_init"]]
+	value = "blueportal.finsandstails.impl.client.FinsAndTailsClient"
