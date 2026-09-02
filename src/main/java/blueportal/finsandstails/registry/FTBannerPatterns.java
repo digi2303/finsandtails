@@ -1,14 +1,15 @@
 package blueportal.finsandstails.registry;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.entity.BannerPattern;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 import blueportal.finsandstails.FinsAndTails;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class FTBannerPatterns {
-    public static final DeferredRegister<BannerPattern> BANNER_PATTERNS = DeferredRegister.create(Registries.BANNER_PATTERN, FinsAndTails.MOD_ID);
+    public static final ResourceKey<BannerPattern> MANDIBLES = createKey("mandibles");
+    public static final ResourceKey<BannerPattern> SHELL = createKey("shell");
 
-    public static final RegistryObject<BannerPattern> MANDIBLES = BANNER_PATTERNS.register("mandibles", () -> new BannerPattern("ftm"));
-    public static final RegistryObject<BannerPattern> SHELL = BANNER_PATTERNS.register("shell", () -> new BannerPattern("ftsll"));
+    private static ResourceKey<BannerPattern> createKey(String name) {
+        return ResourceKey.create(Registries.BANNER_PATTERN, FinsAndTails.id(name));
+    }
 }

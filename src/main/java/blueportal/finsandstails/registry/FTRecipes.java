@@ -1,28 +1,27 @@
 package blueportal.finsandstails.registry;
 
+import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.common.crafting.CrunchingRecipe;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.common.crafting.CrunchingRecipe;
 
-@Mod.EventBusSubscriber(modid = FinsAndTails.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FTRecipes {
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, FinsAndTails.MOD_ID);
-    public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FinsAndTails.MOD_ID);
+    public static RecipeType<CrunchingRecipe> CRUNCHING_TYPE;
+    public static RecipeSerializer<CrunchingRecipe> CRUNCHING_SERIALIZER;
 
-    public static RegistryObject<RecipeType<CrunchingRecipe>> CRUNCHING_TYPE = RECIPE_TYPE.register("crunching", () -> register("crunching"));
-    public static final RegistryObject<CrunchingRecipe.Serializer> CRUNCHING_SERIALIZER = SERIALIZERS.register("crunching", CrunchingRecipe.Serializer::new);
+    public static void register() {
+        CRUNCHING_TYPE = registerType("crunching");
+        CRUNCHING_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, FinsAndTails.id("crunching"), new CrunchingRecipe.Serializer());
+    }
 
-    static <T extends Recipe<?>> RecipeType<T> register(final String name) {
-        return new RecipeType<>() {
+    private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {
+        return Registry.register(BuiltInRegistries.RECIPE_TYPE, FinsAndTails.id(name), new RecipeType<T>() {
             public String toString() {
                 return FinsAndTails.MOD_ID + ":" + name;
             }
-        };
+        });
     }
 }

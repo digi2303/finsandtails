@@ -30,6 +30,8 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.function.Function;
 
 public class FTItems {
+    public static final java.util.List<Item> REGISTERED = new java.util.ArrayList<>();
+
     public static Item WEE_SPAWN_EGG;
     public static Item WEE_BUCKET;
     public static Item WEE;
@@ -394,6 +396,8 @@ public class FTItems {
 
     private static <T extends Item> T register(String name, Function<Item.Properties, T> factory, Item.Properties properties) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, FinsAndTails.id(name));
-        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
+        T item = Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
+        REGISTERED.add(item);
+        return item;
     }
 }

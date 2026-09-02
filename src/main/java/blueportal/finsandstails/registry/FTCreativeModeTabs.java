@@ -17,7 +17,7 @@ public class FTCreativeModeTabs {
         FINS_AND_TAILS = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FINS_AND_TAILS_KEY, CreativeModeTab.builder()
                 .icon(FTItems.WEE::getDefaultInstance)
                 .title(Component.translatable("itemGroup.finsandtails"))
-                .displayItems((parameters, output) -> FTItemGroup.appendAll(output))
+                .displayItems((parameters, output) -> FTItems.REGISTERED.forEach(output::accept))
                 .build());
     }
 }
