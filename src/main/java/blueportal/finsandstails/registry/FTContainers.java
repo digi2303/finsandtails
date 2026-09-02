@@ -1,17 +1,23 @@
 package blueportal.finsandstails.registry;
 
-import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.common.container.CrabCruncherContainer;
 import blueportal.finsandstails.common.container.MudhorsePouchContainer;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.MenuType;
 
 public class FTContainers {
-    public static final DeferredRegister<MenuType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.MENU_TYPES, FinsAndTails.MOD_ID);
+    public static MenuType<MudhorsePouchContainer> MUDHORSE_POUCH;
+    public static MenuType<CrabCruncherContainer> CRAB_CRUNCHER;
 
-    public static final RegistryObject<MenuType<MudhorsePouchContainer>> MUDHORSE_POUCH = REGISTER.register("mudhorse_pouch", () -> IForgeMenuType.create((windowId, playerInventory, data) -> new MudhorsePouchContainer(windowId, playerInventory)));
-    public static final RegistryObject<MenuType<CrabCruncherContainer>> CRAB_CRUNCHER = REGISTER.register("crab_cruncher", () -> IForgeMenuType.create((windowId, playerInventory, data) -> new CrabCruncherContainer(windowId, playerInventory)));
+    public static void register() {
+        MUDHORSE_POUCH = register("mudhorse_pouch", MudhorsePouchContainer::new);
+        CRAB_CRUNCHER = register("crab_cruncher", CrabCruncherContainer::new);
+    }
+
+    private static <T extends net.minecraft.world.inventory.AbstractContainerMenu> MenuType<T> register(String name, MenuType.MenuSupplier<T> supplier) {
+        return Registry.register(BuiltInRegistries.MENU, FinsAndTails.id(name), new MenuType<>(supplier, FeatureFlags.VANILLA_SET));
+    }
 }

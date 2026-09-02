@@ -1,6 +1,7 @@
 package blueportal.finsandstails.registry;
 
 import blueportal.finsandstails.FinsAndTails;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
@@ -21,9 +22,9 @@ public class FTSounds {
     public static SoundEvent HORATEE_HURT;
     public static SoundEvent HORATEE_DEATH;
     public static SoundEvent DIDGERIDOO_PLAY;
-    public static SoundEvent CRASHING_TIDES;
-    public static SoundEvent WHISTLING_WYVERNS;
-    public static SoundEvent WARBLE;
+    public static Holder<SoundEvent> CRASHING_TIDES;
+    public static Holder<SoundEvent> WHISTLING_WYVERNS;
+    public static Holder<SoundEvent> WARBLE;
     public static SoundEvent JETPACK_USE;
     public static SoundEvent FLATBACK_SUCKER_CLICK;
     public static SoundEvent WHERBLE_DEATH;
@@ -53,9 +54,9 @@ public class FTSounds {
         HORATEE_HURT = register("horatee.hurt");
         HORATEE_DEATH = register("horatee.death");
         DIDGERIDOO_PLAY = register("didgeridoo.play");
-        CRASHING_TIDES = register("music_disc.crashing_tides");
-        WHISTLING_WYVERNS = register("music_disc.whistling_wyverns");
-        WARBLE = register("music_disc.warble");
+        CRASHING_TIDES = registerHolder("music_disc.crashing_tides");
+        WHISTLING_WYVERNS = registerHolder("music_disc.whistling_wyverns");
+        WARBLE = registerHolder("music_disc.warble");
         JETPACK_USE = register("jetpack.use");
         FLATBACK_SUCKER_CLICK = register("click");
         WHERBLE_DEATH = register("wherble.death");
@@ -68,6 +69,10 @@ public class FTSounds {
         WANDERING_SAILOR_TRADE = register("wandering_sailor.trade");
         WANDERING_SAILOR_YES = register("wandering_sailor.yes");
         WANDERING_SAILOR_NO = register("wandering_sailor.no");
+    }
+
+    private static Holder<SoundEvent> registerHolder(String name) {
+        return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, FinsAndTails.id(name), SoundEvent.createVariableRangeEvent(FinsAndTails.id(name)));
     }
 
     private static SoundEvent register(String name) {
