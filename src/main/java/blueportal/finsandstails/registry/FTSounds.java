@@ -1,47 +1,76 @@
 package blueportal.finsandstails.registry;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import blueportal.finsandstails.FinsAndTails;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
 
 public class FTSounds {
+    public static SoundEvent MUDHORSE_DEATH;
+    public static SoundEvent MUDHORSE_HURT;
+    public static SoundEvent MUDHORSE_AMBIENT;
+    public static SoundEvent RUBBER_BELLY_GLIDER_DEATH;
+    public static SoundEvent RUBBER_BELLY_GLIDER_HURT;
+    public static SoundEvent RUBBER_BELLY_GLIDER_AMBIENT;
+    public static SoundEvent PENGLIL_DEATH;
+    public static SoundEvent PENGLIL_HURT;
+    public static SoundEvent PENGLIL_AMBIENT;
+    public static SoundEvent CRAB_DEATH;
+    public static SoundEvent CRAB_CRUNCH;
+    public static SoundEvent HORATEE_AMBIENT;
+    public static SoundEvent HORATEE_HURT;
+    public static SoundEvent HORATEE_DEATH;
+    public static SoundEvent DIDGERIDOO_PLAY;
+    public static SoundEvent CRASHING_TIDES;
+    public static SoundEvent WHISTLING_WYVERNS;
+    public static SoundEvent WARBLE;
+    public static SoundEvent JETPACK_USE;
+    public static SoundEvent FLATBACK_SUCKER_CLICK;
+    public static SoundEvent WHERBLE_DEATH;
+    public static SoundEvent WHERBLE_HURT;
+    public static SoundEvent WHERBLE_AMBIENT;
+    public static SoundEvent WHERBLE_THROW;
+    public static SoundEvent WANDERING_SAILOR_AMBIENT;
+    public static SoundEvent WANDERING_SAILOR_HURT;
+    public static SoundEvent WANDERING_SAILOR_DEATH;
+    public static SoundEvent WANDERING_SAILOR_TRADE;
+    public static SoundEvent WANDERING_SAILOR_YES;
+    public static SoundEvent WANDERING_SAILOR_NO;
 
-    public static final DeferredRegister<SoundEvent> REGISTER = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FinsAndTails.MOD_ID);
+    public static void register() {
+        MUDHORSE_DEATH = register("mudhorse.death");
+        MUDHORSE_HURT = register("mudhorse.hurt");
+        MUDHORSE_AMBIENT = register("mudhorse.ambient");
+        RUBBER_BELLY_GLIDER_DEATH = register("rubber_belly_glider.death");
+        RUBBER_BELLY_GLIDER_HURT = register("rubber_belly_glider.hurt");
+        RUBBER_BELLY_GLIDER_AMBIENT = register("rubber_belly_glider.ambient");
+        PENGLIL_DEATH = register("penglil.death");
+        PENGLIL_HURT = register("penglil.hurt");
+        PENGLIL_AMBIENT = register("penglil.ambient");
+        CRAB_DEATH = register("crab.death");
+        CRAB_CRUNCH = register("crab.crunch");
+        HORATEE_AMBIENT = register("horatee.ambient");
+        HORATEE_HURT = register("horatee.hurt");
+        HORATEE_DEATH = register("horatee.death");
+        DIDGERIDOO_PLAY = register("didgeridoo.play");
+        CRASHING_TIDES = register("music_disc.crashing_tides");
+        WHISTLING_WYVERNS = register("music_disc.whistling_wyverns");
+        WARBLE = register("music_disc.warble");
+        JETPACK_USE = register("jetpack.use");
+        FLATBACK_SUCKER_CLICK = register("click");
+        WHERBLE_DEATH = register("wherble.death");
+        WHERBLE_HURT = register("wherble.hurt");
+        WHERBLE_AMBIENT = register("wherble.ambient");
+        WHERBLE_THROW = register("wherble.throw");
+        WANDERING_SAILOR_AMBIENT = register("wandering_sailor.ambient");
+        WANDERING_SAILOR_HURT = register("wandering_sailor.hurt");
+        WANDERING_SAILOR_DEATH = register("wandering_sailor.death");
+        WANDERING_SAILOR_TRADE = register("wandering_sailor.trade");
+        WANDERING_SAILOR_YES = register("wandering_sailor.yes");
+        WANDERING_SAILOR_NO = register("wandering_sailor.no");
+    }
 
-    public static final RegistryObject<SoundEvent> MUDHORSE_DEATH = REGISTER.register("mudhorse.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "mudhorse.death")));
-    public static final RegistryObject<SoundEvent> MUDHORSE_HURT = REGISTER.register("mudhorse.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "mudhorse.hurt")));
-    public static final RegistryObject<SoundEvent> MUDHORSE_AMBIENT = REGISTER.register("mudhorse.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "mudhorse.ambient")));
-    public static final RegistryObject<SoundEvent> RUBBER_BELLY_GLIDER_DEATH = REGISTER.register("rubber_belly_glider.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "rubber_belly_glider.death")));
-    public static final RegistryObject<SoundEvent> RUBBER_BELLY_GLIDER_HURT = REGISTER.register("rubber_belly_glider.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "rubber_belly_glider.hurt")));
-    public static final RegistryObject<SoundEvent> RUBBER_BELLY_GLIDER_AMBIENT = REGISTER.register("rubber_belly_glider.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "rubber_belly_glider.ambient")));
-    public static final RegistryObject<SoundEvent> PENGLIL_DEATH = REGISTER.register("penglil.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "penglil.death")));
-    public static final RegistryObject<SoundEvent> PENGLIL_HURT = REGISTER.register("penglil.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "penglil.hurt")));
-    public static final RegistryObject<SoundEvent> PENGLIL_AMBIENT = REGISTER.register("penglil.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "penglil.ambient")));
-    public static final RegistryObject<SoundEvent> CRAB_DEATH = REGISTER.register("crab.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "crab.death")));
-    public static final RegistryObject<SoundEvent> CRAB_CRUNCH = REGISTER.register("crab.crunch", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "crab.crunch")));
-
-    public static final RegistryObject<SoundEvent> HORATEE_AMBIENT = REGISTER.register("horatee.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "horatee.ambient")));
-    public static final RegistryObject<SoundEvent> HORATEE_HURT = REGISTER.register("horatee.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "horatee.hurt")));
-    public static final RegistryObject<SoundEvent> HORATEE_DEATH = REGISTER.register("horatee.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "horatee.death")));
-
-
-    public static final RegistryObject<SoundEvent> DIDGERIDOO_PLAY = REGISTER.register("didgeridoo.play", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "didgeridoo.play")));
-    public static final RegistryObject<SoundEvent> CRASHING_TIDES = REGISTER.register("music_disc.crashing_tides", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "music_disc.crashing_tides")));
-    public static final RegistryObject<SoundEvent> WHISTLING_WYVERNS = REGISTER.register("music_disc.whistling_wyverns", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "music_disc.whistling_wyverns")));
-    public static final RegistryObject<SoundEvent> WARBLE = REGISTER.register("music_disc.warble", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "music_disc.warble")));
-    public static final RegistryObject<SoundEvent> JETPACK_USE = REGISTER.register("jetpack.use", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "jetpack.use")));
-    public static final RegistryObject<SoundEvent> FLATBACK_SUCKER_CLICK = REGISTER.register("click", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "click")));
-    public static final RegistryObject<SoundEvent> WHERBLE_DEATH = REGISTER.register("wherble.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wherble.death")));
-    public static final RegistryObject<SoundEvent> WHERBLE_HURT = REGISTER.register("wherble.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wherble.hurt")));
-    public static final RegistryObject<SoundEvent> WHERBLE_AMBIENT = REGISTER.register("wherble.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wherble.ambient")));
-    public static final RegistryObject<SoundEvent> WHERBLE_THROW = REGISTER.register("wherble.throw", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wherble.throw")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_AMBIENT = REGISTER.register("wandering_sailor.ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.ambient")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_HURT = REGISTER.register("wandering_sailor.hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.hurt")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_DEATH = REGISTER.register("wandering_sailor.death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.death")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_TRADE = REGISTER.register("wandering_sailor.trade", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.trade")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_YES = REGISTER.register("wandering_sailor.yes", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.yes")));
-    public static final RegistryObject<SoundEvent> WANDERING_SAILOR_NO = REGISTER.register("wandering_sailor.no", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(FinsAndTails.MOD_ID, "wandering_sailor.no")));
+    private static SoundEvent register(String name) {
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, FinsAndTails.id(name), SoundEvent.createVariableRangeEvent(FinsAndTails.id(name)));
+    }
 }
