@@ -1,194 +1,154 @@
-buildscript {
-    repositories {
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
-
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'maven-publish'
 }
 
-apply plugin: 'org.spongepowered.mixin'
-
-version = mod_version
-group = mod_group_id
+def mcSuffix = project.minecraft_version.tokenize('.').take(2).join('.')
+def mcNext = "${mcSuffix.tokenize('.')[0]}.${(mcSuffix.tokenize('.')[1] as int) + 1}"
+version = "${project.mod_version}+${mcSuffix}"
+group = project.maven_group
 
 base {
-    archivesName = mod_id
+	archivesName = project.archives_base_name
 }
 
-// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-
-    copyIdeResources = true
-
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        // applies to all the run configs below
-        configureEach {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            // example of overriding the workingDirectory set in configureEach above
-            workingDirectory project.file('run-data')
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
-    }
+fabricApi {
+	configureDataGeneration {
+		client = true
+		modId = "finsandtails"
+		outputDirectory = rootProject.file("src/generated/resources")
+	}
 }
-
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-
-    config "${mod_id}.mixins.json"
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven {
-        url "https://cursemaven.com"
-    }
-    maven {
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-        content {
-            includeGroupByRegex("software\\.bernie.*")
-            includeGroup("com.eliotlash.mclib")
-        }
-    }
+	maven {
+		name = "NeoForge"
+		url = uri("https://maven.neoforged.net/releases/")
+		content {
+			includeGroupAndSubgroups("net.neoforged")
+			includeGroupAndSubgroups("cpw.mods")
+			includeGroupAndSubgroups("dev.yumi")
+		}
+	}
+	maven { url = "https://api.modrinth.com/maven" }
+}
+
+sourceSets {
+	main {
+		java.srcDirs = [rootProject.file("src/main/java")]
+		resources.srcDirs = [rootProject.file("src/main/resources"), rootProject.file("src/generated/resources")]
+	}
+	fabric {
+		java.srcDirs = [rootProject.file("src/fabric/java")]
+		resources.srcDirs = [rootProject.file("src/fabric/resources")]
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+	neoforge {
+		java.srcDirs = [rootProject.file("src/neoforge/java")]
+		resources.srcDirs = [rootProject.file("src/neoforge/resources")]
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
+if (mcSuffix == "26.2") {
+	sourceSets.fabric.java.exclude("blueportal/finsandstails/datagen/**")
+}
+
+loom {
+	accessWidenerPath = rootProject.file("src/main/resources/finsandtails.classtweaker")
+
+	runs {
+		datagen {
+			client()
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${rootProject.file("src/generated/resources")}"
+			vmArg "-Dfabric-api.datagen.modid=finsandtails"
+
+			runDir "build/datagen"
+			source sourceSets.fabric
+		}
+	}
 }
 
 dependencies {
-    // Specify the version of Minecraft to use.
-    // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
-    // The "userdev" classifier will be requested and setup by ForgeGradle.
-    // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
-    // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.2')
+	api include("dev.yumi.mc.core:yumi-mc-foundation:${project.yumi_version}")
+	implementation("dev.yumi.mc.core:yumi-mc-foundation:${project.yumi_version}")
 
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
+	compileOnly localRuntime("net.fabricmc:fabric-loader:${project.loader_version}")
 
-    compileOnly fg.deobf("curse.maven:curios-309927:5843594")
+	fabricCompileOnly localRuntime("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+	neoforgeCompileOnly("net.neoforged:neoforge:${project.neoforge_version}:universal")
+	neoforgeCompileOnly("net.neoforged.fancymodloader:loader:${project.neoforge_loader_version}")
+
+	neoforgeImplementation sourceSets.main.output
+	fabricImplementation sourceSets.main.output
+
+	localRuntime sourceSets.fabric.output
 }
 
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors: mod_authors, mod_description: mod_description,
-    ]
-    inputs.properties replaceProperties
+def resourceTargets = ["fabric.mod.json", "META-INF/neoforge.mods.toml", "META-INF/jarjar/metadata.json"]
+def replaceProperties = [
+		"version": project.version, "yumi_version": project.yumi_version,
+		"mc_major": mcSuffix, "mc_next": mcNext
+]
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
-    }
-}
+processResources {
+	inputs.properties replaceProperties
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
-// Example for how to get properties into the manifest for reading at runtime.
-tasks.named('jar', Jar).configure {
-    manifest {
-        attributes([
-                'Specification-Title'     : mod_id,
-                'Specification-Vendor'    : mod_authors,
-                'Specification-Version'   : '1', // We are version 1 of ourselves
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
-
-    // This is the preferred method to reobfuscate your jar file
-    finalizedBy 'reobfJar'
-}
-
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
-// tasks.named('publish').configure {
-//     dependsOn 'reobfJar'
-// }
-
-// Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
+	filesMatching(resourceTargets) {
+		expand replaceProperties
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+	it.options.encoding = "UTF-8"
+	it.options.release = 25
+}
+
+tasks.withType(Jar).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	from(rootProject.file("LICENSE")) {
+		rename { "${it}_${project.archives_base_name}" }
+	}
+
+	from(sourceSets.neoforge.output)
+	from(sourceSets.fabric.output) {
+		exclude "blueportal/finsandstails/datagen/**"
+	}
+}
+
+sourcesJar {
+	from(sourceSets.neoforge.java.sourceDirectories)
+	from(sourceSets.neoforge.resources.sourceDirectories)
+	from(sourceSets.fabric.java.sourceDirectories)
+	from(sourceSets.fabric.resources.sourceDirectories)
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
+	repositories {
+		mavenLocal()
+	}
 }
