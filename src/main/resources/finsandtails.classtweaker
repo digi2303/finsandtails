@@ -3,3 +3,6 @@ classTweaker v1 official
 accessible	field	net/minecraft/world/entity/animal/fish/AbstractSchoolingFish	leader	Lnet/minecraft/world/entity/animal/fish/AbstractSchoolingFish;
 accessible	field	net/minecraft/world/entity/animal/fish/AbstractSchoolingFish	schoolSize	I
 accessible	method	net/minecraft/world/entity/animal/fish/AbstractSchoolingFish	removeFollower	()V
+accessible	method	net/minecraft/world/level/block/StairBlock	<init>	(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible	method	net/minecraft/world/inventory/MenuType	<init>	(Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
+accessible	class	net/minecraft/world/inventory/MenuType$MenuSupplier
