@@ -1,7 +1,6 @@
 package blueportal.finsandstails.client.model;
 
 import blueportal.finsandstails.client.render.state.WanderingSailorRenderState;
-import blueportal.finsandstails.common.entities.WanderingSailorEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

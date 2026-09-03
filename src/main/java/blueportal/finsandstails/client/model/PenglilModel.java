@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import blueportal.finsandstails.client.animation.MudhorseAnimation;
-import blueportal.finsandstails.common.entities.PenglilEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class PenglilModel extends EntityModel<PenglilRenderState> {

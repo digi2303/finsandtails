@@ -2,7 +2,6 @@ package blueportal.finsandstails.client.model;
 
 import blueportal.finsandstails.client.render.state.NightLightSquidRenderState;
 import blueportal.finsandstails.client.animation.NightlightSquidAnimation;
-import blueportal.finsandstails.common.entities.NightLightSquidEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.geom.ModelPart;
