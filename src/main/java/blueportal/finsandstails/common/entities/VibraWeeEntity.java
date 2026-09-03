@@ -31,6 +31,7 @@ import blueportal.finsandstails.registry.FTItems;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
+import net.minecraft.world.entity.animal.Bucketable;
 
 // todo - fix schooling crash
 public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {

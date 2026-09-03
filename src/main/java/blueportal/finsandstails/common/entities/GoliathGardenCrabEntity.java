@@ -25,6 +25,8 @@ import net.minecraft.world.level.Level;
 import blueportal.finsandstails.registry.FTSounds;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class GoliathGardenCrabEntity extends WaterAnimal {
     private int attackAnimationTick;
@@ -71,7 +73,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
         boolean flag = p_70652_1_.hurtOrSimulate(this.level().damageSources().mobAttack(this), f1);
         if (flag) {
             p_70652_1_.setDeltaMovement(p_70652_1_.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
-            this.doEnchantDamageEffects(this, p_70652_1_);
+            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, p_70652_1_, this.damageSources().mobAttack(this));
         }
 
         this.playSound(SoundEvents.IRON_GOLEM_ATTACK, 1.0F, 1.0F);

@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.client.animation.WherbleAnimation;
+import net.minecraft.client.animation.KeyframeAnimation;
 
 public class WherbleModel extends EntityModel<WherbleRenderState> {
     private final ModelPart body;
@@ -17,6 +18,10 @@ public class WherbleModel extends EntityModel<WherbleRenderState> {
     private final ModelPart rightLeg;
     private final ModelPart leftFoot;
     private final ModelPart rightFoot;
+
+    private final KeyframeAnimation walkAnimation;
+    private final KeyframeAnimation wherblingSpinAnimation;
+    private final KeyframeAnimation wherblingWalkAnimation;
 
     public WherbleModel(ModelPart modelPart) {
         super(modelPart);
@@ -30,6 +35,10 @@ public class WherbleModel extends EntityModel<WherbleRenderState> {
 
         this.tail = this.torso.getChild("tail");
         this.head = this.torso.getChild("head");
+
+        this.walkAnimation = WherbleAnimation.WALK.bake(modelPart);
+        this.wherblingSpinAnimation = WherbleAnimation.WHERBLING_SPIN.bake(modelPart);
+        this.wherblingWalkAnimation = WherbleAnimation.WHERBLING_WALK.bake(modelPart);
     }
 
     @Override
@@ -47,9 +56,9 @@ public class WherbleModel extends EntityModel<WherbleRenderState> {
         this.head.xRot = headPitch * 0.017453292F;
         this.head.yRot = netHeadYaw * 0.017453292F;
 
-        if (this.young && state.projectile) this.animateWalk(WherbleAnimation.WHERBLING_SPIN, ageInTicks, 0.5F, 2.0F, 100.0F);
-        if (this.young) this.animateWalk(WherbleAnimation.WHERBLING_WALK, limbSwing, limbSwingAmount, 2.0F, 100.0F);
-        else this.animateWalk(WherbleAnimation.WALK, limbSwing, limbSwingAmount, 3.0F, 100.0F);
+        if (state.isBaby && state.projectile) this.wherblingSpinAnimation.applyWalk(ageInTicks, 0.5F, 2.0F, 100.0F);
+        if (state.isBaby) this.wherblingWalkAnimation.applyWalk(limbSwing, limbSwingAmount, 2.0F, 100.0F);
+        else this.walkAnimation.applyWalk(limbSwing, limbSwingAmount, 3.0F, 100.0F);
     }
 
     public static LayerDefinition createBodyLayer() {

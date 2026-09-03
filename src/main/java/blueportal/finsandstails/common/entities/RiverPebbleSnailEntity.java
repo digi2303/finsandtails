@@ -85,8 +85,8 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     public void ageBoundaryReached() {
         super.ageBoundaryReached();
-        if (!this.isBaby() && this.level().getGameRules().get(GameRules.MOB_DROPS)) {
-            this.spawnAtLocation(FTItems.PEBBLE_SHELL, 1);
+        if (!this.isBaby() && this.level() instanceof ServerLevel serverLevel && serverLevel.getGameRules().get(GameRules.MOB_DROPS)) {
+            this.spawnAtLocation(serverLevel, FTItems.PEBBLE_SHELL);
         }
     }
 

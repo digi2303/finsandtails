@@ -20,6 +20,8 @@ import net.minecraft.world.phys.Vec3;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.common.entities.ai.goals.PapaWeeAttractionGoal;
 import blueportal.finsandstails.registry.FTItems;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class PapaWeeEntity extends AbstractFish {
 
@@ -40,7 +42,7 @@ public class PapaWeeEntity extends AbstractFish {
     public boolean doHurtTarget(Entity entityIn) {
         boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
-            this.doEnchantDamageEffects(this, entityIn);
+            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, entityIn, this.damageSources().mobAttack(this));
         }
 
         return flag;

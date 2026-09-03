@@ -37,6 +37,7 @@ import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveC
 import blueportal.finsandstails.registry.FTItems;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.animal.Bucketable;
 
 public class GoldenRiverRayEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GoldenRiverRayEntity.class, EntityDataSerializers.INT);

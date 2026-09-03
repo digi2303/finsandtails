@@ -49,8 +49,8 @@ public class FlatbackLeafSnailEntity extends Animal {
 
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
-        if (!this.isBaby() && this.level().getGameRules().get(GameRules.MOB_DROPS)) {
-            this.spawnAtLocation(FTItems.FLATBACK_SHELL, 1);
+        if (!this.isBaby() && this.level() instanceof ServerLevel serverLevel && serverLevel.getGameRules().get(GameRules.MOB_DROPS)) {
+            this.spawnAtLocation(serverLevel, FTItems.FLATBACK_SHELL);
         }
     }
 

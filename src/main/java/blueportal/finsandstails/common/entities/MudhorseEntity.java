@@ -33,6 +33,7 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import java.util.EnumSet;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class MudhorseEntity extends Animal {
     public static final EntityDataAccessor<Boolean> FORAGING = SynchedEntityData.defineId(MudhorseEntity.class, EntityDataSerializers.BOOLEAN);
@@ -86,7 +87,7 @@ public class MudhorseEntity extends Animal {
         boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
             entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, 0.3F, 0.0D));
-            this.doEnchantDamageEffects(this, entityIn);
+            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, entityIn, this.damageSources().mobAttack(this));
         }
 
         return flag;
