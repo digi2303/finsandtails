@@ -381,7 +381,9 @@ public class FTItems {
     }
 
     private static Item bannerPattern(String name, net.minecraft.tags.TagKey<net.minecraft.world.level.block.entity.BannerPattern> pattern) {
-        return register(name, new Item.Properties().stacksTo(1));
+        return register(name, new Item.Properties().stacksTo(1)
+                .delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS,
+                        (registries) -> registries.lookupOrThrow(Registries.BANNER_PATTERN).getOrThrow(pattern)));
     }
 
     private static Item blockItem(String name, Block block) {
