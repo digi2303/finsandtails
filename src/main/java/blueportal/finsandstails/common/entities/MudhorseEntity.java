@@ -82,12 +82,12 @@ public class MudhorseEntity extends Animal {
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(ServerLevel level, Entity entityIn) {
         this.level().broadcastEntityEvent(this, (byte) 4);
         boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
             entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, 0.3F, 0.0D));
-            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, entityIn, this.damageSources().mobAttack(this));
+            EnchantmentHelper.doPostAttackEffects(level, entityIn, this.damageSources().mobAttack(this));
         }
 
         return flag;

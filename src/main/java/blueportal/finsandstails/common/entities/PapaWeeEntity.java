@@ -39,10 +39,10 @@ public class PapaWeeEntity extends AbstractFish {
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
+    public boolean doHurtTarget(ServerLevel level, Entity entityIn) {
         boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
-            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, entityIn, this.damageSources().mobAttack(this));
+            EnchantmentHelper.doPostAttackEffects(level, entityIn, this.damageSources().mobAttack(this));
         }
 
         return flag;

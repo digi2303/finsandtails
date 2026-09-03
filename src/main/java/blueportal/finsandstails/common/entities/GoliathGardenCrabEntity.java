@@ -65,7 +65,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
     }
 
     @Override
-    public boolean doHurtTarget(Entity p_70652_1_) {
+    public boolean doHurtTarget(ServerLevel level, Entity p_70652_1_) {
         this.attackAnimationTick = 10;
         this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
@@ -73,7 +73,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
         boolean flag = p_70652_1_.hurtOrSimulate(this.level().damageSources().mobAttack(this), f1);
         if (flag) {
             p_70652_1_.setDeltaMovement(p_70652_1_.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
-            if (this.level() instanceof ServerLevel serverLevel) EnchantmentHelper.doPostAttackEffects(serverLevel, p_70652_1_, this.damageSources().mobAttack(this));
+            EnchantmentHelper.doPostAttackEffects(level, p_70652_1_, this.damageSources().mobAttack(this));
         }
 
         this.playSound(SoundEvents.IRON_GOLEM_ATTACK, 1.0F, 1.0F);
@@ -122,7 +122,8 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
     }*/
 
     @Override
-    protected void handleAirSupply(int p_209207_1_) {
+    protected boolean shouldTakeDrowningDamage() {
+        return false;
     }
 
     static class MoveHelperController extends MoveControl {

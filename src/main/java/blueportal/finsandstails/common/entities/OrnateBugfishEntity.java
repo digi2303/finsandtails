@@ -64,12 +64,12 @@ public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillC
     }
 
     @Override
-    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_) {
+    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_, DamageSource damageSource) {
         if (!(p_216989_ instanceof Drowned)) {
             this.killCooldown = this.random.nextInt(600) + 1200;
         }
 
-        return super.killedEntity(p_216988_, p_216989_);
+        return super.killedEntity(p_216988_, p_216989_, damageSource);
     }
 
     public void readAdditionalSaveData(ValueInput tag) {

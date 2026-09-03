@@ -69,10 +69,6 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public float getStepHeight() {
-        return 1.0F;
-    }
-
     @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new AgeableWaterAnimalBreedGoal(this, 1.0D));
@@ -91,11 +87,12 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4).add(Attributes.MOVEMENT_SPEED, 0.15);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.STEP_HEIGHT, 1.0);
     }
 
     @Override
-    protected void handleAirSupply(int p_30344_) {
+    protected boolean shouldTakeDrowningDamage() {
+        return false;
     }
 
     @Override

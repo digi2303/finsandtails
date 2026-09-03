@@ -113,7 +113,8 @@ public class WhiteBullCrabEntity extends WaterAnimal {
     }
 
     @Override
-    protected void handleAirSupply(int p_209207_1_) {
+    protected boolean shouldTakeDrowningDamage() {
+        return false;
     }
 
     public boolean requiresCustomPersistence() {

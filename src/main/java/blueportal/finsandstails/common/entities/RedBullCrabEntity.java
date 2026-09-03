@@ -156,7 +156,8 @@ public class RedBullCrabEntity extends WaterAnimal {
     }
 
     @Override
-    public void handleAirSupply(int p_209207_1_) {
+    public boolean shouldTakeDrowningDamage() {
+        return false;
     }
 
     public static boolean canCrabSpawn(EntityType<? extends WaterAnimal> type, LevelAccessor worldIn, EntitySpawnReason reason, BlockPos p_223363_3_, RandomSource randomIn) {
