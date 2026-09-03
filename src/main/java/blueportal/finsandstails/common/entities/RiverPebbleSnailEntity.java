@@ -74,7 +74,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     public void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(FTItems.PEBBLE_SHELL.get(), 1);
+            this.spawnAtLocation(FTItems.PEBBLE_SHELL, 1);
         }
     }
 
@@ -123,7 +123,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     @Nullable
     @Override
     public AgeableWaterAnimal getBreedOffspring(ServerLevel world, AgeableWaterAnimal ageable) {
-        RiverPebbleSnailEntity snail = FTEntities.RIVER_PEBBLE_SNAIL.get().create(world);
+        RiverPebbleSnailEntity snail = FTEntities.RIVER_PEBBLE_SNAIL.create(world);
         snail.setVariant(random.nextInt(5));
 
         return snail;
@@ -135,7 +135,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_SPAWN_EGG.get());
+        return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_SPAWN_EGG);
     }
 
     public boolean isFood(ItemStack stack) {
@@ -144,7 +144,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_POT.get());
+        return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_POT);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             if (random.nextFloat() > 0.95F) {
                 setVariant(5);
@@ -209,11 +209,11 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(IS_SHIMMER, false);
-        this.entityData.define(FROM_BUCKET, false);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(IS_SHIMMER, false);
+        builder.define(FROM_BUCKET, false);
     }
 
     public int getVariant() {

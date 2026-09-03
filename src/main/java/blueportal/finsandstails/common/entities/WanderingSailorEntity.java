@@ -33,8 +33,8 @@ import java.util.Map;
 
 public class WanderingSailorEntity extends AbstractVillager implements Merchant {
     public static final Int2ObjectMap<VillagerTrades.ItemListing[]> TRADES = toIntMap(ImmutableMap.of(
-            1, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD.get()), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET.get()), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY.get(), 4), new ItemStack(FTItems.GOPJET_JET.get()), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER.get(), 4), new ItemStack(FTItems.FWIN.get(), 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD.get(), 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW.get(), 2), 3, 3, 30)},
-            2, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE.get()), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE.get(), 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL.get()), new ItemStack(FTItems.PAPA_WEE_BUCKET.get()), 3, 3, 30)}));
+            1, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY, 4), new ItemStack(FTItems.GOPJET_JET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER, 4), new ItemStack(FTItems.FWIN, 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD, 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW, 2), 3, 3, 30)},
+            2, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE, 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL), new ItemStack(FTItems.PAPA_WEE_BUCKET), 3, 3, 30)}));
 
     public WanderingSailorEntity(EntityType<? extends AbstractVillager> type, Level worldIn) {
         super(type, worldIn);
@@ -78,7 +78,7 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
     @Override
     public InteractionResult mobInteract(Player p_230254_1_, InteractionHand p_230254_2_) {
         ItemStack itemstack = p_230254_1_.getItemInHand(p_230254_2_);
-        if (/*itemstack.getItem() != FTItems.WANDERING_SAILOR_SPAWN_EGG.get() && */this.isAlive() && !this.isTrading() && !this.isBaby()) {
+        if (/*itemstack.getItem() != FTItems.WANDERING_SAILOR_SPAWN_EGG && */this.isAlive() && !this.isTrading() && !this.isBaby()) {
             if (p_230254_2_ == InteractionHand.MAIN_HAND) {
                 p_230254_1_.awardStat(Stats.TALKED_TO_VILLAGER);
             }
@@ -100,7 +100,7 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return /*new ItemStack(FTItems.WANDERING_SAILOR_SPAWN_EGG.get())*/ null;
+        return /*new ItemStack(FTItems.WANDERING_SAILOR_SPAWN_EGG)*/ null;
     }
 
     @Override
@@ -129,27 +129,27 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isTrading() ? FTSounds.WANDERING_SAILOR_TRADE.get() : FTSounds.WANDERING_SAILOR_AMBIENT.get();
+        return this.isTrading() ? FTSounds.WANDERING_SAILOR_TRADE : FTSounds.WANDERING_SAILOR_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FTSounds.WANDERING_SAILOR_HURT.get();
+        return FTSounds.WANDERING_SAILOR_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return FTSounds.WANDERING_SAILOR_DEATH.get();
+        return FTSounds.WANDERING_SAILOR_DEATH;
     }
 
     @Override
     protected SoundEvent getTradeUpdatedSound(boolean p_213721_1_) {
-        return p_213721_1_ ? FTSounds.WANDERING_SAILOR_YES.get() : FTSounds.WANDERING_SAILOR_NO.get();
+        return p_213721_1_ ? FTSounds.WANDERING_SAILOR_YES : FTSounds.WANDERING_SAILOR_NO;
     }
 
     @Override
     public SoundEvent getNotifyTradeSound() {
-        return FTSounds.WANDERING_SAILOR_YES.get();
+        return FTSounds.WANDERING_SAILOR_YES;
     }
 
     @Nullable
@@ -167,11 +167,11 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
         private final int maxUses, xp;
         private final float priceMultiplier;
         public static final Map<Integer, ItemStack> GEMS = Util.make(Maps.newHashMap(), (hashMap) -> {
-            hashMap.put(0, new ItemStack(FTItems.SPINDLY_EMERALD.get()));
-            hashMap.put(1, new ItemStack(FTItems.SPINDLY_AMBER.get()));
-            hashMap.put(2, new ItemStack(FTItems.SPINDLY_PEARL.get()));
-            hashMap.put(3, new ItemStack(FTItems.SPINDLY_RUBY.get()));
-            hashMap.put(4, new ItemStack(FTItems.SPINDLY_SAPPHIRE.get()));
+            hashMap.put(0, new ItemStack(FTItems.SPINDLY_EMERALD));
+            hashMap.put(1, new ItemStack(FTItems.SPINDLY_AMBER));
+            hashMap.put(2, new ItemStack(FTItems.SPINDLY_PEARL));
+            hashMap.put(3, new ItemStack(FTItems.SPINDLY_RUBY));
+            hashMap.put(4, new ItemStack(FTItems.SPINDLY_SAPPHIRE));
         });
 
         public ItemsForItemsTrade(ItemStack buying1, ItemStack buying2, ItemStack selling, int maxUses, int xp, float priceMultiplier) {

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -19,9 +19,9 @@ public class CrunchingRecipe implements Recipe<Container> {
     private final Ingredient base;
     private final Ingredient addition;
     private final ItemStack result;
-    private final ResourceLocation recipeId;
+    private final Identifier recipeId;
 
-    public CrunchingRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ItemStack result) {
+    public CrunchingRecipe(Identifier recipeId, Ingredient base, Ingredient addition, ItemStack result) {
         this.recipeId = recipeId;
         this.base = base;
         this.addition = addition;
@@ -50,22 +50,22 @@ public class CrunchingRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(FTBlocks.CRAB_CRUNCHER.get());
+        return new ItemStack(FTBlocks.CRAB_CRUNCHER);
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return this.recipeId;
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return FTRecipes.CRUNCHING_SERIALIZER.get();
+        return FTRecipes.CRUNCHING_SERIALIZER;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return FTRecipes.CRUNCHING_TYPE.get();
+        return FTRecipes.CRUNCHING_TYPE;
     }
 
     public boolean isAdditionIngredient(ItemStack p_44536_) {
@@ -78,7 +78,7 @@ public class CrunchingRecipe implements Recipe<Container> {
 
         i.add(base);
         i.add(addition);
-        i.add(Ingredient.of(new ItemStack(FTBlocks.CRAB_CRUNCHER.get().asItem())));
+        i.add(Ingredient.of(new ItemStack(FTBlocks.CRAB_CRUNCHER.asItem())));
 
         return i;
     }
@@ -89,7 +89,7 @@ public class CrunchingRecipe implements Recipe<Container> {
         }
 
         @Override
-        public CrunchingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        public CrunchingRecipe fromJson(Identifier recipeId, JsonObject json) {
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
             Ingredient ingredient1 = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
             Item item = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
@@ -97,7 +97,7 @@ public class CrunchingRecipe implements Recipe<Container> {
         }
 
         @Override
-        public CrunchingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public CrunchingRecipe fromNetwork(Identifier recipeId, FriendlyByteBuf buffer) {
             Ingredient ingredient = Ingredient.fromNetwork(buffer);
             Ingredient ingredient1 = Ingredient.fromNetwork(buffer);
             ItemStack itemstack = buffer.readItem();

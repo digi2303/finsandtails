@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Mixin(HumanoidArmorLayer.class)
 public abstract class HumanoidArmorLayerMixin extends RenderLayer {
-    private static final Map<String, ResourceLocation> FT_ARMOR_LOCATION_CACHE = Maps.newHashMap();
+    private static final Map<String, Identifier> FT_ARMOR_LOCATION_CACHE = Maps.newHashMap();
     private ItemStack lastArmorItemStackRendered = ItemStack.EMPTY;
 
     @Shadow
@@ -55,7 +55,7 @@ public abstract class HumanoidArmorLayerMixin extends RenderLayer {
                     HumanoidModel model = this.getParentModel() instanceof HumanoidModel humanoidModel1 ? humanoidModel1 : humanoidModel;
                     Model armorModel = ForgeHooksClient.getArmorModel(livingEntity, itemstack, equipmentSlot, model);
                     setPartVisibility((HumanoidModel) armorModel, equipmentSlot);
-                    ResourceLocation texture = getFTArmorResource(livingEntity, itemstack, equipmentSlot, null);
+                    Identifier texture = getFTArmorResource(livingEntity, itemstack, equipmentSlot, null);
                     FTArmorRenderProperties.renderCustomArmor(poseStack, multiBufferSource, light, lastArmorItemStackRendered, armorItem, armorModel, legs, texture);
                 }
             }
@@ -64,7 +64,7 @@ public abstract class HumanoidArmorLayerMixin extends RenderLayer {
 
 
     /* copy of forge method */
-    private ResourceLocation getFTArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
+    private Identifier getFTArmorResource(LivingEntity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
         ArmorItem item = (ArmorItem) stack.getItem();
         String texture = item.getMaterial().getName();
         String domain = "minecraft";
@@ -76,10 +76,10 @@ public abstract class HumanoidArmorLayerMixin extends RenderLayer {
         String s1 = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, (slot == EquipmentSlot.LEGS ? 2 : 1), type == null ? "" : String.format(java.util.Locale.ROOT, "_%s", type));
 
         s1 = net.minecraftforge.client.ForgeHooksClient.getArmorTexture(entity, stack, s1, slot, type);
-        ResourceLocation resourcelocation = FT_ARMOR_LOCATION_CACHE.get(s1);
+        Identifier resourcelocation = FT_ARMOR_LOCATION_CACHE.get(s1);
 
         if (resourcelocation == null) {
-            resourcelocation = new ResourceLocation(s1);
+            resourcelocation = Identifier.parse(s1);
             FT_ARMOR_LOCATION_CACHE.put(s1, resourcelocation);
         }
 

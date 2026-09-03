@@ -5,13 +5,10 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import blueportal.finsandstails.client.animation.MudhorseAnimation;
 import blueportal.finsandstails.common.entities.PenglilEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-@OnlyIn(Dist.CLIENT)
 public class PenglilModel<T extends PenglilEntity> extends HierarchicalModel<T> {
 
 	private final ModelPart all;

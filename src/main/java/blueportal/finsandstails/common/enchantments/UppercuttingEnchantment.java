@@ -16,7 +16,7 @@ public class UppercuttingEnchantment extends Enchantment {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
-        return stack.getItem() == FTItems.RED_CLAW_GAUNTLET.get() || stack.getItem() == FTItems.WHITE_CLAW_GAUNTLET.get();
+        return stack.getItem() == FTItems.RED_CLAW_GAUNTLET || stack.getItem() == FTItems.WHITE_CLAW_GAUNTLET;
     }
 
     @Override

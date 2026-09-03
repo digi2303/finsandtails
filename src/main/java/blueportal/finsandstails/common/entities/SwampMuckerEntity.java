@@ -37,7 +37,7 @@ public class SwampMuckerEntity  extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.SWAMP_MUCKER_BUCKET.get());
+        return new ItemStack(FTItems.SWAMP_MUCKER_BUCKET);
     }
 
     @Override
@@ -62,6 +62,6 @@ public class SwampMuckerEntity  extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.SWAMP_MUCKER_SPAWN_EGG.get());
+        return new ItemStack(FTItems.SWAMP_MUCKER_SPAWN_EGG);
     }
 }

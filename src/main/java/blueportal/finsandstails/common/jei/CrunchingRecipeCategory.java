@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import blueportal.finsandstails.FinsAndTails;
@@ -24,8 +24,8 @@ public class CrunchingRecipeCategory implements IRecipeCategory<CrunchingRecipe>
     private final IDrawable icon;
 
     public CrunchingRecipeCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(new ResourceLocation(FinsAndTails.MOD_ID, "textures/gui/crab_cruncher.png"), 26, 46, 125, 18);
-        this.icon = helper.createDrawableItemStack(new ItemStack(FTBlocks.CRAB_CRUNCHER.get().asItem()));
+        this.background = helper.createDrawable(Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/crab_cruncher.png"), 26, 46, 125, 18);
+        this.icon = helper.createDrawableItemStack(new ItemStack(FTBlocks.CRAB_CRUNCHER.asItem()));
     }
 
     @Override

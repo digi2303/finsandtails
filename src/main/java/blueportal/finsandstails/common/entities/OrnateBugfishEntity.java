@@ -100,7 +100,7 @@ public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillC
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.ORNATE_BUGFISH_BUCKET.get());
+        return new ItemStack(FTItems.ORNATE_BUGFISH_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -121,7 +121,7 @@ public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillC
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.ORNATE_BUGFISH_SPAWN_EGG.get());
+        return new ItemStack(FTItems.ORNATE_BUGFISH_SPAWN_EGG);
     }
 
     @Override

@@ -11,10 +11,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
 public class PenglilCarryingItemLayer extends RenderLayer<PenglilEntity, PenglilModel<PenglilEntity>> {
    private final ItemInHandRenderer itemInHandRenderer;
 

@@ -38,7 +38,7 @@ public class WeeWeeEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.WEE_WEE_BUCKET.get());
+        return new ItemStack(FTItems.WEE_WEE_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -59,14 +59,14 @@ public class WeeWeeEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.WEE_WEE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.WEE_WEE_SPAWN_EGG);
     }
 
     @Override
     public void tick() {
         super.tick();
         if (random.nextInt(2500) == 0 && shouldSpawnPapaWee()) {
-            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.get().create(level());
+            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level());
             papaWee.setPos(this.getX(), this.getY(), this.getZ());
 
             level().addFreshEntity(papaWee);

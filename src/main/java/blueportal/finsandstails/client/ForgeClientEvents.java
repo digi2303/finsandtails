@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
@@ -33,9 +32,9 @@ import top.theillusivec4.curios.common.data.SlotData;
 
 @Mod.EventBusSubscriber(modid = FinsAndTails.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ForgeClientEvents {
-    private static final ResourceLocation HEARTS_TEXTURE = new ResourceLocation(FinsAndTails.MOD_ID, "textures/gui/icons.png");
-    private static final ResourceLocation GAUNTLET_OVERLAY_TEXTURE = new ResourceLocation(FinsAndTails.MOD_ID, "textures/gui/overlay/gauntlet.png");
-    private static final ResourceLocation GAUNTLET_BG_TEXTURE = new ResourceLocation(FinsAndTails.MOD_ID, "textures/gui/overlay/gauntlet_bg.png");
+    private static final Identifier HEARTS_TEXTURE = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/icons.png");
+    private static final Identifier GAUNTLET_OVERLAY_TEXTURE = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/overlay/gauntlet.png");
+    private static final Identifier GAUNTLET_BG_TEXTURE = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/overlay/gauntlet_bg.png");
 
     private static boolean wasJumping;
 
@@ -44,7 +43,7 @@ public class ForgeClientEvents {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft minecraft = Minecraft.getInstance();
             final LocalPlayer player = minecraft.player;
-            if (player != null && (player.getItemBySlot(EquipmentSlot.CHEST).getItem() == FTItems.GOPJET_JETPACK.get() || player.getItemBySlot(EquipmentSlot.CHEST).getItem() == FTItems.ARMORED_GOPJET_JETPACK.get())) {
+            if (player != null && (player.getItemBySlot(EquipmentSlot.CHEST).getItem() == FTItems.GOPJET_JETPACK || player.getItemBySlot(EquipmentSlot.CHEST).getItem() == FTItems.ARMORED_GOPJET_JETPACK)) {
                 boolean jumping = minecraft.options.keyJump.isDown();
                 if (jumping != wasJumping) {
                     TriggerFlyingPacket packet = new TriggerFlyingPacket(jumping);
@@ -211,12 +210,12 @@ public class ForgeClientEvents {
         static CharmType getCharm(Player player) {
             ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
 
-            if (stack.is(FTItems.SPINDLY_RUBY_CHARM.get())) return RUBY;
-            else if (stack.is(FTItems.SPINDLY_EMERALD_CHARM.get())) return EMERALD;
-            else if (stack.is(FTItems.SPINDLY_AMBER_CHARM.get())) return AMBER;
-            else if (stack.is(FTItems.SPINDLY_PEARL_CHARM.get())) return PEARL;
-            else if (stack.is(FTItems.SPINDLY_SAPPHIRE_CHARM.get())) return SAPPHIRE;
-            else if (stack.is(FTItems.GEM_CRAB_AMULET.get())) return GEM;
+            if (stack.is(FTItems.SPINDLY_RUBY_CHARM)) return RUBY;
+            else if (stack.is(FTItems.SPINDLY_EMERALD_CHARM)) return EMERALD;
+            else if (stack.is(FTItems.SPINDLY_AMBER_CHARM)) return AMBER;
+            else if (stack.is(FTItems.SPINDLY_PEARL_CHARM)) return PEARL;
+            else if (stack.is(FTItems.SPINDLY_SAPPHIRE_CHARM)) return SAPPHIRE;
+            else if (stack.is(FTItems.GEM_CRAB_AMULET)) return GEM;
 
             return null;
         }

@@ -4,13 +4,10 @@ import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import blueportal.finsandstails.client.animation.MudhorseAnimation;
 import blueportal.finsandstails.common.entities.MudhorseEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-@OnlyIn(Dist.CLIENT)
 public class MudhorseModel<T extends MudhorseEntity> extends AgeableHierarchicalModel<T> {
 
     private final ModelPart root;

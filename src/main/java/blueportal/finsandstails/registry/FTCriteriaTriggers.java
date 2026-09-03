@@ -5,20 +5,20 @@ import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
 import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import blueportal.finsandstails.FinsAndTails;
 
 
 public class FTCriteriaTriggers extends SimpleCriterionTrigger<FTCriteriaTriggers.TriggerInstance> {
-    private final ResourceLocation ID;
+    private final Identifier ID;
 
     public FTCriteriaTriggers(String name) {
-        ID = new ResourceLocation(FinsAndTails.MOD_ID, name);
+        ID = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, name);
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return ID;
     }
 
@@ -33,7 +33,7 @@ public class FTCriteriaTriggers extends SimpleCriterionTrigger<FTCriteriaTrigger
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
 
-        public TriggerInstance(ResourceLocation id, ContextAwarePredicate predicate) {
+        public TriggerInstance(Identifier id, ContextAwarePredicate predicate) {
             super(id, predicate);
         }
 

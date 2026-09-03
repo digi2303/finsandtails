@@ -48,7 +48,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
     protected void ageBoundaryReached() {
         super.ageBoundaryReached();
         if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-            this.spawnAtLocation(FTItems.SIDEROL_SHELL.get(), 1);
+            this.spawnAtLocation(FTItems.SIDEROL_SHELL, 1);
         }
     }
 
@@ -71,7 +71,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
         if (heldItem.getItem() == Items.FLOWER_POT && this.isAlive() && !this.isBaby()) {
             playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 1.0F, 1.0F);
             heldItem.shrink(1);
-            ItemStack itemstack1 = new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_POT.get());
+            ItemStack itemstack1 = new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_POT);
             this.setBucketData(itemstack1);
             if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
@@ -101,7 +101,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob ageable) {
-        return FTEntities.SIDEROL_WHISKERED_SNAIL.get().create(world);
+        return FTEntities.SIDEROL_WHISKERED_SNAIL.create(world);
     }
 
     public boolean isFood(ItemStack stack) {
@@ -114,7 +114,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_SPAWN_EGG.get());
+        return new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_SPAWN_EGG);
     }
 
 }

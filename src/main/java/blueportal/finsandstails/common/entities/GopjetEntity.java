@@ -49,9 +49,9 @@ public class GopjetEntity extends AbstractFish {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.MOVEMENT_SPEED, 0.45D);
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(IS_BOOSTING, false);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(IS_BOOSTING, false);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class GopjetEntity extends AbstractFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.GOPJET_BUCKET.get());
+        return new ItemStack(FTItems.GOPJET_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -127,7 +127,7 @@ public class GopjetEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.GOPJET_SPAWN_EGG.get());
+        return new ItemStack(FTItems.GOPJET_SPAWN_EGG);
     }
 
 

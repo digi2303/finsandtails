@@ -58,7 +58,7 @@ public class HighFinnedBlueEntity extends AbstractSchoolingFish implements IPrey
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.HIGH_FINNED_BLUE_BUCKET.get());
+        return new ItemStack(FTItems.HIGH_FINNED_BLUE_BUCKET);
     }
 
     public SoundEvent getDeathSound() {
@@ -75,7 +75,7 @@ public class HighFinnedBlueEntity extends AbstractSchoolingFish implements IPrey
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.HIGH_FINNED_BLUE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.HIGH_FINNED_BLUE_SPAWN_EGG);
     }
 
 }

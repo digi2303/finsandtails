@@ -70,7 +70,7 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.TEAL_ARROWFISH_BUCKET.get());
+        return new ItemStack(FTItems.TEAL_ARROWFISH_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -91,7 +91,7 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.TEAL_ARROWFISH_SPAWN_EGG.get());
+        return new ItemStack(FTItems.TEAL_ARROWFISH_SPAWN_EGG);
     }
 
 }

@@ -40,7 +40,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public class ArmoredGopjetJetpackItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.ARMORED_GOPJET_JETPACK.get()));
+    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.ARMORED_GOPJET_JETPACK));
 
     private final Random random = new Random();
     private int bubbleSoundTime;
@@ -117,7 +117,7 @@ public class ArmoredGopjetJetpackItem extends ArmorItem {
                     if (canFly || player.blockPosition().getY() > 0 && world.getBlockState(pos).is(Blocks.WATER)) {
                         if (random.nextInt(100) < this.bubbleSoundTime++) {
                             this.bubbleSoundTime = 0;
-                            world.playSound(player, player.blockPosition(), FTSounds.JETPACK_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                            world.playSound(player, player.blockPosition(), FTSounds.JETPACK_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
                         }
 
                         if (world.isClientSide()) {

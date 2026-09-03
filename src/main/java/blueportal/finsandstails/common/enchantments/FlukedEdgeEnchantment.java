@@ -14,7 +14,7 @@ public class FlukedEdgeEnchantment extends Enchantment {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
-        return stack.getItem() == FTItems.FWINGED_BOOTS.get();
+        return stack.getItem() == FTItems.FWINGED_BOOTS;
     }
 
     @Override

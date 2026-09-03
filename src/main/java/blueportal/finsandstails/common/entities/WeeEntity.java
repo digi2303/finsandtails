@@ -11,7 +11,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
@@ -43,12 +43,12 @@ public class WeeEntity extends AbstractSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         int variant;
         Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
 
-        if (reason == MobSpawnType.SPAWN_EGG) {
+        if (reason == EntitySpawnReason.SPAWN_EGG) {
             variant = random.nextInt(3);
         }
         else if (dataTag == null) {
@@ -66,9 +66,9 @@ public class WeeEntity extends AbstractSchoolingFish {
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     public int getVariant() {
@@ -102,7 +102,7 @@ public class WeeEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.WEE_BUCKET.get());
+        return new ItemStack(FTItems.WEE_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -125,7 +125,7 @@ public class WeeEntity extends AbstractSchoolingFish {
     public void tick() {
         super.tick();
         if (random.nextInt(2500) == 0 && shouldSpawnPapaWee()) {
-            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.get().create(level());
+            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level());
             papaWee.setPos(this.getX(), this.getY(), this.getZ());
 
             level().addFreshEntity(papaWee);

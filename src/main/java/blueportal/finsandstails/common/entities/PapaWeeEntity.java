@@ -52,7 +52,7 @@ public class PapaWeeEntity extends AbstractFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.PAPA_WEE_BUCKET.get());
+        return new ItemStack(FTItems.PAPA_WEE_BUCKET);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class PapaWeeEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.PAPA_WEE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.PAPA_WEE_SPAWN_EGG);
     }
 
     @Override

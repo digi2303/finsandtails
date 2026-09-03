@@ -27,10 +27,10 @@ public class WherblingItem extends MobBucketItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
-        player.playSound(FTSounds.WHERBLE_THROW.get(), 1.5F,  (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F + 1.5F );
+        player.playSound(FTSounds.WHERBLE_THROW, 1.5F,  (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F + 1.5F );
 
         if (!level.isClientSide()) {
-            WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE.get(), level);
+            WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE, level);
             UUID id = wherble.getUUID();
             wherble.deserializeNBT(itemstack.getOrCreateTag().getCompound("WherbleData"));
             wherble.setUUID(id);

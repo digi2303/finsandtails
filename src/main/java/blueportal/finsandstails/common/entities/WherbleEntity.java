@@ -74,17 +74,17 @@ public class WherbleEntity extends Animal implements Bucketable {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8).add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
-    public static boolean checkWherbleSpawnRules(EntityType<? extends WherbleEntity> p_223316_0_, LevelAccessor p_223316_1_, MobSpawnType p_223316_2_, BlockPos p_223316_3_, RandomSource p_223316_4_) {
+    public static boolean checkWherbleSpawnRules(EntityType<? extends WherbleEntity> p_223316_0_, LevelAccessor p_223316_1_, EntitySpawnReason p_223316_2_, BlockPos p_223316_3_, RandomSource p_223316_4_) {
         return p_223316_1_.getBlockState(p_223316_3_.below()).is(Blocks.GRASS_BLOCK) && p_223316_1_.getRawBrightness(p_223316_3_, 0) > 8;
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(IS_PROJECTILE, false);
-        this.entityData.define(THROWER, Optional.empty());
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(FROM_BUCKET, false);
+        builder.define(IS_PROJECTILE, false);
+        builder.define(THROWER, Optional.empty());
     }
 
     @Override
@@ -190,7 +190,7 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(6));
         }
@@ -208,17 +208,17 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return FTSounds.WHERBLE_AMBIENT.get();
+        return FTSounds.WHERBLE_AMBIENT;
     }
 
     @Override
     public SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FTSounds.WHERBLE_HURT.get();
+        return FTSounds.WHERBLE_HURT;
     }
 
     @Override
     public SoundEvent getDeathSound() {
-        return FTSounds.WHERBLE_DEATH.get();
+        return FTSounds.WHERBLE_DEATH;
     }
 
     @Override
@@ -229,7 +229,7 @@ public class WherbleEntity extends Animal implements Bucketable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
-        WherbleEntity wherble = FTEntities.WHERBLE.get().create(p_241840_1_);
+        WherbleEntity wherble = FTEntities.WHERBLE.create(p_241840_1_);
         wherble.setVariant(random.nextInt(4));
         return wherble;
     }
@@ -254,7 +254,7 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.WHERBLE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.WHERBLE_SPAWN_EGG);
     }
 
     @Override
@@ -296,11 +296,11 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.WHERBLING.get());
+        return new ItemStack(FTItems.WHERBLING);
     }
 
     @Override
     public SoundEvent getPickupSound() {
-        return FTSounds.WHERBLE_AMBIENT.get();
+        return FTSounds.WHERBLE_AMBIENT;
     }
 }

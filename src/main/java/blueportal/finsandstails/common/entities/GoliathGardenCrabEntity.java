@@ -107,7 +107,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
     }
 
     protected SoundEvent getDeathSound() {
-        return FTSounds.CRAB_DEATH.get();
+        return FTSounds.CRAB_DEATH;
     }
 
     protected SoundEvent getFlopSound() {
@@ -116,7 +116,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
 
 /*    @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.GOLIATH_GARDEN_CRAB_SPAWN_EGG.get());
+        return new ItemStack(FTItems.GOLIATH_GARDEN_CRAB_SPAWN_EGG);
     }*/
 
     @Override

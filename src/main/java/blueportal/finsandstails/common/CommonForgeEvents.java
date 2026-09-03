@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -159,7 +159,7 @@ public class CommonForgeEvents {
                     FTMessages.sendToPlayer(new HitComboSyncS2CPacket(provider.getHitCombo()), serverPlayer);
                 });
 
-                if (offhandItem.getEnchantmentLevel(FTEnchantments.UPPERCUTTING.get()) > 0) {
+                if (offhandItem.getEnchantmentLevel(FTEnchantments.UPPERCUTTING) > 0) {
                     target.setDeltaMovement(target.getDeltaMovement().add(0.0D, 0.3D, 0.0D));
                 }
             }
@@ -234,8 +234,8 @@ public class CommonForgeEvents {
         if (attacker != null) {
             ItemStack heldItem = attacker.getMainHandItem();
             ItemStack heldItemOffhand = attacker.getOffhandItem();
-            if (EnchantmentHelper.getEnchantments(heldItem).containsKey(FTEnchantments.CRABS_FAVOR.get()) && EnchantmentHelper.getEnchantments(heldItemOffhand).containsKey(FTEnchantments.CRABS_FAVOR.get())) {
-                int i = EnchantmentHelper.getItemEnchantmentLevel(FTEnchantments.CRABS_FAVOR.get(), event.getAttackingPlayer().getItemInHand(InteractionHand.MAIN_HAND));
+            if (EnchantmentHelper.getEnchantments(heldItem).containsKey(FTEnchantments.CRABS_FAVOR) && EnchantmentHelper.getEnchantments(heldItemOffhand).containsKey(FTEnchantments.CRABS_FAVOR)) {
+                int i = EnchantmentHelper.getItemEnchantmentLevel(FTEnchantments.CRABS_FAVOR, event.getAttackingPlayer().getItemInHand(InteractionHand.MAIN_HAND));
                 event.setDroppedExperience(event.getOriginalExperience() * i + attacker.getCommandSenderWorld().random.nextInt(3));
             }
         }
@@ -243,19 +243,19 @@ public class CommonForgeEvents {
 
     @SubscribeEvent
     public static void onLootLoad(LootTableLoadEvent event) {
-        ResourceLocation name = event.getName();
+        Identifier name = event.getName();
         LootPool pool = event.getTable().getPool("main");
         if (name.equals(BuiltInLootTables.FISHING_FISH)) {
             if (FTConfig.Common.INSTANCE.finsFishingLoot.get()) {
-                addEntry(pool, getInjectEntry(new ResourceLocation(FinsAndTails.MOD_ID, "inject/fishing"), 10, 1));
+                addEntry(pool, getInjectEntry(Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "inject/fishing"), 10, 1));
             }
         }
         if (name.equals(BuiltInLootTables.FISHERMAN_GIFT)) {
-            addEntry(pool, getInjectEntry(new ResourceLocation("finsandtails:inject/fisherman_gift"), 15, 1));
+            addEntry(pool, getInjectEntry(Identifier.parse("finsandtails:inject/fisherman_gift"), 15, 1));
         }
     }
 
-    private static LootPoolEntryContainer getInjectEntry(ResourceLocation location, int weight, int quality) {
+    private static LootPoolEntryContainer getInjectEntry(Identifier location, int weight, int quality) {
         return LootTableReference.lootTableReference(location).setWeight(weight).setQuality(quality).build();
     }
 

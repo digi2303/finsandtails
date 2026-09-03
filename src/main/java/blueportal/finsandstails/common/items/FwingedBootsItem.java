@@ -45,9 +45,9 @@ public class FwingedBootsItem extends ArmorItem {
 
     @Override
     public void onArmorTick(ItemStack stack, Level worldIn, Player player) {
-        int j = EnchantmentHelper.getItemEnchantmentLevel(FTEnchantments.FLUKED_EDGE.get(), stack);
+        int j = EnchantmentHelper.getItemEnchantmentLevel(FTEnchantments.FLUKED_EDGE, stack);
 
-        if (EnchantmentHelper.getEnchantments(stack).containsKey(FTEnchantments.FLUKED_EDGE.get())) {
+        if (EnchantmentHelper.getEnchantments(stack).containsKey(FTEnchantments.FLUKED_EDGE)) {
             if (j <= 0 || worldIn.getBlockState(player.blockPosition().below()).is(Blocks.WATER) && worldIn.getBlockState(player.blockPosition()).isAir() && player.getDeltaMovement().y > 0.25) {
                 if (j > 0) {
                     float f7 = player.getYRot();

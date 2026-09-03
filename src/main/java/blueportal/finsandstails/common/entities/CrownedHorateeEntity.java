@@ -120,14 +120,14 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		this.targetSelector.addGoal(1, new BabyTargetGoal<>(this, WhiteBullCrabEntity.class));
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(HAS_BABY, false);
-		this.entityData.define(BUBBLE_CHARGE, false);
-		this.entityData.define(DATA_TRUSTED_ID_0, Optional.empty());
-		this.entityData.define(DATA_TRUSTED_ID_1, Optional.empty());
-		this.entityData.define(BUBBLE_TARGET, 0);
-		this.entityData.define(FROM_BUCKET, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(HAS_BABY, false);
+		builder.define(BUBBLE_CHARGE, false);
+		builder.define(DATA_TRUSTED_ID_0, Optional.empty());
+		builder.define(DATA_TRUSTED_ID_1, Optional.empty());
+		builder.define(BUBBLE_TARGET, 0);
+		builder.define(FROM_BUCKET, false);
 	}
 
 	public void setBubbleTarget(int p_32818_) {
@@ -251,7 +251,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		return CrownedHorateeEntity.onSandOrGravel(p_30160_, p_30159_) ? 10.0F + p_30160_.getLightLevelDependentMagicValue(p_30159_) - 0.5F : p_30160_.getLightLevelDependentMagicValue(p_30159_) - 0.5F;
 	}
 
-	public static boolean checkCrownedSpawnRules(EntityType<? extends CrownedHorateeEntity> p_30179_, LevelAccessor p_30180_, MobSpawnType p_30181_, BlockPos p_30182_, RandomSource p_30183_) {
+	public static boolean checkCrownedSpawnRules(EntityType<? extends CrownedHorateeEntity> p_30179_, LevelAccessor p_30180_, EntitySpawnReason p_30181_, BlockPos p_30182_, RandomSource p_30183_) {
 		return p_30182_.getY() < p_30180_.getSeaLevel() + 4 && CrownedHorateeEntity.onSandOrGravel(p_30180_, p_30182_) && isBrightEnoughToSpawn(p_30180_, p_30182_);
 	}
 
@@ -315,19 +315,19 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return FTSounds.HORATEE_AMBIENT.get();
+		return FTSounds.HORATEE_AMBIENT;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_21239_) {
-		return FTSounds.HORATEE_HURT.get();
+		return FTSounds.HORATEE_HURT;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FTSounds.HORATEE_DEATH.get();
+		return FTSounds.HORATEE_DEATH;
 	}
 
 	private <E extends GeoAnimatable> PlayState miscPredicate(AnimationState<E> event) {
@@ -342,7 +342,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	@Nullable
 	@Override
 	public CrownedHorateeEntity getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FTEntities.CROWNED_HORATEE.get().create(p_146743_);
+		return FTEntities.CROWNED_HORATEE.create(p_146743_);
 	}
 
 	public boolean canFallInLove() {
@@ -391,11 +391,11 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-		if (p_146748_ == MobSpawnType.BUCKET && p_146750_ != null && p_146750_.contains("Age", 3)) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, EntitySpawnReason p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+		if (p_146748_ == EntitySpawnReason.BUCKET && p_146750_ != null && p_146750_.contains("Age", 3)) {
 			this.setAge(p_146750_.getInt("Age"));
 			return p_146749_;
-		} else if (p_146748_ == MobSpawnType.BUCKET) {
+		} else if (p_146748_ == EntitySpawnReason.BUCKET) {
 			this.setBaby(true);
 			return p_146749_;
 		} else {
@@ -406,7 +406,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return FTItems.BABY_HORATEE_BUCKET.get().getDefaultInstance();
+		return FTItems.BABY_HORATEE_BUCKET.getDefaultInstance();
 	}
 
 	@Override

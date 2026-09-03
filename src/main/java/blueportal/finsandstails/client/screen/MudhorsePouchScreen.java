@@ -3,12 +3,12 @@ package blueportal.finsandstails.client.screen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import blueportal.finsandstails.common.container.MudhorsePouchContainer;
 
 public class MudhorsePouchScreen extends AbstractContainerScreen<MudhorsePouchContainer> {
-   private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation("textures/gui/container/dispenser.png");
+   private static final Identifier CONTAINER_LOCATION = Identifier.parse("textures/gui/container/dispenser.png");
 
    public MudhorsePouchScreen(MudhorsePouchContainer p_98685_, Inventory p_98686_, Component p_98687_) {
       super(p_98685_, p_98686_, p_98687_);

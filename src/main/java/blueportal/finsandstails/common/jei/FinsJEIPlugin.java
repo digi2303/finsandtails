@@ -6,7 +6,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 
 @JeiPlugin
 public class FinsJEIPlugin implements IModPlugin {
-    private static final ResourceLocation PLUGIN_ID = new ResourceLocation(FinsAndTails.MOD_ID, "jei_plugin");
+    private static final Identifier PLUGIN_ID = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "jei_plugin");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return PLUGIN_ID;
     }
 
@@ -31,7 +31,7 @@ public class FinsJEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 
-        findRecipesByType(FTRecipes.CRUNCHING_TYPE.get(), manager);
+        findRecipesByType(FTRecipes.CRUNCHING_TYPE, manager);
     }
 
     private static <C extends Container, T extends Recipe<C>> List<T> findRecipesByType(RecipeType<T> type, RecipeManager recipeManager) {

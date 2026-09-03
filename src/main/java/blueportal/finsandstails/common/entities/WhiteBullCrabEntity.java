@@ -67,7 +67,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
     }
 
     protected ItemStack getFishBucket() {
-        return new ItemStack(FTItems.WHITE_BULL_CRAB_BUCKET.get());
+        return new ItemStack(FTItems.WHITE_BULL_CRAB_BUCKET);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -93,7 +93,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
     }
 
     protected SoundEvent getDeathSound() {
-        return FTSounds.CRAB_DEATH.get();
+        return FTSounds.CRAB_DEATH;
     }
 
     protected SoundEvent getFlopSound() {
@@ -102,7 +102,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.WHITE_BULL_CRAB_SPAWN_EGG.get());
+        return new ItemStack(FTItems.WHITE_BULL_CRAB_SPAWN_EGG);
     }
 
     @Override
@@ -118,9 +118,9 @@ public class WhiteBullCrabEntity extends WaterAnimal {
         }
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FROM_BUCKET, false);
     }
 
     @Override

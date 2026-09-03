@@ -93,9 +93,9 @@ public class GoldenRiverRayEntity extends AbstractFish {
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     public int getVariant() {
@@ -120,7 +120,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if (dataTag == null) {
             setVariant(random.nextInt(3));
@@ -134,7 +134,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.GOLDEN_RIVER_RAY_BUCKET.get());
+        return new ItemStack(FTItems.GOLDEN_RIVER_RAY_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -155,7 +155,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.GOLDEN_RIVER_RAY_SPAWN_EGG.get());
+        return new ItemStack(FTItems.GOLDEN_RIVER_RAY_SPAWN_EGG);
     }
 
 }

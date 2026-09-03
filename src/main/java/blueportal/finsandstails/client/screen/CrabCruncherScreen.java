@@ -3,13 +3,13 @@ package blueportal.finsandstails.client.screen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.common.container.CrabCruncherContainer;
 
 public class CrabCruncherScreen extends ItemCombinerScreen<CrabCruncherContainer> {
-    private static final ResourceLocation CRUNCHER_GUI = new ResourceLocation(FinsAndTails.MOD_ID, "textures/gui/crab_cruncher.png");
+    private static final Identifier CRUNCHER_GUI = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/crab_cruncher.png");
 
     public CrabCruncherScreen(CrabCruncherContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, CRUNCHER_GUI);

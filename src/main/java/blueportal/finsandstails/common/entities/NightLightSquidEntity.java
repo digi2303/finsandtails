@@ -80,7 +80,7 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.NIGHT_LIGHT_SQUID_BUCKET.get());
+        return new ItemStack(FTItems.NIGHT_LIGHT_SQUID_BUCKET);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(4));
         } else {
@@ -107,9 +107,9 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     public int getVariant() {

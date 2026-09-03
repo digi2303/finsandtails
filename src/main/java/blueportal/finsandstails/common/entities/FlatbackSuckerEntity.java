@@ -36,13 +36,13 @@ public class FlatbackSuckerEntity extends AbstractFish {
         super.tick();
         List<FlatbackSuckerEntity> list = this.level().getEntitiesOfClass(FlatbackSuckerEntity.class, this.getBoundingBox().inflate(2.0D));
         if (this.isAlive() && list.size() >= 3 && random.nextFloat() > 0.99F) {
-            this.playSound(FTSounds.FLATBACK_SUCKER_CLICK.get(), 0.4F, 1.0F);
+            this.playSound(FTSounds.FLATBACK_SUCKER_CLICK, 0.4F, 1.0F);
         }
     }
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.FLATBACK_SUCKER_BUCKET.get());
+        return new ItemStack(FTItems.FLATBACK_SUCKER_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -63,7 +63,7 @@ public class FlatbackSuckerEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.FLATBACK_SUCKER_SPAWN_EGG.get());
+        return new ItemStack(FTItems.FLATBACK_SUCKER_SPAWN_EGG);
     }
 
     static class MoveHelperController extends MoveControl {

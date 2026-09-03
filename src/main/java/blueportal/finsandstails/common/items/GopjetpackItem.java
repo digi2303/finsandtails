@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GopjetpackItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.GOPJET_JET.get()));
+    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.GOPJET_JET));
     private final Random random = new Random();
     private int bubbleSoundTime;
 
@@ -114,7 +114,7 @@ public class GopjetpackItem extends ArmorItem {
                     if (canFly || player.blockPosition().getY() > 0 && world.getBlockState(pos).is(Blocks.WATER)) {
                         if (random.nextInt(100) < this.bubbleSoundTime++) {
                             this.bubbleSoundTime = 0;
-                            world.playSound(player, player.blockPosition(), FTSounds.JETPACK_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                            world.playSound(player, player.blockPosition(), FTSounds.JETPACK_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
                         }
 
                         if (world.isClientSide()) {

@@ -81,7 +81,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.15D));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.15D, Ingredient.of(FTItems.HIGH_FINNED_BLUE.get()), false));
+        this.goalSelector.addGoal(1, new TemptGoal(this, 1.15D, Ingredient.of(FTItems.HIGH_FINNED_BLUE), false));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5D));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PapaWeeEntity.class, 8.0F, 1.6D, 1.4D));
         this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
@@ -118,7 +118,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(FTItems.HIGH_FINNED_BLUE.get());
+        return stack.is(FTItems.HIGH_FINNED_BLUE);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         return false;
     }
 
-    public static boolean canPenglilSpawn(EntityType<? extends TamableAnimal> penglil, LevelAccessor worldIn, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canPenglilSpawn(EntityType<? extends TamableAnimal> penglil, LevelAccessor worldIn, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
         return worldIn.getBlockState(pos.below()).getBlock() == Blocks.SAND && worldIn.getRawBrightness(pos, 0) > 8;
     }
 
@@ -163,7 +163,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.PENGLIL_BUCKET.get());
+        return new ItemStack(FTItems.PENGLIL_BUCKET);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
         Item item = heldItem.getItem();
-        ItemStack itemstack1 = new ItemStack(FTItems.PENGLIL_BUCKET.get());
+        ItemStack itemstack1 = new ItemStack(FTItems.PENGLIL_BUCKET);
         InteractionResult actionresulttype = super.mobInteract(player, hand);
 
         if (heldItem.getItem() == Items.BUCKET && this.isAlive() && !this.isOrderedToSit()) {
@@ -197,7 +197,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
         float maxHealth = this.getMaxHealth();
         float health = this.getHealth();
-        if (heldItem.getItem() == FTItems.HIGH_FINNED_BLUE.get() && health < maxHealth) {
+        if (heldItem.getItem() == FTItems.HIGH_FINNED_BLUE && health < maxHealth) {
             if (!player.isCreative()) {
                 heldItem.shrink(1);
             }
@@ -209,7 +209,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             return InteractionResult.SUCCESS;
         }
 
-        if (item == FTItems.WEE.get() && !this.isTame()) {
+        if (item == FTItems.WEE && !this.isTame()) {
             if (!player.getAbilities().instabuild) {
                 heldItem.shrink(1);
             }
@@ -227,7 +227,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             return InteractionResult.SUCCESS;
         }
 
-        if (this.isOwnedBy(player) && item != FTItems.HIGH_FINNED_BLUE.get() && !isInWater()) {
+        if (this.isOwnedBy(player) && item != FTItems.HIGH_FINNED_BLUE && !isInWater()) {
             if (player.isSecondaryUseActive()) {
                 startRiding(player);
                 return InteractionResult.SUCCESS;
@@ -296,12 +296,12 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(IS_LYING, false);
-        this.entityData.define(RELAX_STATE_ONE, false);
-        this.entityData.define(FROM_BUCKET, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(IS_LYING, false);
+        builder.define(RELAX_STATE_ONE, false);
+        builder.define(FROM_BUCKET, false);
     }
 
     public int getVariant() {
@@ -326,7 +326,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if (dataTag == null) {
             setVariant(random.nextInt(8));
@@ -345,19 +345,19 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
-        return FTEntities.PENGLIL.get().create(level);
+        return FTEntities.PENGLIL.create(level);
     }
 
     protected SoundEvent getAmbientSound() {
-        return FTSounds.PENGLIL_AMBIENT.get();
+        return FTSounds.PENGLIL_AMBIENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return FTSounds.PENGLIL_DEATH.get();
+        return FTSounds.PENGLIL_DEATH;
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FTSounds.PENGLIL_HURT.get();
+        return FTSounds.PENGLIL_HURT;
     }
 
     public boolean isLying() {
@@ -581,7 +581,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             List<ItemEntity> list = PenglilEntity.this.level().getEntitiesOfClass(ItemEntity.class, PenglilEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Dolphin.ALLOWED_ITEMS);
             if (!list.isEmpty()) {
                 PenglilEntity.this.getNavigation().snapTo(list.get(0), 1.2F);
-                PenglilEntity.this.playSound(FTSounds.PENGLIL_AMBIENT.get(), 1.0F, 1.0F);
+                PenglilEntity.this.playSound(FTSounds.PENGLIL_AMBIENT, 1.0F, 1.0F);
             }
 
             this.cooldown = 0;

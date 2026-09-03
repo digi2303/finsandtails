@@ -33,16 +33,16 @@ public class CommonModEvents {
 
     @SubscribeEvent
     public static void registerCommon(FMLCommonSetupEvent event) {
-        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(FTItems.NIGHT_LIGHT_SQUID_TENTACLE.get()), PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.NIGHT_VISION));
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(FTItems.NIGHT_LIGHT_SQUID_TENTACLE), PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.NIGHT_VISION));
 
-        DispenserBlock.registerBehavior(FTItems.WHERBLING.get(), new DefaultDispenseItemBehavior() {
+        DispenserBlock.registerBehavior(FTItems.WHERBLING, new DefaultDispenseItemBehavior() {
             @Override
             protected ItemStack execute(BlockSource source, ItemStack stack) {
                 ServerLevel level = source.getLevel();
                 BlockPos pos = source.getPos();
                 Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
 
-                WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE.get(), level);
+                WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE, level);
                 UUID id = wherble.getUUID();
                 wherble.deserializeNBT(stack.getOrCreateTag().getCompound("WherbleData"));
                 wherble.setUUID(id);
@@ -59,7 +59,7 @@ public class CommonModEvents {
             }
         });
 
-        DispenserBlock.registerBehavior(FTItems.TEAL_ARROWFISH.get(), new AbstractProjectileDispenseBehavior() {
+        DispenserBlock.registerBehavior(FTItems.TEAL_ARROWFISH, new AbstractProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position pos, ItemStack stack) {
                 TealArrowfishArrowEntity arrow = new TealArrowfishArrowEntity(level, pos.x(), pos.y(), pos.z());
                 arrow.pickup = AbstractArrow.Pickup.ALLOWED;

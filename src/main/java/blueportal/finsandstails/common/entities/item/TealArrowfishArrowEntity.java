@@ -20,16 +20,16 @@ public class TealArrowfishArrowEntity extends AbstractArrow implements IEntityAd
 
     public TealArrowfishArrowEntity(EntityType<? extends AbstractArrow> type, Level worldIn) {
         super(type, worldIn);
-        this.arrow = (TealArrowfishItem) FTItems.TEAL_ARROWFISH.get();
+        this.arrow = (TealArrowfishItem) FTItems.TEAL_ARROWFISH;
     }
 
     public TealArrowfishArrowEntity(Level worldIn, Item item) {
-        super(FTEntities.TEAL_ARROWFISH_ARROW.get(), worldIn);
+        super(FTEntities.TEAL_ARROWFISH_ARROW, worldIn);
         this.arrow = (TealArrowfishItem) item;
     }
 
     public TealArrowfishArrowEntity(Level worldIn, double x, double y, double z) {
-        this(FTEntities.TEAL_ARROWFISH_ARROW.get(), worldIn);
+        this(FTEntities.TEAL_ARROWFISH_ARROW, worldIn);
         setPos(x, y, z);
     }
 

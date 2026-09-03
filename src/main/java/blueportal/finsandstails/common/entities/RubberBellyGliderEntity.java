@@ -132,9 +132,9 @@ public class RubberBellyGliderEntity extends Animal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(PUFFED, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(PUFFED, false);
     }
 
     public boolean isPuffed() {
@@ -205,12 +205,12 @@ public class RubberBellyGliderEntity extends Animal {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.RUBBER_BELLY_GLIDER_SPAWN_EGG.get());
+        return new ItemStack(FTItems.RUBBER_BELLY_GLIDER_SPAWN_EGG);
     }
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageableEntity) {
-        return FTEntities.RUBBER_BELLY_GLIDER.get().create(level());
+        return FTEntities.RUBBER_BELLY_GLIDER.create(level());
     }
 
     @Override
@@ -223,17 +223,17 @@ public class RubberBellyGliderEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return FTSounds.RUBBER_BELLY_GLIDER_AMBIENT.get();
+        return FTSounds.RUBBER_BELLY_GLIDER_AMBIENT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return FTSounds.RUBBER_BELLY_GLIDER_DEATH.get();
+        return FTSounds.RUBBER_BELLY_GLIDER_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FTSounds.RUBBER_BELLY_GLIDER_HURT.get();
+        return FTSounds.RUBBER_BELLY_GLIDER_HURT;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class BandedRedbackShrimpEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET.get());
+        return new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -58,6 +58,6 @@ public class BandedRedbackShrimpEntity extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_SPAWN_EGG.get());
+        return new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_SPAWN_EGG);
     }
 }

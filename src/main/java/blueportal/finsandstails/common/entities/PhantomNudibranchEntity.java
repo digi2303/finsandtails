@@ -31,7 +31,7 @@ public class PhantomNudibranchEntity extends AbstractFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.PHANTOM_NUDIBRANCH_BUCKET.get());
+        return new ItemStack(FTItems.PHANTOM_NUDIBRANCH_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -52,6 +52,6 @@ public class PhantomNudibranchEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.PHANTOM_NUDIBRANCH_SPAWN_EGG.get());
+        return new ItemStack(FTItems.PHANTOM_NUDIBRANCH_SPAWN_EGG);
     }
 }

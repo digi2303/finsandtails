@@ -14,7 +14,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -60,12 +60,12 @@ public class SpindlyGemCrabEntity extends AbstractFish {
     }
 
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.SPINDLY_GEM_CRAB_BUCKET.get());
+        return new ItemStack(FTItems.SPINDLY_GEM_CRAB_BUCKET);
     }
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(5));
         } else {
@@ -82,9 +82,9 @@ public class SpindlyGemCrabEntity extends AbstractFish {
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     public int getVariant() {
@@ -136,7 +136,7 @@ public class SpindlyGemCrabEntity extends AbstractFish {
     }
 
     public SoundEvent getDeathSound() {
-        return FTSounds.CRAB_DEATH.get();
+        return FTSounds.CRAB_DEATH;
     }
 
     public SoundEvent getFlopSound() {
@@ -145,7 +145,7 @@ public class SpindlyGemCrabEntity extends AbstractFish {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.SPINDLY_GEM_CRAB_SPAWN_EGG.get());
+        return new ItemStack(FTItems.SPINDLY_GEM_CRAB_SPAWN_EGG);
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
@@ -92,7 +92,7 @@ public class FinsPotItem extends BucketItem {
     }
 
     private void placeEntity(ServerLevel worldIn, ItemStack stack, BlockPos pos) {
-        this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, MobSpawnType.BUCKET, true, false);
+        this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, EntitySpawnReason.BUCKET, true, false);
     }
 
     private EntityType<?> getEntityType() {

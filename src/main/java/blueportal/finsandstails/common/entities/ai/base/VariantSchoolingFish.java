@@ -3,7 +3,7 @@ package blueportal.finsandstails.common.entities.ai.base;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
@@ -108,7 +108,7 @@ public abstract class VariantSchoolingFish extends AbstractFish implements IVari
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_27528_, DifficultyInstance p_27529_, MobSpawnType p_27530_, @Nullable SpawnGroupData p_27531_, @Nullable CompoundTag p_27532_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_27528_, DifficultyInstance p_27529_, EntitySpawnReason p_27530_, @Nullable SpawnGroupData p_27531_, @Nullable CompoundTag p_27532_) {
         super.finalizeSpawn(p_27528_, p_27529_, p_27530_, p_27531_, p_27532_);
         if (p_27531_ == null) {
             p_27531_ = new SchoolSpawnGroupData(this);

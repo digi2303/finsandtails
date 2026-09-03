@@ -26,7 +26,7 @@ public class MudhorsePouchContainer extends AbstractContainerMenu {
 
 
     public MudhorsePouchContainer(int id, Inventory playerInventory) {
-        super(FTContainers.MUDHORSE_POUCH.get(), id);
+        super(FTContainers.MUDHORSE_POUCH, id);
         this.itemStack = playerInventory.player.getItemInHand(InteractionHand.MAIN_HAND);
         writeItemsToHandler();
         for(int i = 0; i < 3; ++i) {
@@ -73,7 +73,7 @@ public class MudhorsePouchContainer extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return playerIn.getItemInHand(playerIn.getUsedItemHand()).is(FTItems.MUDHORSE_POUCH.get());
+        return playerIn.getItemInHand(playerIn.getUsedItemHand()).is(FTItems.MUDHORSE_POUCH);
     }
 
     @Override

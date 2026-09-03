@@ -47,7 +47,7 @@ public class MudhorseEntity extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.25D, true));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(FTItems.SWAMP_MUCKER.get()), false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(FTItems.SWAMP_MUCKER), false));
         this.goalSelector.addGoal(3, new FollowParentGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new MudhorseForageGoal(this));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
@@ -75,9 +75,9 @@ public class MudhorseEntity extends Animal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FORAGING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FORAGING, false);
     }
 
     @Override
@@ -94,22 +94,22 @@ public class MudhorseEntity extends Animal {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.getItem() == FTItems.SWAMP_MUCKER.get();
+        return stack.getItem() == FTItems.SWAMP_MUCKER;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return FTSounds.MUDHORSE_AMBIENT.get();
+        return FTSounds.MUDHORSE_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FTSounds.MUDHORSE_HURT.get();
+        return FTSounds.MUDHORSE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return FTSounds.MUDHORSE_DEATH.get();
+        return FTSounds.MUDHORSE_DEATH;
     }
 
     @Override
@@ -136,7 +136,7 @@ public class MudhorseEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob ageable) {
-        return FTEntities.MUDHORSE.get().create(world);
+        return FTEntities.MUDHORSE.create(world);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class MudhorseEntity extends Animal {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.MUDHORSE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.MUDHORSE_SPAWN_EGG);
     }
 
     public LivingEntity getCommander() {

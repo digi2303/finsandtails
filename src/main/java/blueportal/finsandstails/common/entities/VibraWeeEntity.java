@@ -10,7 +10,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
@@ -58,7 +58,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         if (dataTag == null) {
             setVariant(random.nextInt(15));
         } else {
@@ -75,9 +75,9 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
     }
 
     @Override
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
     }
 
     public int getVariant() {
@@ -102,7 +102,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(FTItems.VIBRA_WEE_BUCKET.get());
+        return new ItemStack(FTItems.VIBRA_WEE_BUCKET);
     }
 
     public SoundEvent getAmbientSound() {
@@ -123,7 +123,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.VIBRA_WEE_SPAWN_EGG.get());
+        return new ItemStack(FTItems.VIBRA_WEE_SPAWN_EGG);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
         super.tick();
         if (!this.level().isClientSide()) {
             if (random.nextInt(2500) == 0 && shouldSpawnPapaWee()) {
-                PapaWeeEntity papaWee = FTEntities.PAPA_WEE.get().create(level());
+                PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level());
                 papaWee.setPos(this.getX(), this.getY(), this.getZ());
 
                 level().addFreshEntity(papaWee);

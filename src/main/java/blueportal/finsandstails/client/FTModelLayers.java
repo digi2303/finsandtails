@@ -1,7 +1,7 @@
 package blueportal.finsandstails.client;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import blueportal.finsandstails.FinsAndTails;
 
 public class FTModelLayers {
@@ -24,7 +24,7 @@ public class FTModelLayers {
     public static final ModelLayerLocation WANDERING_SAILOR = main("wandering_sailor");
 
     private static ModelLayerLocation register(String id, String name) {
-        return new ModelLayerLocation(new ResourceLocation(FinsAndTails.MOD_ID, id), name);
+        return new ModelLayerLocation(Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, id), name);
     }
 
     private static ModelLayerLocation main(String id) {

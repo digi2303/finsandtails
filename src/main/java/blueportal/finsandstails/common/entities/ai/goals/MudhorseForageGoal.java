@@ -12,7 +12,7 @@ import blueportal.finsandstails.common.entities.MudhorseEntity;
 import java.util.EnumSet;
 
 public class MudhorseForageGoal extends Goal {
-    // private static final ResourceLocation FORAGING_LOOT = new ResourceLocation(FinsAndTails.MOD_ID, "gameplay/mudhorse_foraging");
+    // private static final Identifier FORAGING_LOOT = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "gameplay/mudhorse_foraging");
     private final MudhorseEntity mudhorse;
     private final Level level;
     private int timer;

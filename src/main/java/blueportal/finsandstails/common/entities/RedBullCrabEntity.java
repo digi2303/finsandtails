@@ -18,7 +18,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -74,7 +74,7 @@ public class RedBullCrabEntity extends WaterAnimal {
     }
 
     public ItemStack getFishBucket() {
-        return new ItemStack(FTItems.RED_BULL_CRAB_BUCKET.get());
+        return new ItemStack(FTItems.RED_BULL_CRAB_BUCKET);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -89,9 +89,9 @@ public class RedBullCrabEntity extends WaterAnimal {
         return !this.isFromBucket();
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
+    public void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(FROM_BUCKET, false);
     }
 
     private boolean isFromBucket() {
@@ -119,7 +119,7 @@ public class RedBullCrabEntity extends WaterAnimal {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, MobSpawnType p_213386_3_, @Nullable SpawnGroupData p_213386_4_, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, EntitySpawnReason p_213386_3_, @Nullable SpawnGroupData p_213386_4_, @Nullable CompoundTag dataTag) {
         this.randomizeAttributes();
 
         return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, dataTag);
@@ -136,7 +136,7 @@ public class RedBullCrabEntity extends WaterAnimal {
     }
 
     public SoundEvent getDeathSound() {
-        return FTSounds.CRAB_DEATH.get();
+        return FTSounds.CRAB_DEATH;
     }
 
     public SoundEvent getFlopSound() {
@@ -145,14 +145,14 @@ public class RedBullCrabEntity extends WaterAnimal {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(FTItems.RED_BULL_CRAB_SPAWN_EGG.get());
+        return new ItemStack(FTItems.RED_BULL_CRAB_SPAWN_EGG);
     }
 
     @Override
     public void handleAirSupply(int p_209207_1_) {
     }
 
-    public static boolean canCrabSpawn(EntityType<? extends WaterAnimal> type, LevelAccessor worldIn, MobSpawnType reason, BlockPos p_223363_3_, RandomSource randomIn) {
+    public static boolean canCrabSpawn(EntityType<? extends WaterAnimal> type, LevelAccessor worldIn, EntitySpawnReason reason, BlockPos p_223363_3_, RandomSource randomIn) {
         return worldIn.getBlockState(p_223363_3_).is(Blocks.WATER) && worldIn.getBlockState(p_223363_3_.above()).is(Blocks.WATER);
     }
 

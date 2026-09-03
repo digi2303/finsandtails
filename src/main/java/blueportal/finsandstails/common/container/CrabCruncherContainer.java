@@ -28,16 +28,16 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
     }
 
     public CrabCruncherContainer(int windowId, Inventory playerInventory, ContainerLevelAccess access) {
-        super(FTContainers.CRAB_CRUNCHER.get(), windowId, playerInventory, access);
+        super(FTContainers.CRAB_CRUNCHER, windowId, playerInventory, access);
         this.player = playerInventory.player;
         this.access = access;
         this.level = playerInventory.player.level();
-        this.recipes = player.level().getRecipeManager().getAllRecipesFor(FTRecipes.CRUNCHING_TYPE.get());
+        this.recipes = player.level().getRecipeManager().getAllRecipesFor(FTRecipes.CRUNCHING_TYPE);
     }
 
     @Override
     protected boolean isValidBlock(BlockState p_40266_) {
-        return p_40266_.is(FTBlocks.CRAB_CRUNCHER.get());
+        return p_40266_.is(FTBlocks.CRAB_CRUNCHER);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
 
     @Override
     public void createResult() {
-        List<CrunchingRecipe> list = player.level().getRecipeManager().getRecipesFor(FTRecipes.CRUNCHING_TYPE.get(), this.inputSlots, player.level());
+        List<CrunchingRecipe> list = player.level().getRecipeManager().getRecipesFor(FTRecipes.CRUNCHING_TYPE, this.inputSlots, player.level());
         if (list.isEmpty()) {
             this.resultSlots.setItem(0, ItemStack.EMPTY);
         } else {
