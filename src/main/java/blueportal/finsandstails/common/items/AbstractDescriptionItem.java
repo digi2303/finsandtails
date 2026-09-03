@@ -1,15 +1,14 @@
 package blueportal.finsandstails.common.items;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class AbstractDescriptionItem extends Item {
     public AbstractDescriptionItem(Properties p_41383_) {
@@ -17,12 +16,12 @@ public class AbstractDescriptionItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, level, components, flag);
-        if (Screen.hasShiftDown()) {
-            components.add(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, components, flag);
+        if (Minecraft.getInstance().hasShiftDown()) {
+            components.accept(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
         } else {
-            components.add(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
+            components.accept(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 }

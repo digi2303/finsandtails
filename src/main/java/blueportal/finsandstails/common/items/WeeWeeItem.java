@@ -1,5 +1,6 @@
 package blueportal.finsandstails.common.items;
 
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -9,7 +10,7 @@ public class WeeWeeItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack p_41454_) {
+    public int getUseDuration(ItemStack p_41454_, LivingEntity entity) {
         return 5;
     }
 }

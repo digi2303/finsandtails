@@ -2,29 +2,28 @@ package blueportal.finsandstails.common.items;
 
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 import java.util.List;
 
 public class SpindlyGauntletItem extends CrabGauntletItem {
 
-    public SpindlyGauntletItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public SpindlyGauntletItem(ToolMaterial tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int t) {
         if (entity instanceof Player player) {
-            int i = this.getUseDuration(stack) - t;
+            int i = this.getUseDuration(stack, entity) - t;
             if (i < 0) return;
 
 
@@ -36,8 +35,6 @@ public class SpindlyGauntletItem extends CrabGauntletItem {
 
                         Vec3 playerPos = player.position();
                         Vec3 targetPos = potentialTarget.position();
-
-                        final Vector3f color = Vec3.fromRGB24(6485602).toVector3f();
 
                         double x = targetPos.x - playerPos.x;
                         double y = targetPos.y - playerPos.y;
@@ -53,7 +50,7 @@ public class SpindlyGauntletItem extends CrabGauntletItem {
 
                         float size = Math.max(j * 0.5F, 0.5F);
 
-                        level.addParticle(new DustParticleOptions(color, size), x, y, z, xSpeed, ySpeed, zSpeed);
+                        level.addParticle(new DustParticleOptions(6485602, size), x, y, z, xSpeed, ySpeed, zSpeed);
                     }
                 }
             }
@@ -69,19 +66,19 @@ public class SpindlyGauntletItem extends CrabGauntletItem {
         return d1 > 1.0D - range / d0;
     }
 
-    public UseAnim getUseAnimation(ItemStack p_40678_) {
-        return UseAnim.BOW;
+    @Override
+    public ItemUseAnimation getUseAnimation(ItemStack p_40678_) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override
-    public int getUseDuration(ItemStack p_41454_) {
+    public int getUseDuration(ItemStack p_41454_, LivingEntity entity) {
         return 200;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         player.startUsingItem(hand);
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResult.CONSUME;
     }
 }
