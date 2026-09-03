@@ -378,17 +378,17 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     }
 
     @Override
-    public boolean canTakeItem(ItemStack p_28376_) {
+    public boolean canHoldItem(ItemStack p_28376_) {
         EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(p_28376_);
         if (!this.getItemBySlot(equipmentslot).isEmpty()) {
             return false;
         } else {
-            return equipmentslot == EquipmentSlot.MAINHAND && super.canTakeItem(p_28376_);
+            return equipmentslot == EquipmentSlot.MAINHAND && super.canHoldItem(p_28376_);
         }
     }
 
     @Override
-    protected void pickUpItem(ItemEntity p_28357_) {
+    protected void pickUpItem(ServerLevel level, ItemEntity p_28357_) {
         if (this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
             ItemStack itemstack = p_28357_.getItem();
             if (this.canHoldItem(itemstack)) {
@@ -465,7 +465,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
         public void stop() {
             this.penglil.setLying(false);
-            float f = this.penglil.level().getTimeOfDay(1.0F);
+            float f = (this.penglil.level().getOverworldClockTime() % 24000L) / 24000.0F;
             if (this.owner.getSleepTimer() >= 100 && (double)f > 0.77D && (double)f < 0.8D && (double)this.penglil.level().getRandom().nextFloat() < 0.5D) {
                 this.giveMorningGift();
             }
@@ -481,7 +481,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             mutable.set(this.penglil.blockPosition());
             this.penglil.randomTeleport((mutable.getX() + random.nextInt(11) - 5), (mutable.getY() + random.nextInt(5) - 2), (mutable.getZ() + random.nextInt(11) - 5), false);
             mutable.set(this.penglil.blockPosition());
-            LootTable loottable = this.penglil.level().getServer().getLootData().getLootTable(BuiltInLootTables.FISHING);
+            LootTable loottable = this.penglil.level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
             LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) this.penglil.level())).withParameter(LootContextParams.ORIGIN, this.penglil.position()).withParameter(LootContextParams.THIS_ENTITY, this.penglil);
 
             for(ItemStack itemstack : loottable.getRandomItems(lootcontext$builder.create(LootContextParamSets.GIFT))) {
@@ -603,7 +603,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 double d0 = PenglilEntity.this.getEyeY() - (double)0.3F;
                 ItemEntity itementity = new ItemEntity(PenglilEntity.this.level(), PenglilEntity.this.getX(), d0, PenglilEntity.this.getZ(), p_28429_);
                 itementity.setPickUpDelay(40);
-                itementity.setThrower(PenglilEntity.this.getUUID());
+                itementity.setThrower(PenglilEntity.this);
                 float f = 0.3F;
                 float f1 = PenglilEntity.this.random.nextFloat() * ((float)Math.PI * 2F);
                 float f2 = 0.02F * PenglilEntity.this.random.nextFloat();
