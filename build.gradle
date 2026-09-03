@@ -31,6 +31,10 @@ repositories {
 		}
 	}
 	maven { url = "https://api.modrinth.com/maven" }
+	maven {
+		name = "Jared's maven"
+		url = "https://maven.blamejared.com/"
+	}
 }
 
 sourceSets {
@@ -54,6 +58,8 @@ sourceSets {
 
 if (mcSuffix == "26.2") {
 	sourceSets.fabric.java.exclude("blueportal/finsandstails/datagen/**")
+} else {
+	sourceSets.main.java.exclude("blueportal/finsandstails/common/jei/**")
 }
 
 loom {
@@ -82,6 +88,10 @@ dependencies {
 	compileOnly localRuntime("net.fabricmc:fabric-loader:${project.loader_version}")
 
 	fabricCompileOnly localRuntime("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+
+	if (project.hasProperty("jei_version")) {
+		compileOnly("mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}")
+	}
 
 	neoforgeCompileOnly("net.neoforged:neoforge:${project.neoforge_version}:universal")
 	neoforgeCompileOnly("net.neoforged.fancymodloader:loader:${project.neoforge_loader_version}")
