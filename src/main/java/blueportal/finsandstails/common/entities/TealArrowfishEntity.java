@@ -39,9 +39,9 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
     }
 
     @Override
-    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_) {
+    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_, DamageSource p_216990_) {
         this.killCooldown = this.random.nextInt(600) + 1200;
-        return super.killedEntity(p_216988_, p_216989_);
+        return super.killedEntity(p_216988_, p_216989_, p_216990_);
     }
 
     public void readAdditionalSaveData(ValueInput tag) {

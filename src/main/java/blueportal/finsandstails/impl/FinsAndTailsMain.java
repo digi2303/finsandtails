@@ -2,6 +2,7 @@ package blueportal.finsandstails.impl;
 
 import blueportal.finsandstails.FTConfig;
 import blueportal.finsandstails.common.CommonModEvents;
+import blueportal.finsandstails.common.criterion.FTCriterion;
 import blueportal.finsandstails.common.FTLootModifications;
 import blueportal.finsandstails.network.FTMessages;
 import blueportal.finsandstails.registry.FTBlocks;
@@ -31,6 +32,7 @@ public class FinsAndTailsMain implements ModInitializer {
         FTSpawns.register();
         FTMessages.register();
         FTLootModifications.register();
+        FTCriterion.register();
         CommonModEvents.register();
     }
 }
