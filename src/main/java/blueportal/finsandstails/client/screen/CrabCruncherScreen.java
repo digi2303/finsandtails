@@ -1,12 +1,12 @@
 package blueportal.finsandstails.client.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.common.container.CrabCruncherContainer;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.common.container.CrabCruncherContainer;
 
 public class CrabCruncherScreen extends ItemCombinerScreen<CrabCruncherContainer> {
     private static final Identifier CRUNCHER_GUI = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/gui/crab_cruncher.png");
@@ -21,7 +21,7 @@ public class CrabCruncherScreen extends ItemCombinerScreen<CrabCruncherContainer
     }
 
     @Override
-    protected void renderErrorIcon(GuiGraphics guiGraphics, int p_266822_, int p_267045_) {
+    protected void extractErrorIcon(GuiGraphicsExtractor extractor, int p_266822_, int p_267045_) {
     }
 
 }

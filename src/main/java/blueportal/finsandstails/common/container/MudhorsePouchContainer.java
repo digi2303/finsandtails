@@ -1,38 +1,27 @@
 package blueportal.finsandstails.common.container;
 
+import blueportal.finsandstails.registry.FTContainers;
+import blueportal.finsandstails.registry.FTItems;
+import blueportal.finsandstails.registry.FTTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import blueportal.finsandstails.registry.FTContainers;
-import blueportal.finsandstails.registry.FTItems;
-import blueportal.finsandstails.registry.FTTags;
 
 public class MudhorsePouchContainer extends AbstractContainerMenu {
-
-
-    private ItemStackHandler handler = new ItemStackHandler(9){
-        @Override
-        protected void onContentsChanged(int slot) {
-            MudhorsePouchContainer.this.writeItemsToStack();
-        }
-    };
-
-    private ItemStack itemStack;
-
+    private final MudhorsePouchInventory inventory = new MudhorsePouchInventory();
+    private final ItemStack itemStack;
 
     public MudhorsePouchContainer(int id, Inventory playerInventory) {
         super(FTContainers.MUDHORSE_POUCH, id);
         this.itemStack = playerInventory.player.getItemInHand(InteractionHand.MAIN_HAND);
-        writeItemsToHandler();
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 3; ++j) {
-                this.addSlot(new SlotItemHandler(handler, j + i * 3, 62 + j * 18, 17 + i * 18) {
+        this.inventory.read(this.itemStack);
 
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                this.addSlot(new Slot(this.inventory, j + i * 3, 62 + j * 18, 17 + i * 18) {
                     @Override
                     public void setChanged() {
                         super.setChanged();
@@ -47,28 +36,25 @@ public class MudhorsePouchContainer extends AbstractContainerMenu {
             }
         }
 
-        for(int k = 0; k < 3; ++k) {
-            for(int i1 = 0; i1 < 9; ++i1) {
+        for (int k = 0; k < 3; ++k) {
+            for (int i1 = 0; i1 < 9; ++i1) {
                 this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
             }
         }
 
-        for(int l = 0; l < 9; ++l) {
+        for (int l = 0; l < 9; ++l) {
             this.addSlot(new Slot(playerInventory, l, 8 + l * 18, 142));
         }
-
     }
-
-
 
     public void writeItemsToStack() {
-        itemStack.setTag(this.handler.serializeNBT());
+        this.inventory.write(this.itemStack);
     }
 
-    public void writeItemsToHandler() {
-        if(this.itemStack.getTag() != null && this.itemStack.getTag().contains("Items") &&  this.itemStack.getTag().contains("Size")) {
-            handler.deserializeNBT(this.itemStack.getTag());
-        }
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        this.writeItemsToStack();
     }
 
     @Override

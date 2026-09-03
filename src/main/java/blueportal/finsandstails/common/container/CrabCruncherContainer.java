@@ -1,5 +1,11 @@
 package blueportal.finsandstails.common.container;
 
+import blueportal.finsandstails.common.crafting.CrunchingRecipe;
+import blueportal.finsandstails.common.crafting.CrunchingRecipeInput;
+import blueportal.finsandstails.registry.FTBlocks;
+import blueportal.finsandstails.registry.FTContainers;
+import blueportal.finsandstails.registry.FTRecipes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -7,20 +13,16 @@ import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import blueportal.finsandstails.common.crafting.CrunchingRecipe;
-import blueportal.finsandstails.registry.FTBlocks;
-import blueportal.finsandstails.registry.FTContainers;
-import blueportal.finsandstails.registry.FTRecipes;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CrabCruncherContainer extends ItemCombinerMenu {
-    private final List<CrunchingRecipe> recipes;
     private final ContainerLevelAccess access;
-    private final Player player;
-    private CrunchingRecipe selectedRecipe;
+    private RecipeHolder<CrunchingRecipe> selectedRecipe;
     private final Level level;
 
     public CrabCruncherContainer(int windowId, Inventory playerInventory) {
@@ -28,11 +30,9 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
     }
 
     public CrabCruncherContainer(int windowId, Inventory playerInventory, ContainerLevelAccess access) {
-        super(FTContainers.CRAB_CRUNCHER, windowId, playerInventory, access);
-        this.player = playerInventory.player;
+        super(FTContainers.CRAB_CRUNCHER, windowId, playerInventory, access, createInputSlotDefinitions());
         this.access = access;
         this.level = playerInventory.player.level();
-        this.recipes = player.level().getRecipeManager().getAllRecipesFor(FTRecipes.CRUNCHING_TYPE);
     }
 
     @Override
@@ -42,12 +42,12 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
 
     @Override
     protected boolean mayPickup(Player p_40268_, boolean p_40269_) {
-        return this.selectedRecipe != null && this.selectedRecipe.matches(this.inputSlots, player.level());
+        return this.selectedRecipe != null && this.selectedRecipe.value().matches(this.createRecipeInput(), p_40268_.level());
     }
 
     @Override
     protected void onTake(Player player, ItemStack stack) {
-        stack.onCraftedBy(player.level(), player, stack.getCount());
+        stack.onCraftedBy(player, stack.getCount());
         this.resultSlots.awardUsedRecipes(player, this.getRelevantItems());
         this.shrinkStackInSlot(0);
         this.shrinkStackInSlot(1);
@@ -58,20 +58,25 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
 
     @Override
     public void createResult() {
-        List<CrunchingRecipe> list = player.level().getRecipeManager().getRecipesFor(FTRecipes.CRUNCHING_TYPE, this.inputSlots, player.level());
-        if (list.isEmpty()) {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        CrunchingRecipeInput input = this.createRecipeInput();
+        Optional<RecipeHolder<CrunchingRecipe>> optional = serverLevel.recipeAccess().getRecipeFor(FTRecipes.CRUNCHING_TYPE, input, serverLevel);
+        if (optional.isEmpty()) {
+            this.selectedRecipe = null;
             this.resultSlots.setItem(0, ItemStack.EMPTY);
         } else {
-            this.selectedRecipe = list.get(0);
-            ItemStack itemstack = this.selectedRecipe.assemble(this.inputSlots, this.level.registryAccess());
+            this.selectedRecipe = optional.get();
+            ItemStack itemstack = this.selectedRecipe.value().assemble(input);
             this.resultSlots.setRecipeUsed(this.selectedRecipe);
             this.resultSlots.setItem(0, itemstack);
         }
 
     }
 
-    @Override
-    protected ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
+    private static ItemCombinerMenuSlotDefinition createInputSlotDefinitions() {
         return ItemCombinerMenuSlotDefinition.create()
                 .withSlot(0, 27, 47, stack -> true)
                 .withSlot(1, 76, 47, stack -> true)
@@ -84,6 +89,10 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
         return slot.container != this.resultSlots && super.canTakeItemForPickAll(stack, slot);
     }
 
+    private CrunchingRecipeInput createRecipeInput() {
+        return new CrunchingRecipeInput(this.inputSlots.getItem(0), this.inputSlots.getItem(1));
+    }
+
     private List<ItemStack> getRelevantItems() {
         return List.of(this.inputSlots.getItem(0), this.inputSlots.getItem(1));
     }
@@ -94,4 +103,3 @@ public class CrabCruncherContainer extends ItemCombinerMenu {
         this.inputSlots.setItem(p_40271_, itemstack);
     }
 }
-

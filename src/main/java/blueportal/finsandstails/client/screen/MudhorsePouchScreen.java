@@ -1,11 +1,12 @@
 package blueportal.finsandstails.client.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import blueportal.finsandstails.common.container.MudhorsePouchContainer;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import blueportal.finsandstails.common.container.MudhorsePouchContainer;
 
 public class MudhorsePouchScreen extends AbstractContainerScreen<MudhorsePouchContainer> {
    private static final Identifier CONTAINER_LOCATION = Identifier.parse("textures/gui/container/dispenser.png");
@@ -20,17 +21,10 @@ public class MudhorsePouchScreen extends AbstractContainerScreen<MudhorsePouchCo
    }
 
    @Override
-   public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-      this.renderBackground(pGuiGraphics);
-      super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-      this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
-   }
-
-   @Override
-   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+   public void extractBackground(GuiGraphicsExtractor extractor, int pMouseX, int pMouseY, float pPartialTick) {
       int i = (this.width - this.imageWidth) / 2;
       int j = (this.height - this.imageHeight) / 2;
-      pGuiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+      extractor.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_LOCATION, i, j, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
    }
 
 }

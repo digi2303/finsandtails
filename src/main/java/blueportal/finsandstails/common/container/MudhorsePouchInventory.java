@@ -1,9 +1,9 @@
 package blueportal.finsandstails.common.container;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 
 public class MudhorsePouchInventory extends SimpleContainer {
     private boolean isDirty;
@@ -22,18 +22,13 @@ public class MudhorsePouchInventory extends SimpleContainer {
         isDirty = true;
     }
 
-    public void write(ItemStack stack) {
-        CompoundTag tag = new CompoundTag();
-        ListTag list = new ListTag();
-        for (int i = 0; i < getContainerSize(); i++) {
-            CompoundTag item = new CompoundTag();
-            item.putByte("Slot", (byte) i);
-            list.add(getItem(i).save(item));
-        }
-        tag.put("Items", list);
-        stack.setTag(tag);
+    public void read(ItemStack stack) {
+        stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(this.getItems());
         isDirty = false;
     }
 
-
+    public void write(ItemStack stack) {
+        stack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(this.getItems()));
+        isDirty = false;
+    }
 }
