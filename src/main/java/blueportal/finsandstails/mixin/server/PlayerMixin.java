@@ -24,6 +24,9 @@ public abstract class PlayerMixin implements FinsPlayerData {
     @Unique
     private boolean finsandtails$finsFlying;
 
+    @Unique
+    private int finsandtails$finsFlyingTicks;
+
     @Override
     public int finsandtails$getHitCombo() {
         return this.finsandtails$hitCombo;
@@ -44,6 +47,16 @@ public abstract class PlayerMixin implements FinsPlayerData {
         this.finsandtails$finsFlying = flying;
     }
 
+    @Override
+    public int finsandtails$getFinsFlyingTicks() {
+        return this.finsandtails$finsFlyingTicks;
+    }
+
+    @Override
+    public void finsandtails$setFinsFlyingTicks(int ticks) {
+        this.finsandtails$finsFlyingTicks = ticks;
+    }
+
     @Inject(method = "interactOn", at = @At("HEAD"), cancellable = true)
     private void FT$interactOn(Entity target, InteractionHand hand, Vec3 pos, CallbackInfoReturnable<InteractionResult> cir) {
         InteractionResult result = FTEvents.onPlayerInteractEntity((Player) (Object) this, hand, target);
@@ -60,10 +73,12 @@ public abstract class PlayerMixin implements FinsPlayerData {
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void FT$addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
         output.putInt("playerHitCombo", this.finsandtails$hitCombo);
+        output.putInt("FinsFlyingTicks", this.finsandtails$finsFlyingTicks);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void FT$readAdditionalSaveData(ValueInput input, CallbackInfo ci) {
         this.finsandtails$hitCombo = input.getIntOr("playerHitCombo", 0);
+        this.finsandtails$finsFlyingTicks = input.getIntOr("FinsFlyingTicks", 0);
     }
 }

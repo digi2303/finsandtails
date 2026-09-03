@@ -21,7 +21,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -36,7 +37,10 @@ import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTTags;
 import blueportal.finsandstails.registry.FTItems;
+import blueportal.finsandstails.common.FinsPlayerData;
 import blueportal.finsandstails.registry.FTSounds;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 
 import java.util.List;
 import java.util.Random;
@@ -63,7 +67,12 @@ public class ArmoredGopjetJetpackItem extends Item {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
+    public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
+        super.inventoryTick(stack, world, entity, slot);
+        if (slot != EquipmentSlot.CHEST || !(entity instanceof Player player)) {
+            return;
+        }
+
         if (stack.getMaxDamage() - stack.getDamageValue() > 1 || player.isCreative()) {
             boolean canFly = world.isRainingAt(player.blockPosition());
             int flyingTicksRemaining = 0;
@@ -81,7 +90,7 @@ public class ArmoredGopjetJetpackItem extends Item {
                             int ticksJumping = inventoryStack.has(DataComponents.CUSTOM_DATA) ? inventoryStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("FinsFlyingTicks", 0) : 0;
                             if (item == Items.WATER_BUCKET) {
                                 flyingTicksRemaining = 100 - ticksJumping;
-                            } else if (item == Items.POTION && PotionUtils.getPotion(inventoryStack) == Potions.WATER) {
+                            } else if (item == Items.POTION && inventoryStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.WATER)) {
                                 flyingTicksRemaining = 30 - ticksJumping;
                             } else {
                                 continue;
@@ -93,17 +102,17 @@ public class ArmoredGopjetJetpackItem extends Item {
                     }
             }
 
-            CompoundTag persistentData = player.getPersistentData();
-            if (persistentData.getBoolean("FinsFlying")) {
+            FinsPlayerData persistentData = (FinsPlayerData) player;
+            if (persistentData.finsandtails$isFinsFlying()) {
                 if (pos != null) {
                     if (canFly || player.blockPosition().getY() > 0 && world.getBlockState(pos).is(Blocks.WATER)) {
 
                         player.fallDistance = 0;
-                        int ticksJumping = persistentData.getInt("FinsFlyingTicks") + 1;
+                        int ticksJumping = persistentData.finsandtails$getFinsFlyingTicks() + 1;
                         if (ticksJumping % 10 == 0) {
-                            stack.hurtAndBreak(1, player, Player -> Player.broadcastBreakEvent(EquipmentSlot.CHEST));
+                            stack.hurtAndBreak(1, player, EquipmentSlot.CHEST);
                         }
-                        persistentData.putInt("FinsFlyingTicks", ticksJumping);
+                        persistentData.finsandtails$setFinsFlyingTicks(ticksJumping);
                         player.setDeltaMovement(player.getDeltaMovement().add(0, 0.1, 0));
 
                         /*Vec3 d3 = player.getViewVector(1.0F).scale(0.5F);
@@ -149,7 +158,7 @@ public class ArmoredGopjetJetpackItem extends Item {
                                 ItemStack newStack = null;
                                 if (item == Items.WATER_BUCKET) {
                                     newStack = new ItemStack(Items.BUCKET);
-                                } else if (item == Items.POTION && PotionUtils.getPotion(flyingStack) == Potions.WATER) {
+                                } else if (item == Items.POTION && flyingStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.WATER)) {
                                     newStack = new ItemStack(Items.GLASS_BOTTLE);
                                 } else if (Block.byItem(item) == Blocks.WET_SPONGE) {
                                     newStack = new ItemStack(Blocks.SPONGE);
@@ -184,9 +193,5 @@ public class ArmoredGopjetJetpackItem extends Item {
         }
     }
 
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return enchantment != Enchantments.UNBREAKING && super.canApplyAtEnchantingTable(stack, enchantment);
-    }
 
 }

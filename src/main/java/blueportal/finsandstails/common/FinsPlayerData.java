@@ -8,4 +8,8 @@ public interface FinsPlayerData {
     boolean finsandtails$isFinsFlying();
 
     void finsandtails$setFinsFlying(boolean flying);
+
+    int finsandtails$getFinsFlyingTicks();
+
+    void finsandtails$setFinsFlyingTicks(int ticks);
 }
