@@ -29,13 +29,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.armor.HorateeJetpackModel;
 import blueportal.finsandstails.client.render.ArmorItemRenderer;
@@ -46,32 +41,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class ArmoredGopjetJetpackItem extends ArmorItem implements GeoItem {
+public class ArmoredGopjetJetpackItem extends ArmorItem {
     public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.ARMORED_GOPJET_JETPACK.get()));
-
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     private final Random random = new Random();
     private int bubbleSoundTime;
 
     public ArmoredGopjetJetpackItem() {
         super(MATERIAL, Type.CHESTPLATE, new Properties().stacksTo(1).durability(240));
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private ArmorItemRenderer<ArmoredGopjetJetpackItem> renderer;
-
-            @Override
-            public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                if (this.renderer == null) {
-                    this.renderer = new ArmorItemRenderer<>(new HorateeJetpackModel());
-                }
-                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
-                return this.renderer;
-            }
-        });
     }
 
     public BlockPos getBlockUnderPlayer(Player player) {
@@ -195,7 +172,6 @@ public class ArmoredGopjetJetpackItem extends ArmorItem implements GeoItem {
         }
     }
 
-
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         super.appendHoverText(stack, level, components, flag);
@@ -213,12 +189,4 @@ public class ArmoredGopjetJetpackItem extends ArmorItem implements GeoItem {
         return enchantment != Enchantments.UNBREAKING && super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
 }

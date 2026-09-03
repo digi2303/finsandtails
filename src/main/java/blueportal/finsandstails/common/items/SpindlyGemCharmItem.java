@@ -13,13 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.armor.SpindlyGemModel;
 import blueportal.finsandstails.client.render.ArmorItemRenderer;
@@ -27,14 +22,12 @@ import blueportal.finsandstails.client.render.ArmorItemRenderer;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SpindlyGemCharmItem extends ArmorItem implements GeoItem {
+public class SpindlyGemCharmItem extends ArmorItem {
     public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":gem_crab_amulet", 1, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, () -> Ingredient.EMPTY);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public SpindlyGemCharmItem() {
         super(MATERIAL, Type.CHESTPLATE, new Properties().durability(2).rarity(Rarity.RARE));
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
@@ -46,22 +39,6 @@ public class SpindlyGemCharmItem extends ArmorItem implements GeoItem {
         } else {
             components.add(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private ArmorItemRenderer<SpindlyGemCharmItem> renderer;
-
-            @Override
-            public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                if (this.renderer == null) {
-                    this.renderer = new ArmorItemRenderer<>(new SpindlyGemModel());
-                }
-                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
-                return this.renderer;
-            }
-        });
     }
 
     @Override
@@ -78,15 +55,6 @@ public class SpindlyGemCharmItem extends ArmorItem implements GeoItem {
 
     public static boolean isUsable(ItemStack stack) {
         return !stack.isDamaged();
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 
 }

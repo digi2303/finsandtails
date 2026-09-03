@@ -23,14 +23,9 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.Lazy;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.armor.FwingedBootsModel;
 import blueportal.finsandstails.client.render.ArmorItemRenderer;
@@ -38,33 +33,16 @@ import blueportal.finsandstails.registry.FTEnchantments;
 
 import java.util.function.Consumer;
 
-public class FwingedBootsItem extends ArmorItem implements GeoItem {
+public class FwingedBootsItem extends ArmorItem {
     public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":fwinged", 3, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(Items.LEATHER));
     public static final Lazy<Multimap<Attribute, AttributeModifier>> MODIFIERS = Lazy.of(() ->
             ImmutableMultimap.of(
                     ForgeMod.SWIM_SPEED.get(), new AttributeModifier("Swim modifier", 1.25D, AttributeModifier.Operation.ADDITION),
                     Attributes.MOVEMENT_SPEED, new AttributeModifier("Movement modifier", -0.15D, AttributeModifier.Operation.MULTIPLY_BASE)
             ));
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public FwingedBootsItem() {
         super(MATERIAL, Type.BOOTS, new Properties());
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private ArmorItemRenderer<FwingedBootsItem> renderer;
-
-            @Override
-            public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
-                if (this.renderer == null) {
-                    this.renderer = new ArmorItemRenderer<>(new FwingedBootsModel());
-                }
-                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
-                return this.renderer;
-            }
-        });
     }
 
     @Override
@@ -104,15 +82,6 @@ public class FwingedBootsItem extends ArmorItem implements GeoItem {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return enchantment != Enchantments.DEPTH_STRIDER && super.canApplyAtEnchantingTable(stack, enchantment);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 
 }
