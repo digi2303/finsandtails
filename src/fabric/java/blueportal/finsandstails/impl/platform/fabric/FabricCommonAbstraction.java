@@ -32,6 +32,7 @@ import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 
 public record FabricCommonAbstraction() implements CommonAbstraction {
     public static final CommonAbstraction INSTANCE = new FabricCommonAbstraction();
@@ -99,5 +100,11 @@ public record FabricCommonAbstraction() implements CommonAbstraction {
     @Override
     public void sendToServer(CustomPacketPayload payload) {
         FabricClientNetworking.sendToServer(payload);
+    }
+
+    @Override
+    public void registerPotionBrewing(Consumer<BrewingRegistrar> consumer) {
+        FabricPotionBrewingBuilder.BUILD.register((builder) -> consumer.accept(
+                (from, ingredient, to) -> builder.addMix(from, ingredient, to)));
     }
 }

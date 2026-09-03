@@ -23,7 +23,7 @@ public class TealArrowfishItem extends ArrowItem {
     }
 
     @Override
-    public AbstractArrow createArrow(Level world, ItemStack stack, LivingEntity shooter) {
+    public AbstractArrow createArrow(Level world, ItemStack stack, LivingEntity shooter, ItemStack weapon) {
         TealArrowfishArrowEntity arrow = new TealArrowfishArrowEntity(world, this);
         arrow.setPos(shooter.getX(), shooter.getEyeY() - 0.1d, shooter.getZ());
         arrow.setOwner(shooter);

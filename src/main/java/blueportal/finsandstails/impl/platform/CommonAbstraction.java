@@ -58,6 +58,12 @@ public interface CommonAbstraction {
 
     void sendToServer(CustomPacketPayload payload);
 
+    void registerPotionBrewing(Consumer<BrewingRegistrar> consumer);
+
+    interface BrewingRegistrar {
+        void addPotionRecipe(net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> from, net.minecraft.world.item.Item ingredient, net.minecraft.core.Holder<net.minecraft.world.item.alchemy.Potion> to);
+    }
+
     interface AttributeRegistry {
         void register(EntityType<? extends LivingEntity> type, AttributeSupplier.Builder builder);
     }

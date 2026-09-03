@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 
 public record NeoCommonAbstraction(List<Consumer<IEventBus>> lateActions) implements CommonAbstraction {
     public static IEventBus EVENT_BUS = null;
@@ -106,5 +107,11 @@ public record NeoCommonAbstraction(List<Consumer<IEventBus>> lateActions) implem
         } else {
             this.lateActions.add(consumer);
         }
+    }
+
+    @Override
+    public void registerPotionBrewing(Consumer<BrewingRegistrar> consumer) {
+        NeoForge.EVENT_BUS.addListener(RegisterBrewingRecipesEvent.class, (event) -> consumer.accept(
+                (from, ingredient, to) -> event.getBuilder().addMix(from, ingredient, to)));
     }
 }

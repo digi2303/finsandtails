@@ -1,48 +1,35 @@
 package blueportal.finsandstails.common;
 
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.common.entities.WherbleEntity;
-import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
+import blueportal.finsandstails.impl.platform.CommonAbstraction;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = FinsAndTails.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonModEvents {
 
-    @SubscribeEvent
-    public static void registerCommon(FMLCommonSetupEvent event) {
-        BrewingRecipeRegistry.addRecipe(Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.of(FTItems.NIGHT_LIGHT_SQUID_TENTACLE), PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.NIGHT_VISION));
+    public static void register() {
+        CommonAbstraction.INSTANCE.registerPotionBrewing((registrar) ->
+                registrar.addPotionRecipe(Potions.AWKWARD, FTItems.NIGHT_LIGHT_SQUID_TENTACLE, Potions.NIGHT_VISION));
 
         DispenserBlock.registerBehavior(FTItems.WHERBLING, new DefaultDispenseItemBehavior() {
             @Override
             protected ItemStack execute(BlockSource source, ItemStack stack) {
-                ServerLevel level = source.getLevel();
-                BlockPos pos = source.getPos();
-                Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+                ServerLevel level = source.level();
+                BlockPos pos = source.pos();
+                Direction direction = source.state().getValue(DispenserBlock.FACING);
 
                 WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE, level);
                 UUID id = wherble.getUUID();
@@ -61,12 +48,6 @@ public class CommonModEvents {
             }
         });
 
-        DispenserBlock.registerBehavior(FTItems.TEAL_ARROWFISH, new AbstractProjectileDispenseBehavior() {
-            protected Projectile getProjectile(Level level, Position pos, ItemStack stack) {
-                TealArrowfishArrowEntity arrow = new TealArrowfishArrowEntity(level, pos.x(), pos.y(), pos.z());
-                arrow.pickup = AbstractArrow.Pickup.ALLOWED;
-                return arrow;
-            }
-        });
+        DispenserBlock.registerBehavior(FTItems.TEAL_ARROWFISH, new ProjectileDispenseBehavior(FTItems.TEAL_ARROWFISH));
     }
 }
