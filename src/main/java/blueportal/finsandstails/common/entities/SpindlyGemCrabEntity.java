@@ -37,12 +37,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.Tags;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.entity.animal.Bucketable;
+import blueportal.finsandstails.registry.FTTags;
 
 public class SpindlyGemCrabEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SpindlyGemCrabEntity.class, EntityDataSerializers.INT);
@@ -54,7 +54,7 @@ public class SpindlyGemCrabEntity extends AbstractFish {
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(0, new TemptGoal(this, 1.0D, Ingredient.of(Tags.Items.GEMS), false));
+        this.goalSelector.addGoal(0, new TemptGoal(this, 1.0D, Ingredient.of(FTTags.GEMS), false));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));

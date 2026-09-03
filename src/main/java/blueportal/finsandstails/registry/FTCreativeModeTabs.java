@@ -14,7 +14,7 @@ public class FTCreativeModeTabs {
     public static CreativeModeTab FINS_AND_TAILS;
 
     public static void register() {
-        FINS_AND_TAILS = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FINS_AND_TAILS_KEY, CreativeModeTab.builder()
+        FINS_AND_TAILS = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FINS_AND_TAILS_KEY, CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
                 .icon(FTItems.WEE::getDefaultInstance)
                 .title(Component.translatable("itemGroup.finsandtails"))
                 .displayItems((parameters, output) -> FTItems.REGISTERED.forEach(output::accept))

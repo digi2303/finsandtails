@@ -18,6 +18,7 @@ import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
 import java.util.List;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class WeeWeeEntity extends AbstractSchoolingFish {
 

@@ -30,6 +30,7 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
+import net.minecraft.world.entity.animal.Bucketable;
 
 public class WeeEntity extends AbstractSchoolingFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WeeEntity.class, EntityDataSerializers.INT);
@@ -47,24 +48,20 @@ public class WeeEntity extends AbstractSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @org.jetbrains.annotations.Nullable SpawnGroupData spawnDataIn, @org.jetbrains.annotations.Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @org.jetbrains.annotations.Nullable SpawnGroupData spawnDataIn) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
         int variant;
         Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
 
-        if (reason == EntitySpawnReason.SPAWN_EGG) {
+        if (reason == EntitySpawnReason.SPAWN_ITEM_USE) {
             variant = random.nextInt(3);
         }
-        else if (dataTag == null) {
+        else if (reason != EntitySpawnReason.BUCKET) {
             if (holder.is(BiomeTags.IS_JUNGLE)) variant = 1;
             else if (holder.is(FTTags.MUCK_WEE_SPAWNS)) variant = 2;
             else variant = 0;
 
-        } else {
-            if (dataTag.contains("Variant", 3)){
-                variant = dataTag.getInt("Variant");
-            } else variant = 0;
-        }
+        } else variant = 0;
         this.setVariant(variant);
         return spawnDataIn;
     }
@@ -96,6 +93,13 @@ public class WeeEntity extends AbstractSchoolingFish {
     }
 
     @Override
+    public void loadFromBucketTag(CompoundTag p_148708_) {
+        Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);
+        if (p_148708_.contains("Variant")) {
+            this.setVariant(p_148708_.getIntOr("Variant", 0));
+        }
+    }
+
     public void saveToBucketTag(ItemStack bucket) {
         CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());

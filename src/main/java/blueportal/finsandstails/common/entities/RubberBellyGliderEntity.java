@@ -239,8 +239,8 @@ public class RubberBellyGliderEntity extends Animal {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose poseIn) {
-        return isPuffed() ? PUFFED_SIZE : super.getDimensions(poseIn);
+    protected EntityDimensions getDefaultDimensions(Pose poseIn) {
+        return isPuffed() ? PUFFED_SIZE : super.getDefaultDimensions(poseIn);
     }
 
     @Override

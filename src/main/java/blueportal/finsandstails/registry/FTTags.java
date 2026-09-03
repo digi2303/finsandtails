@@ -27,12 +27,17 @@ public class FTTags {
     public static final TagKey<EntityType<?>> PREDATORS_HIGH_FINNED_BLUE = entityTag("predators/high_finned_blue");
 
     public static final TagKey<Block> GRAVELS = conventionBlockTag("gravels");
+    public static final TagKey<Item> GEMS = conventionItemTag("gems");
 
     public static final TagKey<Biome> MUCK_WEE_SPAWNS = biomeTag("muck_wee_spawns");
     public static final TagKey<Biome> WHERBLE_SPAWNS = biomeTag("wherble_spawns");
 
     private static TagKey<BannerPattern> patternTag(String path) {
         return TagKey.create(Registries.BANNER_PATTERN, FinsAndTails.id(path));
+    }
+
+    private static TagKey<Item> conventionItemTag(String path) {
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", path));
     }
 
     private static TagKey<Block> conventionBlockTag(String path) {

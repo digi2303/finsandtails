@@ -79,7 +79,8 @@ public class AgeableWaterAnimalBreedGoal extends Goal {
      */
     @Nullable
     private AgeableWaterAnimal getFreePartner() {
-        List<? extends AgeableWaterAnimal> list = this.level.getNearbyEntities(this.partnerClass, PARTNER_TARGETING, this.animal, this.animal.getBoundingBox().inflate(8.0D));
+        List<? extends AgeableWaterAnimal> list = this.level.getEntitiesOfClass(this.partnerClass, this.animal.getBoundingBox().inflate(8.0D),
+                (candidate) -> this.level instanceof ServerLevel serverLevel && PARTNER_TARGETING.test(serverLevel, this.animal, candidate));
         double d0 = Double.MAX_VALUE;
         AgeableWaterAnimal animal = null;
 

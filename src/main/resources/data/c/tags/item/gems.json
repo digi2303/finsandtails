@@ -1,11 +1,10 @@
 {
   "replace": false,
   "values": [
-    "finsandtails:spindly_gem",
-    "finsandtails:spindly_emerald",
-    "finsandtails:spindly_pearl",
-    "finsandtails:spindly_sapphire",
-    "finsandtails:spindly_ruby",
-    "finsandtails:spindly_amber"
+    "minecraft:diamond",
+    "minecraft:emerald",
+    "minecraft:amethyst_shard",
+    "minecraft:lapis_lazuli",
+    "minecraft:quartz"
   ]
 }
