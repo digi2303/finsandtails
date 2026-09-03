@@ -62,7 +62,7 @@ public class GopjetEntity extends AbstractFish {
         if (boostTimer > 0) {
             --boostTimer;
         }
-        if (boostTimer == 0 || !list.isEmpty() && !this.fromBucket() && this.isInWaterOrBubble()) {
+        if (boostTimer == 0 || !list.isEmpty() && !this.fromBucket() && this.isInWater()) {
             boostTimer = BOOST_TIMER;
             setBoosting(true);
             setDeltaMovement(calculateViewVector(this.getXRot(), this.getYRot()).multiply(1.7d, 0.0d, 1.7d));

@@ -207,7 +207,7 @@ public class RubberBellyGliderEntity extends Animal {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageableEntity) {
-        return FTEntities.RUBBER_BELLY_GLIDER.create(level());
+        return FTEntities.RUBBER_BELLY_GLIDER.create(level(), EntitySpawnReason.BREEDING);
     }
 
     @Override

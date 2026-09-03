@@ -126,10 +126,10 @@ public class RedBullCrabEntity extends WaterAnimal {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, EntitySpawnReason p_213386_3_, @Nullable SpawnGroupData p_213386_4_, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_213386_1_, DifficultyInstance p_213386_2_, EntitySpawnReason p_213386_3_, @Nullable SpawnGroupData p_213386_4_) {
         this.randomizeAttributes();
 
-        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, dataTag);
+        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_);
     }
 
     public float generateRandomMaxHealth() {

@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
 //? if >=26.2 {
 /*import net.minecraft.advancements.triggers.CriteriaTriggers;
 *///?} else {
@@ -14,7 +15,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -53,7 +57,6 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.common.entities.ai.base.IHydrate;
 import blueportal.finsandstails.common.entities.ai.goals.ShareTheBubbleGoal;
@@ -63,18 +66,21 @@ import blueportal.finsandstails.common.entities.ai.control.SmoothWalkGroundAndSw
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
+import blueportal.finsandstails.registry.FTTags;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable {
 	private static final EntityDataAccessor<Boolean> HAS_BABY = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> BUBBLE_CHARGE = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
 
-	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.OPTIONAL_UUID);
-	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_1 = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+	private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
+	private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> DATA_TRUSTED_ID_1 = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
+	private static final Codec<List<UUID>> TRUSTED_LIST_CODEC = UUIDUtil.CODEC.listOf();
 
 	private static final EntityDataAccessor<Integer> BUBBLE_TARGET = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
@@ -153,17 +159,25 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 
 	public List<UUID> getTrustedUUIDs() {
 		List<UUID> list = Lists.newArrayList();
-		list.add(this.entityData.get(DATA_TRUSTED_ID_0).orElse((UUID) null));
-		list.add(this.entityData.get(DATA_TRUSTED_ID_1).orElse((UUID) null));
+		list.add(this.entityData.get(DATA_TRUSTED_ID_0).map(EntityReference::getUUID).orElse((UUID) null));
+		list.add(this.entityData.get(DATA_TRUSTED_ID_1).map(EntityReference::getUUID).orElse((UUID) null));
 		return list;
 	}
 
 	public void addTrustedUUID(@Nullable UUID p_28516_) {
 		if (this.entityData.get(DATA_TRUSTED_ID_0).isPresent()) {
-			this.entityData.set(DATA_TRUSTED_ID_1, Optional.ofNullable(p_28516_));
+			this.entityData.set(DATA_TRUSTED_ID_1, reference(p_28516_));
 		} else {
-			this.entityData.set(DATA_TRUSTED_ID_0, Optional.ofNullable(p_28516_));
+			this.entityData.set(DATA_TRUSTED_ID_0, reference(p_28516_));
 		}
+	}
+
+	private static Optional<EntityReference<LivingEntity>> reference(@Nullable UUID p_28516_) {
+		return p_28516_ == null ? Optional.empty() : Optional.of(EntityReference.of(p_28516_));
+	}
+
+	private List<UUID> presentTrustedUUIDs() {
+		return this.getTrustedUUIDs().stream().filter(Objects::nonNull).toList();
 	}
 
 	public boolean trusts(UUID p_28530_) {
@@ -228,27 +242,14 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	public void addAdditionalSaveData(ValueOutput p_30176_) {
 		super.addAdditionalSaveData(p_30176_);
 		p_30176_.putBoolean("HasBaby", this.hasBaby());
-		List<UUID> list = this.getTrustedUUIDs();
-		ListTag listtag = new ListTag();
-
-		for (UUID uuid : list) {
-			if (uuid != null) {
-				listtag.add(NbtUtils.createUUID(uuid));
-			}
-		}
-
-		p_30176_.put("Trusted", listtag);
+		p_30176_.store("Trusted", TRUSTED_LIST_CODEC, this.presentTrustedUUIDs());
 	}
 
 	@Override
 	public void readAdditionalSaveData(ValueInput p_30162_) {
 		super.readAdditionalSaveData(p_30162_);
 		this.setHasBaby(p_30162_.getBooleanOr("HasBaby", false));
-		ListTag listtag = p_30162_.getList("Trusted", 11);
-
-		for (int i = 0; i < listtag.size(); ++i) {
-			this.addTrustedUUID(NbtUtils.loadUUID(listtag.get(i)));
-		}
+		p_30162_.read("Trusted", TRUSTED_LIST_CODEC).ifPresent((p_30163_) -> p_30163_.forEach(this::addTrustedUUID));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -268,7 +269,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	public static boolean isSandOrGravel(BlockGetter p_57801_, BlockPos p_57802_) {
-		return p_57801_.getBlockState(p_57802_).is(BlockTags.SAND) || p_57801_.getBlockState(p_57802_).is(Tags.Blocks.GRAVEL);
+		return p_57801_.getBlockState(p_57802_).is(BlockTags.SAND) || p_57801_.getBlockState(p_57802_).is(FTTags.GRAVELS);
 	}
 
 	public void travel(Vec3 p_27490_) {
@@ -295,7 +296,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	protected void handleAirSupply(int p_149194_) {
-		if (this.isAlive() && !this.isInWaterRainOrBubble() && !this.isBaby()) {
+		if (this.isAlive() && !this.isInWaterOrRain() && !this.isBaby()) {
 			this.setAirSupply(p_149194_ - 1);
 			if (this.getAirSupply() == -20) {
 				this.setAirSupply(0);
@@ -341,7 +342,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	@Nullable
 	@Override
 	public CrownedHorateeEntity getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FTEntities.CROWNED_HORATEE.create(p_146743_);
+		return FTEntities.CROWNED_HORATEE.create(p_146743_, EntitySpawnReason.BREEDING);
 	}
 
 	public boolean canFallInLove() {
@@ -363,16 +364,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		Bucketable.saveDefaultDataToBucketTag(this, p_27494_);
 		CompoundTag compoundtag = new CompoundTag();
 		compoundtag.putInt("Age", this.getAge());
-		List<UUID> list = this.getTrustedUUIDs();
-		ListTag listtag = new ListTag();
-
-		for (UUID uuid : list) {
-			if (uuid != null) {
-				listtag.add(NbtUtils.createUUID(uuid));
-			}
-		}
-
-		compoundtag.put("Trusted", listtag);
+		TRUSTED_LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.presentTrustedUUIDs()).result().ifPresent((p_27495_) -> compoundtag.put("Trusted", p_27495_));
 
         p_27494_.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(compoundtag));
     }
@@ -380,28 +372,20 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	public void loadFromBucketTag(CompoundTag p_148708_) {
 		Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);
 		if (p_148708_.contains("Age")) {
-			this.setAge(p_148708_.getInt("Age"));
+			this.setAge(p_148708_.getIntOr("Age", 0));
 		}
-		if (p_148708_.contains("Trusted")) {
-			ListTag listtag = p_148708_.getList("Trusted", 11);
-
-			for (int i = 0; i < listtag.size(); ++i) {
-				this.addTrustedUUID(NbtUtils.loadUUID(listtag.get(i)));
-			}
-		}
+		p_148708_.getList("Trusted").flatMap((p_148709_) -> TRUSTED_LIST_CODEC.parse(NbtOps.INSTANCE, p_148709_).result())
+				.ifPresent((p_148710_) -> p_148710_.forEach(this::addTrustedUUID));
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, EntitySpawnReason p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-		if (p_146748_ == EntitySpawnReason.BUCKET && p_146750_ != null && p_146750_.contains("Age", 3)) {
-			this.setAge(p_146750_.getInt("Age"));
-			return p_146749_;
-		} else if (p_146748_ == EntitySpawnReason.BUCKET) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, EntitySpawnReason p_146748_, @Nullable SpawnGroupData p_146749_) {
+		if (p_146748_ == EntitySpawnReason.BUCKET) {
 			this.setBaby(true);
 			return p_146749_;
 		} else {
 
-			return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+			return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_);
 		}
 	}
 

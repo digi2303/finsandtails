@@ -110,7 +110,7 @@ public class FlatbackLeafSnailEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob ageable) {
-        return FTEntities.FLATBACK_LEAF_SNAIL.create(world);
+        return FTEntities.FLATBACK_LEAF_SNAIL.create(world, EntitySpawnReason.BREEDING);
     }
 
     public boolean isFood(ItemStack stack) {

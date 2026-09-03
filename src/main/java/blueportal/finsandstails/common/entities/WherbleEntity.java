@@ -202,15 +202,15 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        if (dataTag == null) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
+        if (reason != EntitySpawnReason.BUCKET) {
             setVariant(random.nextInt(6));
         }
         if (spawnDataIn == null) {
             spawnDataIn = new AgeableMobGroupData(1);
         }
 
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
     }
 
     @Override
@@ -241,7 +241,7 @@ public class WherbleEntity extends Animal implements Bucketable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
-        WherbleEntity wherble = FTEntities.WHERBLE.create(p_241840_1_);
+        WherbleEntity wherble = FTEntities.WHERBLE.create(p_241840_1_, EntitySpawnReason.BREEDING);
         wherble.setVariant(random.nextInt(4));
         return wherble;
     }

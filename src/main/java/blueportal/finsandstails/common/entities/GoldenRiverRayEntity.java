@@ -76,6 +76,13 @@ public class GoldenRiverRayEntity extends AbstractFish {
     }
 
     @Override
+    public void loadFromBucketTag(CompoundTag p_148708_) {
+        Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);
+        if (p_148708_.contains("Variant")) {
+            this.setVariant(p_148708_.getIntOr("Variant", 0));
+        }
+    }
+
     public void saveToBucketTag(ItemStack bucket) {
         CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());
@@ -126,14 +133,10 @@ public class GoldenRiverRayEntity extends AbstractFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (dataTag == null) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
+        if (reason != EntitySpawnReason.BUCKET) {
             setVariant(random.nextInt(3));
-        } else {
-            if (dataTag.contains("Variant", 3)){
-                this.setVariant(dataTag.getInt("Variant"));
-            }
         }
         return spawnDataIn;
     }

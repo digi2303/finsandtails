@@ -62,15 +62,18 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        if (dataTag == null) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
+        if (reason != EntitySpawnReason.BUCKET) {
             setVariant(random.nextInt(15));
-        } else {
-            if (dataTag.contains("Variant", 3)){
-                this.setVariant(dataTag.getInt("Variant"));
-            }
         }
         return spawnDataIn;
+    }
+
+    public void loadFromBucketTag(CompoundTag p_148708_) {
+        Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);
+        if (p_148708_.contains("Variant")) {
+            this.setVariant(p_148708_.getIntOr("Variant", 0));
+        }
     }
 
     public void saveToBucketTag(ItemStack bucket) {
@@ -137,7 +140,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
         super.tick();
         if (!this.level().isClientSide()) {
             if (random.nextInt(2500) == 0 && shouldSpawnPapaWee()) {
-                PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level());
+                PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level(), EntitySpawnReason.TRIGGERED);
                 papaWee.setPos(this.getX(), this.getY(), this.getZ());
 
                 level().addFreshEntity(papaWee);

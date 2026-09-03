@@ -135,7 +135,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     @Nullable
     @Override
     public AgeableWaterAnimal getBreedOffspring(ServerLevel world, AgeableWaterAnimal ageable) {
-        RiverPebbleSnailEntity snail = FTEntities.RIVER_PEBBLE_SNAIL.create(world);
+        RiverPebbleSnailEntity snail = FTEntities.RIVER_PEBBLE_SNAIL.create(world, EntitySpawnReason.BREEDING);
         snail.setVariant(random.nextInt(5));
 
         return snail;
@@ -200,17 +200,13 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        if (dataTag == null) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
+        if (reason != EntitySpawnReason.BUCKET) {
             if (random.nextFloat() > 0.95F) {
                 setVariant(5);
             }
             else {
                 setVariant(random.nextInt(5));
-            }
-        } else {
-            if (dataTag.contains("Variant", 3)) {
-                this.setVariant(dataTag.getInt("Variant"));
             }
         }
         return spawnDataIn;
@@ -268,6 +264,9 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     public void loadFromBucketTag(CompoundTag p_148708_) {
         Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);
+        if (p_148708_.contains("Variant")) {
+            this.setVariant(p_148708_.getIntOr("Variant", 0));
+        }
     }
 
     public SoundEvent getPickupSound() {

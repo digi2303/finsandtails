@@ -131,7 +131,7 @@ public class WeeEntity extends AbstractSchoolingFish {
     public void tick() {
         super.tick();
         if (random.nextInt(2500) == 0 && shouldSpawnPapaWee()) {
-            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level());
+            PapaWeeEntity papaWee = FTEntities.PAPA_WEE.create(level(), EntitySpawnReason.TRIGGERED);
             papaWee.setPos(this.getX(), this.getY(), this.getZ());
 
             level().addFreshEntity(papaWee);

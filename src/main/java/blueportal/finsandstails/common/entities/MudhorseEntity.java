@@ -136,7 +136,7 @@ public class MudhorseEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob ageable) {
-        return FTEntities.MUDHORSE.create(world);
+        return FTEntities.MUDHORSE.create(world, EntitySpawnReason.BREEDING);
     }
 
     @Override

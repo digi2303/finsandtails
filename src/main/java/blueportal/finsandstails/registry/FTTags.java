@@ -5,7 +5,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class FTTags {
@@ -24,11 +26,17 @@ public class FTTags {
 
     public static final TagKey<EntityType<?>> PREDATORS_HIGH_FINNED_BLUE = entityTag("predators/high_finned_blue");
 
+    public static final TagKey<Block> GRAVELS = conventionBlockTag("gravels");
+
     public static final TagKey<Biome> MUCK_WEE_SPAWNS = biomeTag("muck_wee_spawns");
     public static final TagKey<Biome> WHERBLE_SPAWNS = biomeTag("wherble_spawns");
 
     private static TagKey<BannerPattern> patternTag(String path) {
         return TagKey.create(Registries.BANNER_PATTERN, FinsAndTails.id(path));
+    }
+
+    private static TagKey<Block> conventionBlockTag(String path) {
+        return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", path));
     }
 
     private static TagKey<Biome> biomeTag(String path) {

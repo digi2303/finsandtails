@@ -107,7 +107,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob ageable) {
-        return FTEntities.SIDEROL_WHISKERED_SNAIL.create(world);
+        return FTEntities.SIDEROL_WHISKERED_SNAIL.create(world, EntitySpawnReason.BREEDING);
     }
 
     public boolean isFood(ItemStack stack) {
