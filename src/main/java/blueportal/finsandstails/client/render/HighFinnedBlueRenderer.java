@@ -1,24 +1,33 @@
-
 package blueportal.finsandstails.client.render;
 
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.HighFinnedBlueModel;
+import blueportal.finsandstails.client.render.state.HighFinnedBlueRenderState;
 import blueportal.finsandstails.common.entities.HighFinnedBlueEntity;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.Identifier;
 
-public class HighFinnedBlueRenderer extends GeoEntityRenderer<HighFinnedBlueEntity> {
+public class HighFinnedBlueRenderer extends MobRenderer<HighFinnedBlueEntity, HighFinnedBlueRenderState, HighFinnedBlueModel> {
+    private static final Identifier TEXTURE = FinsAndTails.id("textures/entity/high_finned_blue.png");
 
     public HighFinnedBlueRenderer(EntityRendererProvider.Context context) {
-        super(context, new HighFinnedBlueModel());
-        this.shadowRadius = 0.3F;
+        super(context, new HighFinnedBlueModel(context.bakeLayer(HighFinnedBlueModel.LAYER_LOCATION)), 0.3F);
     }
 
     @Override
-    public RenderType getRenderType(HighFinnedBlueEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityCutout(texture);
+    public HighFinnedBlueRenderState createRenderState() {
+        return new HighFinnedBlueRenderState();
+    }
+
+    @Override
+    public void extractRenderState(HighFinnedBlueEntity entity, HighFinnedBlueRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        state.moving = entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
+
+    @Override
+    public Identifier getTextureLocation(HighFinnedBlueRenderState state) {
+        return TEXTURE;
     }
 }
