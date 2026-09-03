@@ -9,13 +9,11 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.entity.IEntityAdditionalSpawnData;
-import net.minecraftforge.network.NetworkHooks;
 import blueportal.finsandstails.common.items.TealArrowfishItem;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
-public class TealArrowfishArrowEntity extends AbstractArrow implements IEntityAdditionalSpawnData {
+public class TealArrowfishArrowEntity extends AbstractArrow {
     private final TealArrowfishItem arrow;
 
     public TealArrowfishArrowEntity(EntityType<? extends AbstractArrow> type, Level worldIn) {
@@ -34,7 +32,7 @@ public class TealArrowfishArrowEntity extends AbstractArrow implements IEntityAd
     }
 
     @Override
-    protected ItemStack getPickupItem() {
+    protected ItemStack getDefaultPickupItem() {
         return new ItemStack(arrow);
     }
 
@@ -42,19 +40,6 @@ public class TealArrowfishArrowEntity extends AbstractArrow implements IEntityAd
         return 0.99F;
     }
 
-    @Override
-    public void writeSpawnData(FriendlyByteBuf buffer) {
-        Entity shooter = getOwner();
-        buffer.writeInt(shooter == null ? 0 : shooter.getId());
-        buffer.writeVarInt(Item.getId(arrow));
-    }
 
-    @Override
-    public void readSpawnData(FriendlyByteBuf additionalData) {
-    }
 
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
 }

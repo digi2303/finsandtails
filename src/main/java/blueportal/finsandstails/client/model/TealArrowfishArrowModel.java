@@ -31,11 +31,6 @@ public class TealArrowfishArrowModel extends EntityModel<TealArrowfishArrowRende
     @Override
     public void setupAnim(TealArrowfishArrowRenderState state) {
         super.setupAnim(state);
-        float limbSwing = state.walkAnimationPos;
-        float limbSwingAmount = state.walkAnimationSpeed;
-        float ageInTicks = state.ageInTicks;
-        float netHeadYaw = state.yRot;
-        float headPitch = state.xRot;
     }
 
     public static LayerDefinition createBodyLayer() {

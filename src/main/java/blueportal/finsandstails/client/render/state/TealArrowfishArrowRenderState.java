@@ -1,6 +1,5 @@
 package blueportal.finsandstails.client.render.state;
 
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-
-public class TealArrowfishArrowRenderState extends EntityRenderState {
+public class TealArrowfishArrowRenderState extends TealArrowfishRenderState {
+    public float shake;
 }

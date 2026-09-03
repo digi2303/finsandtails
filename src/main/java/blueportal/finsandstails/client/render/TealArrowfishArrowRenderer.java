@@ -1,23 +1,23 @@
 package blueportal.finsandstails.client.render;
 
+import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.client.FTModelLayers;
+import blueportal.finsandstails.client.model.TealArrowfishModel;
+import blueportal.finsandstails.client.render.state.TealArrowfishArrowRenderState;
+import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.client.model.TealArrowfishModel;
-import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
-import blueportal.finsandstails.client.FTModelLayers;
 
-public class TealArrowfishArrowRenderer extends EntityRenderer<TealArrowfishArrowEntity> {
+public class TealArrowfishArrowRenderer extends EntityRenderer<TealArrowfishArrowEntity, TealArrowfishArrowRenderState> {
     private static final Identifier TEAL_ARROWFISH_LOCATION = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID,"textures/entity/teal_arrowfish/teal_arrowfish.png");
-    private TealArrowfishModel model;
-
+    private final TealArrowfishModel model;
 
     public TealArrowfishArrowRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
@@ -25,30 +25,40 @@ public class TealArrowfishArrowRenderer extends EntityRenderer<TealArrowfishArro
     }
 
     @Override
-    public Identifier getTextureLocation(TealArrowfishArrowEntity entity) {
+    public TealArrowfishArrowRenderState createRenderState() {
+        return new TealArrowfishArrowRenderState();
+    }
+
+    @Override
+    public void extractRenderState(TealArrowfishArrowEntity entity, TealArrowfishArrowRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        state.yRot = entity.getYRot(partialTicks);
+        state.xRot = entity.getXRot(partialTicks);
+        state.shake = (float) entity.shakeTime - partialTicks;
+    }
+
+    public Identifier getTextureLocation(TealArrowfishArrowRenderState state) {
         return TEAL_ARROWFISH_LOCATION;
     }
 
     @Override
-    public void render(TealArrowfishArrowEntity entity, float p_113840_, float p_113841_, PoseStack poseStack, MultiBufferSource buffer, int p_113844_) {
+    public void submit(TealArrowfishArrowRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
-        poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(p_113841_, entity.yRotO, entity.getYRot()) - 180.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(p_113841_, entity.xRotO, entity.getXRot())));
+        poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot - 180.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(state.xRot));
         poseStack.mulPose(Axis.ZP.rotationDegrees(-180.0F));
         poseStack.translate(0.0, -1.45f, 0.3);
-        float f9 = (float) entity.shakeTime - p_113841_;
-        if (f9 > 0.0F) {
-            float f10 = -Mth.sin(f9 * 3.0F) * f9;
+        if (state.shake > 0.0F) {
+            float f10 = -Mth.sin(state.shake * 3.0F) * state.shake;
             poseStack.mulPose(Axis.XP.rotationDegrees(f10));
         }
 
-        VertexConsumer ivertexbuilder = buffer.getBuffer(this.model.renderType(this.getTextureLocation(entity)));
-        this.model.renderToBuffer(poseStack, ivertexbuilder, p_113844_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        collector.submitModel(this.model, state, poseStack, this.model.renderType(this.getTextureLocation(state)), state.lightCoords, OverlayTexture.NO_OVERLAY, -1, null);
 
         poseStack.scale(0.05625F, 0.05625F, 0.05625F);
 
         poseStack.popPose();
-        super.render(entity, p_113840_, p_113841_, poseStack, buffer, p_113844_);
+        super.submit(state, poseStack, collector, cameraRenderState);
     }
 
 }
