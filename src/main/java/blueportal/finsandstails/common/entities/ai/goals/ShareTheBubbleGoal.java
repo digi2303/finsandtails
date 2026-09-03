@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import blueportal.finsandstails.common.entities.CrownedHorateeEntity;
 
 import java.util.EnumSet;
@@ -55,15 +55,15 @@ public class ShareTheBubbleGoal extends Goal {
 
 	public void start() {
 		this.timeToRecalcPath = 0;
-		this.oldWaterCost = this.tamable.getPathfindingMalus(BlockPathTypes.WATER);
-		this.tamable.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+		this.oldWaterCost = this.tamable.getPathfindingMalus(PathType.WATER);
+		this.tamable.setPathfindingMalus(PathType.WATER, 0.0F);
 		this.tamable.setBubbleTarget(this.owner.getId());
 	}
 
 	public void stop() {
 		this.owner = null;
 		this.navigation.stop();
-		this.tamable.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+		this.tamable.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
 		this.tamable.setBubbleCharge(false);
 		this.tamable.setBubbleTarget(0);
 	}

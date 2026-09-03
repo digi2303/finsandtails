@@ -4,7 +4,7 @@ package blueportal.finsandstails.client.render;
 import blueportal.finsandstails.client.render.layer.PenglilCarryingItemLayer;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

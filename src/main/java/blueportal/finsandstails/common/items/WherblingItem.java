@@ -4,7 +4,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +24,7 @@ public class WherblingItem extends MobBucketItem {
         super(FTEntities.WHERBLE, () -> Fluids.EMPTY, () -> SoundEvents.EMPTY, p_43140_);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
         player.playSound(FTSounds.WHERBLE_THROW, 1.5F,  (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F + 1.5F );
@@ -53,6 +53,6 @@ public class WherblingItem extends MobBucketItem {
             itemstack.shrink(1);
         }
 
-        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 }

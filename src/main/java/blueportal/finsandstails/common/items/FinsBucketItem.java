@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,17 +40,17 @@ public class FinsBucketItem extends MobBucketItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if (this.getFluid() == Fluids.EMPTY) {
             //for penglil
             ItemStack itemstack = playerIn.getItemInHand(handIn);
             BlockHitResult result = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.NONE);
-            InteractionResultHolder<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, result);
+            InteractionResult ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, result);
             if (ret != null) return ret;
             if (result.getType() == BlockHitResult.Type.MISS) {
-                return InteractionResultHolder.pass(itemstack);
+                return InteractionResult.PASS;
             } else if (result.getType() != BlockHitResult.Type.BLOCK) {
-                return InteractionResultHolder.pass(itemstack);
+                return InteractionResult.PASS;
             }
             BlockPos blockpos = result.getBlockPos();
             Direction direction = result.getDirection();
@@ -60,7 +60,7 @@ public class FinsBucketItem extends MobBucketItem {
                 CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer)playerIn, blockpos1, itemstack);
             }
             playerIn.awardStat(Stats.ITEM_USED.get(this));
-            return InteractionResultHolder.sidedSuccess(getEmptySuccessItem(itemstack, playerIn), worldIn.isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return super.use(worldIn, playerIn, handIn);
     }
