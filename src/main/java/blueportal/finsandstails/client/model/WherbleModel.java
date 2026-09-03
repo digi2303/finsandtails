@@ -7,7 +7,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.client.animation.WherbleAnimation;
-import blueportal.finsandstails.common.entities.WherbleEntity;
 
 public class WherbleModel extends EntityModel<WherbleRenderState> {
     private final ModelPart body;

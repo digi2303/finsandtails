@@ -9,7 +9,6 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import blueportal.finsandstails.common.entities.TealArrowfishEntity;
 
 public class TealArrowfishModel extends EntityModel<TealArrowfishRenderState> {
     private final ModelPart body;

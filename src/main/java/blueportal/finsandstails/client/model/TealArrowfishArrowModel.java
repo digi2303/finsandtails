@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
 
 public class TealArrowfishArrowModel extends EntityModel<TealArrowfishArrowRenderState> {
     private final ModelPart body;
