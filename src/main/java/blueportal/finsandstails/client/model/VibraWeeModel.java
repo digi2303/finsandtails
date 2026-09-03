@@ -26,7 +26,7 @@ public class VibraWeeModel extends EntityModel<VibraWeeRenderState> {
     private final ModelPart rightPectoralFin;
 
     public VibraWeeModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.body = modelPart.getChild("body");
         this.belly = this.body.getChild("belly");
         this.leftPelvicFin = this.belly.getChild("leftPelvicFin");

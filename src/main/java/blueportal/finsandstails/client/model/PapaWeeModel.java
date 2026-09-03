@@ -27,7 +27,7 @@ public class PapaWeeModel extends EntityModel<PapaWeeRenderState> {
     private final ModelPart leftPectoralFin;
 
     public PapaWeeModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.body = modelPart.getChild("body");
         this.lips = this.body.getChild("lips");
         this.tail = this.body.getChild("tail");

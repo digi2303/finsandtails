@@ -26,7 +26,7 @@ public class FlatbackSuckerModel extends EntityModel<FlatbackSuckerRenderState> 
     private final ModelPart finFrontRight;
 
     public FlatbackSuckerModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.root = modelPart.getChild("root");
         this.finBackLeft = this.root.getChild("finBackLeft");
         this.finFrontLeft = this.root.getChild("finFrontLeft");

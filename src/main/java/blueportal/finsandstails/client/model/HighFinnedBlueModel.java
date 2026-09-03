@@ -24,7 +24,7 @@ public class HighFinnedBlueModel extends EntityModel<HighFinnedBlueRenderState> 
     private final ModelPart analfin;
 
     public HighFinnedBlueModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.body = modelPart.getChild("body");
         this.pectoralfinleft = this.body.getChild("pectoralfinleft");
         this.tail = this.body.getChild("tail");

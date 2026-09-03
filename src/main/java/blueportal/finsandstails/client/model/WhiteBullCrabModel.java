@@ -34,7 +34,7 @@ public class WhiteBullCrabModel extends EntityModel<WhiteBullCrabRenderState> {
     private final ModelPart leftleg3;
 
     public WhiteBullCrabModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.root = modelPart.getChild("root");
         this.body = this.root.getChild("body");
         this.rightclaw = this.body.getChild("rightclaw");

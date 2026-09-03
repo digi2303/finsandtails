@@ -34,7 +34,7 @@ public class RedBullCrabModel extends EntityModel<RedBullCrabRenderState> {
     private final ModelPart leftleg3;
 
     public RedBullCrabModel(ModelPart modelPart) {
-        super(modelPart, RenderTypes::entityCutout);
+        super(modelPart, RenderTypes::entityCutoutCull);
         this.root = modelPart.getChild("root");
         this.body = this.root.getChild("body");
         this.rightclaw = this.body.getChild("rightclaw");
