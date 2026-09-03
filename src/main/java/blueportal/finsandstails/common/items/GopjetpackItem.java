@@ -11,8 +11,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.registry.FTTags;
 import blueportal.finsandstails.client.render.item.FTArmorRenderProperties;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
@@ -37,13 +38,13 @@ import blueportal.finsandstails.registry.FTSounds;
 import java.util.List;
 import java.util.Random;
 
-public class GopjetpackItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.GOPJET_JET));
+public class GopjetpackItem extends Item {
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_GOPJET_JETPACK);
     private final Random random = new Random();
     private int bubbleSoundTime;
 
-    public GopjetpackItem() {
-        super(MATERIAL, Type.CHESTPLATE, new Properties().stacksTo(1).durability(128));
+    public GopjetpackItem(Properties properties) {
+        super(properties.stacksTo(1).durability(128).humanoidArmor(MATERIAL, ArmorType.CHESTPLATE));
     }
 
     public BlockPos getBlockUnderPlayer(Player player) {

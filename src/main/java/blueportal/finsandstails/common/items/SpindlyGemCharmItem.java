@@ -16,15 +16,16 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SpindlyGemCharmItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":gem_crab_amulet", 1, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, () -> Ingredient.EMPTY);
+public class SpindlyGemCharmItem extends Item {
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":gem_crab_amulet", 1, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, FTTags.REPAIRS_SPINDLY_CHARM);
 
-    public SpindlyGemCharmItem() {
-        super(MATERIAL, Type.CHESTPLATE, new Properties().durability(2).rarity(Rarity.RARE));
+    public SpindlyGemCharmItem(Properties properties) {
+        super(properties.durability(2).rarity(Rarity.RARE).humanoidArmor(MATERIAL, ArmorType.CHESTPLATE));
     }
 
     @Override

@@ -12,8 +12,9 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -31,16 +32,16 @@ import blueportal.finsandstails.registry.FTEnchantments;
 
 import java.util.function.Consumer;
 
-public class FwingedBootsItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":fwinged", 3, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(Items.LEATHER));
+public class FwingedBootsItem extends Item {
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":fwinged", 3, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, net.minecraft.tags.ItemTags.REPAIRS_LEATHER_ARMOR);
     public static final Lazy<Multimap<Attribute, AttributeModifier>> MODIFIERS = Lazy.of(() ->
             ImmutableMultimap.of(
                     ForgeMod.SWIM_SPEED.get(), new AttributeModifier("Swim modifier", 1.25D, AttributeModifier.Operation.ADDITION),
                     Attributes.MOVEMENT_SPEED, new AttributeModifier("Movement modifier", -0.15D, AttributeModifier.Operation.MULTIPLY_BASE)
             ));
 
-    public FwingedBootsItem() {
-        super(MATERIAL, Type.BOOTS, new Properties());
+    public FwingedBootsItem(Properties properties) {
+        super(properties.humanoidArmor(MATERIAL, ArmorType.BOOTS));
     }
 
     @Override

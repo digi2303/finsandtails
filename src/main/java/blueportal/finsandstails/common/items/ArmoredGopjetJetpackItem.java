@@ -13,8 +13,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
+import blueportal.finsandstails.registry.FTTags;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
@@ -39,14 +40,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class ArmoredGopjetJetpackItem extends ArmorItem {
-    public static final ArmorMaterial MATERIAL = new FinsArmorMaterial(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, () -> Ingredient.of(FTItems.ARMORED_GOPJET_JETPACK));
+public class ArmoredGopjetJetpackItem extends Item {
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_ARMORED_GOPJET_JETPACK);
 
     private final Random random = new Random();
     private int bubbleSoundTime;
 
-    public ArmoredGopjetJetpackItem() {
-        super(MATERIAL, Type.CHESTPLATE, new Properties().stacksTo(1).durability(240));
+    public ArmoredGopjetJetpackItem(Properties properties) {
+        super(properties.stacksTo(1).durability(240).humanoidArmor(MATERIAL, ArmorType.CHESTPLATE));
     }
 
     public BlockPos getBlockUnderPlayer(Player player) {

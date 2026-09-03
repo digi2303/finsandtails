@@ -15,6 +15,9 @@ public class FTTags {
     public static final TagKey<Item> MUDHORSE_POUCH_BLACKLIST = itemTag("mudhorse_pouch_blacklist");
     public static final TagKey<Item> SPINDLY_GEM_CRABS = itemTag("spindly_gem_crabs");
     public static final TagKey<Item> GOPJET = itemTag("gopjet");
+    public static final TagKey<Item> REPAIRS_GOPJET_JETPACK = itemTag("repairs_gopjet_jetpack");
+    public static final TagKey<Item> REPAIRS_ARMORED_GOPJET_JETPACK = itemTag("repairs_armored_gopjet_jetpack");
+    public static final TagKey<Item> REPAIRS_SPINDLY_CHARM = itemTag("repairs_spindly_charm");
 
     public static final TagKey<BannerPattern> PATTERN_ITEM_MANDIBLES = patternTag("pattern_item/mandibles");
     public static final TagKey<BannerPattern> PATTERN_ITEM_SHELL = patternTag("pattern_item/shell");

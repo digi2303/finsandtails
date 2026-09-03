@@ -1,64 +1,39 @@
 package blueportal.finsandstails.common.items;
 
+import blueportal.finsandstails.FinsAndTails;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
-import java.util.function.Supplier;
+import java.util.Map;
 
-public class FinsArmorMaterial implements ArmorMaterial {
-    private static final int[] MAX_DAMAGE_ARRAY = new int[]{15, 18, 17, 13};
-    private final String name;
-    private final int maxDamageFactor;
-    private final int[] damageReductionAmountArray;
-    private final int enchantability;
-    private final SoundEvent soundEvent;
-    private final float toughness;
-    private final Supplier<Ingredient> repairMaterial;
+public class FinsArmorMaterial {
 
-    public FinsArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Supplier<Ingredient> repairMaterialSupplier) {
-        this.name = nameIn;
-        this.maxDamageFactor = maxDamageFactorIn;
-        this.damageReductionAmountArray = damageReductionAmountsIn;
-        this.enchantability = enchantabilityIn;
-        this.soundEvent = equipSoundIn;
-        this.toughness = toughness;
-        this.repairMaterial = repairMaterialSupplier;
+    public static ArmorMaterial create(String name, int durability, int[] defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, TagKey<Item> repairIngredient) {
+        return new ArmorMaterial(
+                durability,
+                Map.of(
+                        ArmorType.BOOTS, defense[0],
+                        ArmorType.LEGGINGS, defense[1],
+                        ArmorType.CHESTPLATE, defense[2],
+                        ArmorType.HELMET, defense[3]
+                ),
+                enchantmentValue,
+                equipSound,
+                toughness,
+                0.0F,
+                repairIngredient,
+                assetId(name)
+        );
     }
 
-    @Override
-    public int getDurabilityForType(ArmorItem.Type type) {
-        return MAX_DAMAGE_ARRAY[type.getSlot().getIndex()] * this.maxDamageFactor;
-    }
-
-    @Override
-    public int getDefenseForType(ArmorItem.Type type) {
-        return this.damageReductionAmountArray[type.getSlot().getIndex()];
-    }
-
-    public int getEnchantmentValue() {
-        return this.enchantability;
-    }
-
-    public SoundEvent getEquipSound() {
-        return this.soundEvent;
-    }
-
-    public Ingredient getRepairIngredient() {
-        return this.repairMaterial.get();
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public float getToughness() {
-        return this.toughness;
-    }
-
-    @Override
-    public float getKnockbackResistance() {
-        return 0;
+    public static ResourceKey<EquipmentAsset> assetId(String name) {
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, FinsAndTails.id(name));
     }
 }
