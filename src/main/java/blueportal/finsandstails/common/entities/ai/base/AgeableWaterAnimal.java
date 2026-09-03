@@ -1,7 +1,7 @@
 package blueportal.finsandstails.common.entities.ai.base;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,19 +17,19 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,7 +47,7 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, EntitySpawnReason pReason, @Nullable SpawnGroupData pSpawnData) {
         if (pSpawnData == null) {
             pSpawnData = new AgeableMob.AgeableMobGroupData(true);
         }
@@ -58,14 +58,14 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         }
 
         ageablemob$ageablemobgroupdata.increaseGroupSizeByOne();
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData);
     }
 
     @Nullable
     public abstract AgeableWaterAnimal getBreedOffspring(ServerLevel pLevel, AgeableWaterAnimal pOtherParent);
 
     public int getAge() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return this.entityData.get(DATA_BABY_ID) ? -1 : 1;
         } else {
             return this.age;
@@ -184,25 +184,26 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     @Nullable
     private UUID loveCause;
 
-    protected void customServerAiStep() {
+    protected void customServerAiStep(ServerLevel pLevel) {
         if (this.getAge() != 0) {
             this.inLove = 0;
         }
 
-        super.customServerAiStep();
+        super.customServerAiStep(pLevel);
     }
 
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        if (this.isInvulnerableTo(pSource)) {
+    @Override
+    public boolean hurtServer(ServerLevel pLevel, DamageSource pSource, float pAmount) {
+        if (this.isInvulnerableTo(pLevel, pSource)) {
             return false;
         } else {
             this.inLove = 0;
-            return super.hurt(pSource, pAmount);
+            return super.hurtServer(pLevel, pSource, pAmount);
         }
     }
 
     public int getExperienceReward() {
-        return 1 + this.level().random.nextInt(3);
+        return 1 + this.level().getRandom().nextInt(3);
     }
 
     protected void usePlayerItem(Player pPlayer, InteractionHand pHand, ItemStack pStack) {
@@ -274,7 +275,7 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
 //        } else {
 //            if (ageablemob != null) {
 //                ageablemob.setBaby(true);
-//                ageablemob.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+//                ageablemob.snapTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
 //                this.finalizeSpawnChildFromBreeding(pLevel, pMate, ageablemob);
 //                pLevel.addFreshEntityWithPassengers(ageablemob);
 //            }
@@ -285,72 +286,14 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     public void spawnChildFromBreeding(ServerLevel pLevel, AgeableWaterAnimal pMate) {
         AgeableWaterAnimal ageablemob = this.getBreedOffspring(pLevel, pMate);
 
-        final AgeableWaterAnimal.BabyFishSpawnEvent event = new BabyFishSpawnEvent(this, pMate, ageablemob);
-        ageablemob = event.getChild();
-
-        final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-        if (cancelled) {
-            //Reset the "inLove" state for the animals
-            this.setAge(6000);
-            pMate.setAge(6000);
-            this.resetLove();
-            pMate.resetLove();
-            return;
-        }
         if (ageablemob != null) {
             ageablemob.setAge(-12000);
-            ageablemob.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+            ageablemob.snapTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
             this.finalizeSpawnChildFromBreeding(pLevel, pMate, ageablemob);
             pLevel.addFreshEntityWithPassengers(ageablemob);
         }
     }
 
-    @Cancelable
-    public static class BabyFishSpawnEvent extends Event {
-        private final Mob parentA;
-        private final Mob parentB;
-        private final Player causedByPlayer;
-        private AgeableWaterAnimal child;
-
-        public BabyFishSpawnEvent(Mob parentA, Mob parentB, @Nullable AgeableWaterAnimal proposedChild) {
-            //causedByPlayer calculated here to simplify the patch.
-            Player causedByPlayer = null;
-            if (parentA instanceof AgeableWaterAnimal) {
-                causedByPlayer = ((AgeableWaterAnimal) parentA).getLoveCause();
-            }
-
-            if (causedByPlayer == null && parentB instanceof AgeableWaterAnimal) {
-                causedByPlayer = ((AgeableWaterAnimal) parentB).getLoveCause();
-            }
-
-            this.parentA = parentA;
-            this.parentB = parentB;
-            this.causedByPlayer = causedByPlayer;
-            this.child = proposedChild;
-        }
-
-        public Mob getParentA() {
-            return parentA;
-        }
-
-        public Mob getParentB() {
-            return parentB;
-        }
-
-        @Nullable
-        public Player getCausedByPlayer() {
-            return causedByPlayer;
-        }
-
-        @Nullable
-        public AgeableWaterAnimal getChild() {
-            return child;
-        }
-
-        public void setChild(AgeableWaterAnimal proposedChild) {
-            child = proposedChild;
-        }
-    }
 
     public void finalizeSpawnChildFromBreeding(ServerLevel pLevel, AgeableWaterAnimal pAnimal, @Nullable AgeableWaterAnimal pBaby) {
         Optional.ofNullable(this.getLoveCause()).or(() -> {
@@ -364,7 +307,7 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         this.resetLove();
         pAnimal.resetLove();
         pLevel.broadcastEntityEvent(this, (byte) 18);
-        if (pLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+        if (pLevel.getGameRules().get(GameRules.MOB_DROPS)) {
             pLevel.addFreshEntity(new ExperienceOrb(pLevel, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
 
@@ -385,30 +328,30 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_BABY_ID, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_BABY_ID, false);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Age", this.getAge());
-        pCompound.putInt("ForcedAge", this.forcedAge);
+    public void addAdditionalSaveData(ValueOutput pOutput) {
+        super.addAdditionalSaveData(pOutput);
+        pOutput.putInt("Age", this.getAge());
+        pOutput.putInt("ForcedAge", this.forcedAge);
 
-        pCompound.putInt("InLove", this.inLove);
+        pOutput.putInt("InLove", this.inLove);
         if (this.loveCause != null) {
-            pCompound.putUUID("LoveCause", this.loveCause);
+            pOutput.store("LoveCause", UUIDUtil.CODEC, this.loveCause);
         }
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setAge(pCompound.getInt("Age"));
-        this.forcedAge = pCompound.getInt("ForcedAge");
-        this.inLove = pCompound.getInt("InLove");
-        this.loveCause = pCompound.hasUUID("LoveCause") ? pCompound.getUUID("LoveCause") : null;
+    public void readAdditionalSaveData(ValueInput pInput) {
+        super.readAdditionalSaveData(pInput);
+        this.setAge(pInput.getIntOr("Age", 0));
+        this.forcedAge = pInput.getIntOr("ForcedAge", 0);
+        this.inLove = pInput.getIntOr("InLove", 0);
+        this.loveCause = pInput.read("LoveCause", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
@@ -420,7 +363,7 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     public void aiStep() {
         super.aiStep();
 
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.forcedAgeTimer > 0) {
                 if (this.forcedAgeTimer % 4 == 0) {
                     this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
@@ -455,12 +398,12 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     }
 
     @Override
-    public InteractionResult interactAt(Player pPlayer, Vec3 pVec, InteractionHand pHand) {
+    public InteractionResult interact(Player pPlayer, InteractionHand pHand, Vec3 pVec) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
 
         if (this.isFood(itemstack)) {
             int i = this.getAge();
-            if (!this.level().isClientSide && i == 0 && this.canFallInLove()) {
+            if (!this.level().isClientSide() && i == 0 && this.canFallInLove()) {
                 this.usePlayerItem(pPlayer, pHand, itemstack);
                 this.setInLove(pPlayer);
                 return InteractionResult.SUCCESS;
@@ -469,15 +412,15 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
             if (this.isBaby()) {
                 this.usePlayerItem(pPlayer, pHand, itemstack);
                 this.ageUp(getSpeedUpSecondsWhenFeeding(-i), true);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return InteractionResult.SUCCESS;
             }
 
-            if (this.level().isClientSide) {
+            if (this.level().isClientSide()) {
                 return InteractionResult.CONSUME;
             }
         }
 
-        return super.interactAt(pPlayer, pVec, pHand);
+        return super.interact(pPlayer, pHand, pVec);
     }
 
     public boolean isFood(ItemStack pStack) {
