@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/river_pebble_snail_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -4672853
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -10069934
+      }
+    ]
+  }
+}

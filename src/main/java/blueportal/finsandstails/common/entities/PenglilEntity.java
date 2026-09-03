@@ -71,6 +71,7 @@ import blueportal.finsandstails.registry.FTSounds;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
+import net.minecraft.world.item.component.CustomModelData;
 
 public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PenglilEntity.class, EntityDataSerializers.INT);
@@ -264,6 +265,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     public void saveToBucketTag(ItemStack bucket) {
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, tag -> {
             tag.putInt("Variant", this.getVariant());
+            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant())), List.of()));
             if (this.isTame() && this.getOwnerReference() != null) {
                 tag.store("Owner", UUIDUtil.CODEC, this.getOwnerReference().getUUID());
             }

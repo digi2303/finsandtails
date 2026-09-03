@@ -36,6 +36,8 @@ import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveC
 import blueportal.finsandstails.registry.FTItems;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.CustomModelData;
+import java.util.List;
 //? if >=26.2 {
 /*import net.minecraft.world.entity.Bucketable;
 *///?} else {
@@ -91,6 +93,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
     public void saveToBucketTag(ItemStack bucket) {
         CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());
+        bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant())), List.of()));
         if (this.hasCustomName()) {
             bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/gopjet_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -3153665
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -12567440
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/teal_arrowfish_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -16694718
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -12419958
+      }
+    ]
+  }
+}

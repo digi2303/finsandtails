@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/papa_wee_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -7644611
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1325996
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/rubber_belly_glider_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -7485313
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -15060
+      }
+    ]
+  }
+}

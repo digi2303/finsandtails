@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/banded_redback_shrimp_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -15641514
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -3729133
+      }
+    ]
+  }
+}

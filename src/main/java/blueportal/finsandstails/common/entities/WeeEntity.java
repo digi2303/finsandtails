@@ -30,6 +30,7 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
+import net.minecraft.world.item.component.CustomModelData;
 //? if >=26.2 {
 /*import net.minecraft.world.entity.Bucketable;
 *///?} else {
@@ -107,6 +108,7 @@ public class WeeEntity extends AbstractSchoolingFish {
     public void saveToBucketTag(ItemStack bucket) {
         CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());
+        bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant())), List.of()));
         if (this.hasCustomName()) {
             bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

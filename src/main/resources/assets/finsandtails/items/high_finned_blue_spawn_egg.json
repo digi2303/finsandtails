@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/high_finned_blue_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -11833727
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -12427643
+      }
+    ]
+  }
+}

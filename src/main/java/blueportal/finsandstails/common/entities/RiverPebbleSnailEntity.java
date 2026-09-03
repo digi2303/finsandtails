@@ -49,6 +49,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
+import net.minecraft.world.item.component.CustomModelData;
+import java.util.List;
 
 public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucketable {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(RiverPebbleSnailEntity.class, EntityDataSerializers.INT);
@@ -243,6 +245,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     public void saveToBucketTag(ItemStack stack) {
         CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());
+        stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant())), List.of()));
         if (this.hasCustomName()) {
             stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

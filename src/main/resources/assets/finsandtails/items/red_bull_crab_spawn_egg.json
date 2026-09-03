@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/red_bull_crab_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -9548739
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -5886677
+      }
+    ]
+  }
+}

@@ -36,7 +36,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public class ArmoredGopjetJetpackItem extends Item {
-    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_ARMORED_GOPJET_JETPACK);
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create("horatee_jet_jetpack", 0, new int[]{2, 5, 6, 2}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_ARMORED_GOPJET_JETPACK);
 
     private final Random random = new Random();
     private int bubbleSoundTime;

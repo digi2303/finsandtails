@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/flatback_sucker_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -7765148
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -11832186
+      }
+    ]
+  }
+}

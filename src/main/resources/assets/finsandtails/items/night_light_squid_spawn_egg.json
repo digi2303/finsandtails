@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/night_light_squid_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -14153689
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -2689045
+      }
+    ]
+  }
+}

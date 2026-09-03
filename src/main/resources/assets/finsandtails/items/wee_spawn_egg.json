@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/wee_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -13132607
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -13672044
+      }
+    ]
+  }
+}

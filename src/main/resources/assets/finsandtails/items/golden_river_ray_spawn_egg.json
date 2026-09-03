@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/golden_river_ray_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -5135009
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -9679044
+      }
+    ]
+  }
+}

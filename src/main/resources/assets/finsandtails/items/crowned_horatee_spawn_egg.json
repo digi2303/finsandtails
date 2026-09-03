@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/crowned_horatee_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -547523
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -5027045
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "property": "minecraft:broken",
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "finsandtails:item/gem_crab_amulet_broken"
+    },
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "finsandtails:item/gem_crab_amulet"
+    }
+  }
+}

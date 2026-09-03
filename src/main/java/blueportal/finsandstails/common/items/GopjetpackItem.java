@@ -36,7 +36,7 @@ import net.minecraft.world.entity.Entity;
 import java.util.Random;
 
 public class GopjetpackItem extends Item {
-    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_GOPJET_JETPACK);
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create("gopjet_jetpack", 0, new int[]{0, 0, 0, 0}, 1, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, FTTags.REPAIRS_GOPJET_JETPACK);
     private final Random random = new Random();
     private int bubbleSoundTime;
 

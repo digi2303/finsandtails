@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/wherble_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -13682363
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -7423796
+      }
+    ]
+  }
+}

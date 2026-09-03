@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "finsandtails:item/vibra_wee_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -16049584
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1008587
+      }
+    ]
+  }
+}
