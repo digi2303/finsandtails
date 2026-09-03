@@ -28,7 +28,7 @@ import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class WanderingSailorEntity extends AbstractVillager implements Merchant {
@@ -84,14 +84,14 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
             }
 
             if (this.getOffers().isEmpty()) {
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             } else {
-                if (!this.level().isClientSide) {
+                if (!this.level().isClientSide()) {
                     this.setTradingPlayer(p_230254_1_);
                     this.openTradingScreen(p_230254_1_, this.getDisplayName(), 0);
                 }
 
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             }
         } else {
             return super.mobInteract(p_230254_1_, p_230254_2_);

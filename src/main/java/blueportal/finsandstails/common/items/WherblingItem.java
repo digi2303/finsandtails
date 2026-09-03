@@ -29,12 +29,12 @@ public class WherblingItem extends MobBucketItem {
 
         player.playSound(FTSounds.WHERBLE_THROW.get(), 1.5F,  (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F + 1.5F );
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE.get(), level);
             UUID id = wherble.getUUID();
             wherble.deserializeNBT(itemstack.getOrCreateTag().getCompound("WherbleData"));
             wherble.setUUID(id);
-            wherble.moveTo(player.getEyePosition());
+            wherble.snapTo(player.getEyePosition());
             wherble.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
             wherble.setProjectile(true);
             wherble.setThrower(player.getUUID());

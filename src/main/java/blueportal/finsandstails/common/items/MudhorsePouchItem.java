@@ -17,7 +17,7 @@ public class MudhorsePouchItem extends Item {
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!world.isClientSide && hand == InteractionHand.MAIN_HAND) {
+        if (!world.isClientSide() && hand == InteractionHand.MAIN_HAND) {
             player.openMenu(new SimpleMenuProvider((windowId, inventory, owner) -> new MudhorsePouchContainer(windowId, inventory), stack.getHoverName()));
         }
         return InteractionResult.SUCCESS;

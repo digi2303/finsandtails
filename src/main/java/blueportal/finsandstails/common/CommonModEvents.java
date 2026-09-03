@@ -46,7 +46,7 @@ public class CommonModEvents {
                 UUID id = wherble.getUUID();
                 wherble.deserializeNBT(stack.getOrCreateTag().getCompound("WherbleData"));
                 wherble.setUUID(id);
-                wherble.moveTo(pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F);
+                wherble.snapTo(pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F);
                 wherble.setProjectile(true);
                 wherble.shoot(direction.getStepX(), ((float)direction.getStepY() + 0.1F), direction.getStepZ(), 3.0F, 0.0F);
 

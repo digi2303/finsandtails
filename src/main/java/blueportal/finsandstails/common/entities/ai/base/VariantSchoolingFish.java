@@ -5,13 +5,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import blueportal.finsandstails.common.entities.ai.goals.BucketableFollowLeaderGoal;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -87,7 +87,7 @@ public abstract class VariantSchoolingFish extends AbstractFish implements IVari
 
     public void pathToLeader() {
         if (this.isFollower()) {
-            this.getNavigation().moveTo(this.leader, 1.0D);
+            this.getNavigation().snapTo(this.leader, 1.0D);
         }
     }
 

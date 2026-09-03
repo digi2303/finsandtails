@@ -21,7 +21,7 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,7 +30,7 @@ import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class WhiteBullCrabEntity extends WaterAnimal {
@@ -153,7 +153,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
             itemstack.shrink(1);
             ItemStack itemstack1 = this.getFishBucket();
             this.setBucketData(itemstack1);
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)p_230254_1_, itemstack1);
             }
 
@@ -164,7 +164,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
             }
 
             this.discard();
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         } else {
             return super.mobInteract(p_230254_1_, p_230254_2_);
         }

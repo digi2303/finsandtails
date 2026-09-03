@@ -117,7 +117,7 @@ public class GopjetpackItem extends ArmorItem {
                             world.playSound(player, player.blockPosition(), FTSounds.JETPACK_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                         }
 
-                        if (world.isClientSide) {
+                        if (world.isClientSide()) {
                             for (int i = 0; i < 4; i++) {
                                 float sign = Math.signum(i - 2);
                                 if (sign == 0) {

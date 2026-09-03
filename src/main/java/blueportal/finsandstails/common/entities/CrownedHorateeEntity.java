@@ -484,7 +484,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 					if (serverplayer != null) {
 						ageablemob.addTrustedUUID(serverplayer.getUUID());
 					}
-					ageablemob.moveTo(this.crownedHorateeEntity.getX(), this.crownedHorateeEntity.getY(), this.crownedHorateeEntity.getZ(), 0.0F, 0.0F);
+					ageablemob.snapTo(this.crownedHorateeEntity.getX(), this.crownedHorateeEntity.getY(), this.crownedHorateeEntity.getZ(), 0.0F, 0.0F);
 					serverLevel.addFreshEntityWithPassengers(ageablemob);
 					serverLevel.broadcastEntityEvent(this.crownedHorateeEntity, (byte) 18);
 					if (serverLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
@@ -539,7 +539,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		}
 
 		public void start() {
-			this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+			this.mob.getNavigation().snapTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
 		}
 
 		@javax.annotation.Nullable

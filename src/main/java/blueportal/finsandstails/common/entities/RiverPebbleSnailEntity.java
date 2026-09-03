@@ -26,14 +26,14 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -90,7 +90,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     public void aiStep() {
         super.aiStep();
 
-        if (!this.level().isClientSide && this.isAlive() && getVariant() == 5) {
+        if (!this.level().isClientSide() && this.isAlive() && getVariant() == 5) {
             if (--this.shimmerCooldown <= 0) {
                 this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.shimmerCooldown = this.random.nextInt(100) + 200;
@@ -156,7 +156,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
             heldItem.shrink(1);
             ItemStack bucket = getBucketItemStack();
             this.saveToBucketTag(bucket);
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucket);
                 heldItem.getOrCreateTag().putInt("Age", getAge());
             }

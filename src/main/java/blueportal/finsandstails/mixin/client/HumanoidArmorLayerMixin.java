@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import blueportal.finsandstails.client.render.item.FTArmorRenderProperties;
 import blueportal.finsandstails.common.items.GopjetpackItem;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 @Mixin(HumanoidArmorLayer.class)

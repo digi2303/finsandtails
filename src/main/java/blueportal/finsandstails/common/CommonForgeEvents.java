@@ -187,7 +187,7 @@ public class CommonForgeEvents {
         if (player.isSecondaryUseActive() && player.getItemInHand(hand).isEmpty() && player.hasPassenger(e -> e instanceof PenglilEntity)) {
             PenglilEntity penglil = (PenglilEntity) player.getFirstPassenger();
             penglil.stopRiding();
-            penglil.moveTo(pos.relative(dir), player.getYRot(), player.getXRot());
+            penglil.snapTo(pos.relative(dir), player.getYRot(), player.getXRot());
             player.swing(hand);
         }
     }

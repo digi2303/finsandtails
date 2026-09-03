@@ -18,14 +18,14 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import blueportal.finsandstails.registry.FTItems;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class NightLightSquidEntity extends AbstractSchoolingFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(NightLightSquidEntity.class, EntityDataSerializers.INT);

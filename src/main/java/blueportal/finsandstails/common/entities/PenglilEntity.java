@@ -56,7 +56,7 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable {
@@ -183,7 +183,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             playSound(this.getPickupSound(), 1.0F, 1.0F);
             heldItem.shrink(1);
             this.saveToBucketTag(itemstack1);
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
             }
             if (heldItem.isEmpty()) {
@@ -469,7 +469,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void start() {
             if (this.bedPos != null) {
                 this.penglil.setOrderedToSit(false);
-                this.penglil.getNavigation().moveTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
+                this.penglil.getNavigation().snapTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
             }
 
         }
@@ -504,7 +504,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void tick() {
             if (this.owner != null && this.bedPos != null) {
                 this.penglil.setOrderedToSit(false);
-                this.penglil.getNavigation().moveTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
+                this.penglil.getNavigation().snapTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
                 if (this.penglil.distanceToSqr(this.owner) < 2.5D) {
                     ++this.tickCounter;
                     if (this.tickCounter > 16) {
@@ -580,7 +580,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void start() {
             List<ItemEntity> list = PenglilEntity.this.level().getEntitiesOfClass(ItemEntity.class, PenglilEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Dolphin.ALLOWED_ITEMS);
             if (!list.isEmpty()) {
-                PenglilEntity.this.getNavigation().moveTo(list.get(0), 1.2F);
+                PenglilEntity.this.getNavigation().snapTo(list.get(0), 1.2F);
                 PenglilEntity.this.playSound(FTSounds.PENGLIL_AMBIENT.get(), 1.0F, 1.0F);
             }
 
@@ -604,7 +604,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 this.drop(itemstack);
                 PenglilEntity.this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
             } else if (!list.isEmpty()) {
-                PenglilEntity.this.getNavigation().moveTo(list.get(0), 1.2F);
+                PenglilEntity.this.getNavigation().snapTo(list.get(0), 1.2F);
             }
 
         }

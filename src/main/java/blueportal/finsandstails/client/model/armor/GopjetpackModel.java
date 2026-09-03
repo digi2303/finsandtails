@@ -37,7 +37,7 @@ public class GopjetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
 		float limbSwingAmount = entity.walkAnimation.speed(partialTick);
 		float ageInTicks = entity.tickCount + partialTick;
 
-		if (entity.getPersistentData().getBoolean("FinsFlying") && entity.level().isClientSide) {
+		if (entity.getPersistentData().getBoolean("FinsFlying") && entity.level().isClientSide()) {
 			this.rightJet.yScale = Mth.cos(ageInTicks) * 0.5F * 0.25F + 1;
 			this.leftJet.yScale = Mth.sin(ageInTicks) * 0.5F * 0.25F + 1;
 		} else {

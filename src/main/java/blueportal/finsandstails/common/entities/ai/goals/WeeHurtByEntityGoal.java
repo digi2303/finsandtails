@@ -2,7 +2,7 @@ package blueportal.finsandstails.common.entities.ai.goals;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 import blueportal.finsandstails.common.entities.PapaWeeEntity;
 
 import java.util.List;

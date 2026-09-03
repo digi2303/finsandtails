@@ -2,7 +2,7 @@ package blueportal.finsandstails.common.entities.ai.goals;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import blueportal.finsandstails.common.entities.ai.base.IPanickableSchooling;
 

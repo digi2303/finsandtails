@@ -73,7 +73,7 @@ public class ShareTheBubbleGoal extends Goal {
 		if (--this.timeToRecalcPath <= 0) {
 			this.timeToRecalcPath = this.adjustedTickDelay(10);
 			if (!this.tamable.isLeashed() && !this.tamable.isPassenger()) {
-				this.navigation.moveTo(this.owner, this.speedModifier);
+				this.navigation.snapTo(this.owner, this.speedModifier);
 			}
 
 			if (this.tamable.distanceToSqr(this.owner) <= 16.0D) {

@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import blueportal.finsandstails.common.entities.ai.goals.TamableFollowLeaderGoal;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -83,7 +83,7 @@ public abstract class SchoolingTamableAnimal extends TamableAnimal {
 
     public void pathToLeader() {
         if (this.isFollower()) {
-            this.getNavigation().moveTo(this.leader, 5.0D);
+            this.getNavigation().snapTo(this.leader, 5.0D);
         }
 
     }

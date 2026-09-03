@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
@@ -74,7 +74,7 @@ public class FlatbackLeafSnailEntity extends Animal {
             ItemStack itemstack1 = new ItemStack(FTItems.FLATBACK_LEAF_SNAIL_POT.get());
             this.setBucketData(itemstack1);
 
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
                 heldItem.getOrCreateTag().putInt("Age", getAge());
             }

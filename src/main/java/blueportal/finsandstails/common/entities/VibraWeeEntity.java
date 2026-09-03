@@ -25,7 +25,7 @@ import blueportal.finsandstails.common.entities.ai.goals.WeeHurtByEntityGoal;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 // todo - fix schooling crash

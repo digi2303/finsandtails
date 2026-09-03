@@ -150,7 +150,7 @@ public class WherbleEntity extends Animal implements Bucketable {
             ItemStack bucket = getBucketItemStack();
             Level level = level();
 
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucket);
             }
             saveToBucketTag(bucket);
@@ -162,7 +162,7 @@ public class WherbleEntity extends Animal implements Bucketable {
             }
 
             this.discard();
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         }
         return super.mobInteract(player, hand);
     }
