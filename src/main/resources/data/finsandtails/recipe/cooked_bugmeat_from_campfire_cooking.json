@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "finsandtails:bugmeat"
+  "ingredient": "finsandtails:bugmeat",
+  "result": {
+    "id": "finsandtails:cooked_bugmeat"
   },
-  "result": "finsandtails:cooked_bugmeat",
   "experience": 0.35,
   "cookingtime": 600
 }

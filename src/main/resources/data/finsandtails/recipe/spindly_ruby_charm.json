@@ -1,12 +1,8 @@
 {
   "type": "finsandtails:crunching",
-  "base": {
-    "item": "finsandtails:empty_charm"
-  },
-  "addition": {
-    "item": "finsandtails:spindly_ruby"
-  },
+  "base": "finsandtails:empty_charm",
+  "addition": "finsandtails:spindly_ruby",
   "result": {
-    "item": "finsandtails:spindly_ruby_charm"
+    "id": "finsandtails:spindly_ruby_charm"
   }
 }

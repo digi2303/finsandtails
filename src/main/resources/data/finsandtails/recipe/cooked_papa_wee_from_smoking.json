@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "finsandtails:papa_wee"
+  "ingredient": "finsandtails:papa_wee",
+  "result": {
+    "id": "finsandtails:cooked_papa_wee"
   },
-  "result": "finsandtails:cooked_papa_wee",
   "experience": 0.35,
   "cookingtime": 100
 }

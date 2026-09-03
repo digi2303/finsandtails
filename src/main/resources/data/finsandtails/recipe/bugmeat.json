@@ -1,15 +1,13 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:ornate_bugfish"
-        }
-    },
-    "result": {
-        "item": "finsandtails:bugmeat",
-        "count": 1
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": "finsandtails:ornate_bugfish"
+  },
+  "result": {
+    "id": "finsandtails:bugmeat",
+    "count": 1
+  }
 }

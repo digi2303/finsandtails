@@ -14,7 +14,7 @@ public class FTRecipes {
 
     public static void register() {
         CRUNCHING_TYPE = registerType("crunching");
-        CRUNCHING_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, FinsAndTails.id("crunching"), new CrunchingRecipe.Serializer());
+        CRUNCHING_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, FinsAndTails.id("crunching"), new RecipeSerializer<>(CrunchingRecipe.CODEC, CrunchingRecipe.STREAM_CODEC));
     }
 
     private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {

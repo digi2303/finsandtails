@@ -1,16 +1,14 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#",
-        "#"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:pebble_shell_brick_slab"
-        }
-    },
-    "result": {
-        "item": "finsandtails:chiseled_pebble_shell_bricks",
-        "count": 1
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "finsandtails:pebble_shell_brick_slab"
+  },
+  "result": {
+    "id": "finsandtails:chiseled_pebble_shell_bricks",
+    "count": 1
+  }
 }

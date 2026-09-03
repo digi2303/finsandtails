@@ -6,15 +6,11 @@
     " C "
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:mudhorse_scale"
-    },
-    "C": {
-      "item": "finsandtails:spindly_gem_block"
-    }
+    "#": "finsandtails:mudhorse_scale",
+    "C": "finsandtails:spindly_gem_block"
   },
   "result": {
-    "item": "finsandtails:gem_crab_amulet",
+    "id": "finsandtails:gem_crab_amulet",
     "count": 1
   }
 }

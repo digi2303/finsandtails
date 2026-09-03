@@ -4,15 +4,11 @@
     "#L#"
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:fwin"
-    },
-    "L": {
-      "item": "minecraft:leather_boots"
-    }
+    "#": "finsandtails:fwin",
+    "L": "minecraft:leather_boots"
   },
   "result": {
-    "item": "finsandtails:fwinged_boots",
+    "id": "finsandtails:fwinged_boots",
     "count": 1
   }
 }

@@ -6,21 +6,13 @@
     "#C#"
   ],
   "key": {
-    "#": {
-      "tag": "minecraft:logs"
-    },
-    "C": {
-      "item": "minecraft:cobblestone"
-    },
-    "i": {
-      "item": "minecraft:iron_ingot"
-    },
-    "M": {
-      "item": "finsandtails:bugfish_mandibles"
-    }
+    "#": "#minecraft:logs",
+    "C": "minecraft:cobblestone",
+    "i": "minecraft:iron_ingot",
+    "M": "finsandtails:bugfish_mandibles"
   },
   "result": {
-    "item": "finsandtails:crab_cruncher",
+    "id": "finsandtails:crab_cruncher",
     "count": 1
   }
 }

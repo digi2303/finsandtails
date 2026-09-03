@@ -1,16 +1,14 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "##",
-        "##"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:siderol_shell"
-        }
-    },
-    "result": {
-        "item": "finsandtails:siderol_shell_bricks",
-        "count": 4
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "finsandtails:siderol_shell"
+  },
+  "result": {
+    "id": "finsandtails:siderol_shell_bricks",
+    "count": 4
+  }
 }

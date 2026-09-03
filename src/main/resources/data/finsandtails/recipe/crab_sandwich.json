@@ -1,21 +1,13 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
-            "item": "minecraft:bread"
-        },
-        {
-            "item": "minecraft:bread"
-        },
-        {
-            "tag": "finsandtails:spindly_gem_crabs"
-        },
-        {
-            "item": "finsandtails:cooked_bull_crab_claw"
-        }
-    ],
-    "result": {
-        "item": "finsandtails:crab_sandwich",
-        "count": 1
-    }
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:bread",
+    "#finsandtails:spindly_gem_crabs",
+    "finsandtails:cooked_bull_crab_claw"
+  ],
+  "result": {
+    "id": "finsandtails:crab_sandwich",
+    "count": 1
+  }
 }

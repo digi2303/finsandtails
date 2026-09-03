@@ -6,21 +6,13 @@
     "gOg"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:string"
-    },
-    "G": {
-      "item": "minecraft:gold_nugget"
-    },
-    "g": {
-      "item": "minecraft:gold_ingot"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
-    }
+    "#": "minecraft:string",
+    "G": "minecraft:gold_nugget",
+    "g": "minecraft:gold_ingot",
+    "O": "minecraft:obsidian"
   },
   "result": {
-    "item": "finsandtails:empty_charm",
+    "id": "finsandtails:empty_charm",
     "count": 1
   }
 }

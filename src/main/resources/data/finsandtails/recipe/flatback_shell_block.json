@@ -1,17 +1,15 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "###",
-        "###",
-        "###"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:flatback_shell"
-        }
-    },
-    "result": {
-        "item": "finsandtails:flatback_shell_block",
-        "count": 1
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "finsandtails:flatback_shell"
+  },
+  "result": {
+    "id": "finsandtails:flatback_shell_block",
+    "count": 1
+  }
 }

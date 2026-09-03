@@ -6,18 +6,12 @@
     "BS "
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:mudhorse_leather"
-    },
-    "B": {
-      "item": "minecraft:bamboo"
-    },
-    "S": {
-      "item": "minecraft:seagrass"
-    }
+    "#": "finsandtails:mudhorse_leather",
+    "B": "minecraft:bamboo",
+    "S": "minecraft:seagrass"
   },
   "result": {
-    "item": "finsandtails:swamp_didgeridoo",
+    "id": "finsandtails:swamp_didgeridoo",
     "count": 1
   }
 }

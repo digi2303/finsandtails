@@ -1,15 +1,13 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:flatback_sucker"
-        }
-    },
-    "result": {
-        "item": "minecraft:brown_dye",
-        "count": 1
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": "finsandtails:flatback_sucker"
+  },
+  "result": {
+    "id": "minecraft:brown_dye",
+    "count": 1
+  }
 }

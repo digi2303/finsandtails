@@ -1,12 +1,8 @@
 {
   "type": "finsandtails:crunching",
-  "base": {
-    "item": "finsandtails:empty_charm"
-  },
-  "addition": {
-    "item": "finsandtails:spindly_sapphire"
-  },
+  "base": "finsandtails:empty_charm",
+  "addition": "finsandtails:spindly_sapphire",
   "result": {
-    "item": "finsandtails:spindly_sapphire_charm"
+    "id": "finsandtails:spindly_sapphire_charm"
   }
 }

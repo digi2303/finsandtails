@@ -1,12 +1,8 @@
 {
   "type": "finsandtails:crunching",
-  "base": {
-    "item": "finsandtails:pearl_spindly_gem_crab"
-  },
-  "addition": {
-    "item": "finsandtails:pearl_spindly_gem_crab"
-  },
+  "base": "finsandtails:pearl_spindly_gem_crab",
+  "addition": "finsandtails:pearl_spindly_gem_crab",
   "result": {
-    "item": "finsandtails:spindly_pearl"
+    "id": "finsandtails:spindly_pearl"
   }
 }

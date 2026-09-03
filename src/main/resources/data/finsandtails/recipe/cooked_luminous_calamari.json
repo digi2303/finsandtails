@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "finsandtails:luminous_calamari"
+  "ingredient": "finsandtails:luminous_calamari",
+  "result": {
+    "id": "finsandtails:cooked_luminous_calamari"
   },
-  "result": "finsandtails:cooked_luminous_calamari",
   "experience": 0.35,
   "cookingtime": 200
 }

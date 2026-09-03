@@ -1,14 +1,10 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "finsandtails:pebble_shell"
-    }
+    "minecraft:paper",
+    "finsandtails:pebble_shell"
   ],
   "result": {
-    "item": "finsandtails:banner_pattern_shell"
+    "id": "finsandtails:banner_pattern_shell"
   }
 }

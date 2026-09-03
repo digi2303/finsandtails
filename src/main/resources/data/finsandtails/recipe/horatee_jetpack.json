@@ -6,15 +6,11 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:horatee_hide"
-    },
-    "J": {
-      "item": "finsandtails:gopjet_jetpack"
-    }
+    "#": "finsandtails:horatee_hide",
+    "J": "finsandtails:gopjet_jetpack"
   },
   "result": {
-    "item": "finsandtails:armored_gopjet_jetpack",
+    "id": "finsandtails:armored_gopjet_jetpack",
     "count": 1
   }
 }

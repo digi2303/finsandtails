@@ -6,11 +6,9 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:wee_wee"
-    }
+    "#": "finsandtails:wee_wee"
   },
   "result": {
-    "item": "minecraft:gray_dye"
+    "id": "minecraft:gray_dye"
   }
 }

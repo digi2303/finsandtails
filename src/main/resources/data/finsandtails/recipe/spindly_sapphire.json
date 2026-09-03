@@ -1,12 +1,10 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "finsandtails:spindly_sapphire_block"
-    }
+    "finsandtails:spindly_sapphire_block"
   ],
   "result": {
-    "item": "finsandtails:spindly_sapphire",
+    "id": "finsandtails:spindly_sapphire",
     "count": 9
   }
 }

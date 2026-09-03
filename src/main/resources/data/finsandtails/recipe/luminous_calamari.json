@@ -1,18 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "minecraft:wheat"
-    },
-    {
-      "item": "finsandtails:night_light_squid_tentacle"
-    },
-    {
-      "item": "minecraft:milk_bucket"
-    }
+    "minecraft:wheat",
+    "finsandtails:night_light_squid_tentacle",
+    "minecraft:milk_bucket"
   ],
   "result": {
-    "item": "finsandtails:luminous_calamari",
+    "id": "finsandtails:luminous_calamari",
     "count": 1
   }
 }

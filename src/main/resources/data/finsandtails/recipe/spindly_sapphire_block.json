@@ -6,11 +6,9 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "finsandtails:spindly_sapphire"
-    }
+    "#": "finsandtails:spindly_sapphire"
   },
   "result": {
-    "item": "finsandtails:spindly_sapphire_block"
+    "id": "finsandtails:spindly_sapphire_block"
   }
 }

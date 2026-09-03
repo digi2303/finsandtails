@@ -1,12 +1,10 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "finsandtails:flatback_shell_block"
-    }
+    "finsandtails:flatback_shell_block"
   ],
   "result": {
-    "item": "finsandtails:flatback_shell",
+    "id": "finsandtails:flatback_shell",
     "count": 9
   }
 }

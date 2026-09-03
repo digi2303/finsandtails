@@ -1,19 +1,15 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "s#",
-        "#s"
-    ],
-    "key": {
-        "#": {
-            "item": "finsandtails:siderol_shell"
-        },
-        "s": {
-            "item": "finsandtails:flatback_shell"
-        }
-    },
-    "result": {
-        "item": "finsandtails:mixed_flatback_shell_bricks",
-        "count": 4
-    }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "s#",
+    "#s"
+  ],
+  "key": {
+    "#": "finsandtails:siderol_shell",
+    "s": "finsandtails:flatback_shell"
+  },
+  "result": {
+    "id": "finsandtails:mixed_flatback_shell_bricks",
+    "count": 4
+  }
 }
