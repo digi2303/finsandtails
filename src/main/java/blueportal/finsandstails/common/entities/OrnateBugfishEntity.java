@@ -30,9 +30,10 @@ import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveC
 import blueportal.finsandstails.registry.FTItems;
 
 import java.util.function.Predicate;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 
 public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillCooldown {
-    public static final Predicate<LivingEntity> IS_PREY = (entity) -> entity.isAlive() && (
+    public static final TargetingConditions.Selector IS_PREY = (entity, level) -> entity.isAlive() && (
             entity instanceof TropicalFish
                     || entity instanceof Cod
                     || entity instanceof Salmon

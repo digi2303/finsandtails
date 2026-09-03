@@ -96,7 +96,7 @@ public class RubberBellyGliderEntity extends Animal {
         this.goalSelector.addGoal(3, new WaterJumpGoal(this, 10));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, SpindlyGemCrabEntity.class, 90, true, false, null));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Mob.class, 10, true, false, RubberBellyGliderEntity::isEntityPrey));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Mob.class, 10, true, false, (entity, level) -> isEntityPrey(entity)));
     }
 
     public static AttributeSupplier.Builder registerRBGAttributes() {

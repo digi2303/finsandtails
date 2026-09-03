@@ -69,7 +69,6 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    @Override
     public void registerGoals() {
         this.goalSelector.addGoal(0, new AgeableWaterAnimalBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, GoldenRiverRayEntity.class, 8.0F, 1.0D, 1.0D));

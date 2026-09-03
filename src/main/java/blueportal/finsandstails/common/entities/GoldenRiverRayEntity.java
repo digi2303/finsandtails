@@ -53,7 +53,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
         super.registerGoals();
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.85D));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, RiverPebbleSnailEntity.class, false, Entity::isInWater));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, RiverPebbleSnailEntity.class, false, (entity, level) -> entity.isInWater()));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
