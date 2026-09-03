@@ -20,11 +20,14 @@ public class NightLightSquidModel extends EntityModel<NightLightSquidRenderState
 	private final ModelPart finRight;
 	private final ModelPart finLeft;
 
+	private final ModelPart root;
+
 	private final KeyframeAnimation swimAnimation;
 
 	public NightLightSquidModel(ModelPart root) {
+		super(root);
 		this.root = root.getChild("root");
-		this.body = this.root().getChild("body");
+		this.body = this.root.getChild("body");
 		this.tentacles = this.body.getChild("tentacles");
 		this.tentacleNorth = this.tentacles.getChild("tentacleNorth");
 		this.tentacleSouth = this.tentacles.getChild("tentacleSouth");
@@ -34,6 +37,8 @@ public class NightLightSquidModel extends EntityModel<NightLightSquidRenderState
 		this.tendrilLeft = this.tentacleWest.getChild("tendrilLeft");
 		this.finRight = this.body.getChild("finRight");
 		this.finLeft = this.body.getChild("finLeft");
+
+		this.swimAnimation = NightlightSquidAnimation.SWIM.bake(root);
 	}
 
 	@Override
@@ -81,8 +86,4 @@ public class NightLightSquidModel extends EntityModel<NightLightSquidRenderState
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	@Override
-	public ModelPart root() {
-		return root;
-	}
 }

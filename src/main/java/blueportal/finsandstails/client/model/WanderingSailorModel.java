@@ -19,6 +19,7 @@ public class WanderingSailorModel extends EntityModel<WanderingSailorRenderState
 	private final ModelPart legRight;
 
 	public WanderingSailorModel(ModelPart root) {
+		super(root);
 		this.body = root.getChild("body");
 		this.head = this.body.getChild("head");
 		this.tentacles = this.head.getChild("tentacles");

@@ -24,6 +24,7 @@ public class PenglilModel extends EntityModel<PenglilRenderState> {
 	private final KeyframeAnimation walkAnimation;
 
 	public PenglilModel(ModelPart root) {
+		super(root);
 		this.all = root.getChild("all");
 		this.body = this.all.getChild("body");
 		this.tail = this.body.getChild("tail");
@@ -31,6 +32,9 @@ public class PenglilModel extends EntityModel<PenglilRenderState> {
 		this.leftWing = this.body.getChild("leftWing");
 		this.leftFoot = this.all.getChild("leftFoot");
 		this.rightFoot = this.all.getChild("rightFoot");
+
+		this.swimAnimation = PenglilAnimation.SWIM.bake(root);
+		this.walkAnimation = PenglilAnimation.WALK.bake(root);
 	}
 
 	@Override
