@@ -41,7 +41,8 @@ public class VibraWeeRenderer extends MobRenderer<VibraWeeEntity, VibraWeeRender
     public void extractRenderState(VibraWeeEntity entity, VibraWeeRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.moving = entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-        state.variant = entity.getVariant();    }
+        state.variant = entity.getVariant();
+    }
 
     @Override
     public Identifier getTextureLocation(VibraWeeRenderState state) {

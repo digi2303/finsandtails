@@ -59,15 +59,7 @@ public class FlatbackSuckerModel extends EntityModel<FlatbackSuckerRenderState> 
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-            this.root.xRot = (Mth.cos(((animTime - 0F) * 1440F) * Mth.DEG_TO_RAD) * 0.4F) * Mth.DEG_TO_RAD;
-            this.root.yRot = (-(Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 4F)) * Mth.DEG_TO_RAD;
-            this.root.y += -(Mth.cos(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 0.2F);
-            this.finBackLeft.yRot = (-(Mth.sin(((animTime - 0.1F) * 720F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
-            this.finFrontLeft.yRot = (-(Mth.sin(((animTime - 0.1F) * 720F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
-            this.tail.yRot = (-(Mth.sin(((animTime - 0.1F) * 720F) * Mth.DEG_TO_RAD) * 8F)) * Mth.DEG_TO_RAD;
-            this.tailFin.yRot = (-(Mth.sin(((animTime - 0.2F) * 720F) * Mth.DEG_TO_RAD) * 11F)) * Mth.DEG_TO_RAD;
-            this.finBackRight.yRot = (-(Mth.sin(((animTime - 0.1F) * 720F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
-            this.finFrontRight.yRot = (-(Mth.sin(((animTime - 0.1F) * 720F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
+
         } else {
             this.whiskers.xRot = (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 5F) * Mth.DEG_TO_RAD;
             this.tail.yRot = (-(Mth.sin(((animTime - 0F) * 90F) * Mth.DEG_TO_RAD) * 16F)) * Mth.DEG_TO_RAD;

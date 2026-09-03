@@ -1,33 +1,42 @@
-
 package blueportal.finsandstails.client.render;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.FlatbackLeafSnailModel;
+import blueportal.finsandstails.client.render.state.FlatbackLeafSnailRenderState;
 import blueportal.finsandstails.common.entities.FlatbackLeafSnailEntity;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.Identifier;
 
-public class FlatbackLeafSnailRenderer extends GeoEntityRenderer<FlatbackLeafSnailEntity> {
+public class FlatbackLeafSnailRenderer extends MobRenderer<FlatbackLeafSnailEntity, FlatbackLeafSnailRenderState, FlatbackLeafSnailModel> {
+    private static final Identifier TEXTURE = FinsAndTails.id("textures/entity/flatback_leaf_snail.png");
 
     public FlatbackLeafSnailRenderer(EntityRendererProvider.Context context) {
-        super(context, new FlatbackLeafSnailModel());
-        this.shadowRadius = 0.3F;
+        super(context, new FlatbackLeafSnailModel(context.bakeLayer(FlatbackLeafSnailModel.LAYER_LOCATION)), 0.3F);
     }
 
     @Override
-    public RenderType getRenderType(FlatbackLeafSnailEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityTranslucent(texture);
+    public FlatbackLeafSnailRenderState createRenderState() {
+        return new FlatbackLeafSnailRenderState();
     }
 
     @Override
-    public void render(FlatbackLeafSnailEntity entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        if (entity.isBaby()) {
+    public void extractRenderState(FlatbackLeafSnailEntity entity, FlatbackLeafSnailRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        state.moving = entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
+
+    @Override
+    protected void scale(FlatbackLeafSnailRenderState state, PoseStack poseStack) {
+        super.scale(state, poseStack);
+        if (state.isBaby) {
             poseStack.scale(0.5F, 0.5F, 0.5F);
         }
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    }
+
+    @Override
+    public Identifier getTextureLocation(FlatbackLeafSnailRenderState state) {
+        return TEXTURE;
     }
 }

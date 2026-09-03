@@ -62,16 +62,7 @@ public class PapaWeeModel extends EntityModel<PapaWeeRenderState> {
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-            this.lips.xRot = (2F + (Mth.sin(((animTime - 0.3F) * 180F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
-            this.tail.yRot = (-(Mth.sin(((animTime - 0.25F) * 360F) * Mth.DEG_TO_RAD) * 7F)) * Mth.DEG_TO_RAD;
-            this.caudalFin.yRot = (-(Mth.sin(((animTime - 0.4F) * 360F) * Mth.DEG_TO_RAD) * 9F)) * Mth.DEG_TO_RAD;
-            this.secondaryDorsalFin.zRot = (-(Mth.sin(((animTime - 0.32F) * 360F) * Mth.DEG_TO_RAD) * 8F)) * Mth.DEG_TO_RAD;
-            this.dorsalFin.zRot = (-(Mth.sin(((animTime - 0.25F) * 360F) * Mth.DEG_TO_RAD) * 8F)) * Mth.DEG_TO_RAD;
-            this.analFin.zRot = (-(Mth.sin(((animTime - 0.37F) * 360F) * Mth.DEG_TO_RAD) * (-8F))) * Mth.DEG_TO_RAD;
-            this.rightPectoralFin.xRot = (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 12F) * Mth.DEG_TO_RAD;
-            this.rightPectoralFin.zRot = (-((-42.5F) + (Mth.cos(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 25F))) * Mth.DEG_TO_RAD;
-            this.leftPectoralFin.xRot = (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 12F) * Mth.DEG_TO_RAD;
-            this.leftPectoralFin.zRot = (-(42.5F + (Mth.cos(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * (-25F)))) * Mth.DEG_TO_RAD;
+
         } else {
             this.lips.xRot = (2.5F + (Mth.cos(((animTime - 0F) * 120F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
             this.tail.xRot = (Mth.cos(((animTime - 0.2F) * 120F) * Mth.DEG_TO_RAD) * (-3F)) * Mth.DEG_TO_RAD;

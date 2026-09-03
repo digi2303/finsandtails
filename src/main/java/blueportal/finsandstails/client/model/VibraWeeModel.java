@@ -59,13 +59,7 @@ public class VibraWeeModel extends EntityModel<VibraWeeRenderState> {
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-            this.leftPelvicFin.zRot = (-(45F + (Mth.sin(((animTime - 0.25F) * 720F) * Mth.DEG_TO_RAD) * 5F))) * Mth.DEG_TO_RAD;
-            this.rightPelvicFin.zRot = (-((-45F) + (Mth.sin(((animTime - 0.25F) * 720F) * Mth.DEG_TO_RAD) * (-5F)))) * Mth.DEG_TO_RAD;
-            this.tailFin.yRot = (-(Mth.sin(((animTime - 0.3F) * 360F) * Mth.DEG_TO_RAD) * 16F)) * Mth.DEG_TO_RAD;
-            this.leftPectoralFin.xRot = (Mth.cos(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 2F) * Mth.DEG_TO_RAD;
-            this.leftPectoralFin.yRot = (-((-12.5F) + (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * (-10F)))) * Mth.DEG_TO_RAD;
-            this.rightPectoralFin.xRot = (Mth.cos(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 2F) * Mth.DEG_TO_RAD;
-            this.rightPectoralFin.yRot = (-(12.5F + (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 10F))) * Mth.DEG_TO_RAD;
+
         } else {
             this.leftPelvicFin.zRot = (-(40F + (Mth.cos(((animTime - 0.3F) * 180F) * Mth.DEG_TO_RAD) * (-4F)))) * Mth.DEG_TO_RAD;
             this.rightPelvicFin.zRot = (-((-40F) + (Mth.cos(((animTime - 0.3F) * 180F) * Mth.DEG_TO_RAD) * 4F))) * Mth.DEG_TO_RAD;
