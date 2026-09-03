@@ -19,7 +19,6 @@ import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.registry.FTItems;
 
@@ -36,7 +35,6 @@ public class GopjetEntity extends AbstractFish {
         super(type, world);
         this.moveControl = new MoveHelperController(this);
         this.lookControl = new SmoothSwimmingLookControl(this, 50);
-
     }
 
     @Override
@@ -130,7 +128,6 @@ public class GopjetEntity extends AbstractFish {
         return new ItemStack(FTItems.GOPJET_SPAWN_EGG);
     }
 
-
     static class MoveHelperController extends FTSmoothSwimmingMoveControl {
         private final GopjetEntity gopjet;
 
@@ -169,7 +166,6 @@ public class GopjetEntity extends AbstractFish {
                     } else {
                         this.gopjet.setSpeed(f1 * 0.1F);
                     }
-
                 }
             } else {
                 this.gopjet.setSpeed(0.0F);

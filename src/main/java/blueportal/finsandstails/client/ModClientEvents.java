@@ -1,6 +1,5 @@
 package blueportal.finsandstails.client;
 
-import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.*;
 import blueportal.finsandstails.client.model.armor.FwingedBootsModel;
 import blueportal.finsandstails.client.model.armor.GopjetpackModel;
@@ -13,12 +12,9 @@ import blueportal.finsandstails.client.screen.CrabCruncherScreen;
 import blueportal.finsandstails.client.screen.MudhorsePouchScreen;
 import blueportal.finsandstails.impl.platform.ClientAbstraction;
 import blueportal.finsandstails.registry.*;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.resources.Identifier;
 
 public class ModClientEvents {
-
     public static void register() {
         registerEntityLayers();
         registerEntityRenders();
@@ -82,5 +78,4 @@ public class ModClientEvents {
         ClientAbstraction.INSTANCE.registerScreen(FTContainers.MUDHORSE_POUCH, MudhorsePouchScreen::new);
         ClientAbstraction.INSTANCE.registerScreen(FTContainers.CRAB_CRUNCHER, CrabCruncherScreen::new);
     }
-
 }

@@ -32,7 +32,6 @@ public class WeeRenderer extends MobRenderer<WeeEntity, WeeRenderState, WeeModel
 
     @Override
     public Identifier getTextureLocation(WeeRenderState state) {
-
         return switch (state.variant) {
             case 1 -> PEA_WEE_LOCATION;
             case 2 -> MUCK_WEE_LOCATION;

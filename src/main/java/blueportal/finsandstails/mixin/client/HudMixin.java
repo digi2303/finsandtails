@@ -20,7 +20,6 @@ import net.minecraft.client.gui.Gui;
 @Mixin(Gui.class)
 //?}
 public abstract class HudMixin {
-
     @Inject(method = "extractHearts", at = @At("HEAD"), cancellable = true)
     private void FT$extractHearts(GuiGraphicsExtractor extractor, Player player, int x, int y, int rowHeight, int regen, float healthMax, int health, int displayHealth, int absorption, boolean highlight, CallbackInfo ci) {
         if (FTHudRenderer.shouldReplaceHearts(player)) {

@@ -14,14 +14,12 @@ import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import java.util.List;
 
 public class FlatbackSuckerEntity extends AbstractFish {
-
     public FlatbackSuckerEntity(EntityType<? extends FlatbackSuckerEntity> type, Level world) {
         super(type, world);
         this.moveControl = new MoveHelperController(this);

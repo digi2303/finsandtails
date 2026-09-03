@@ -61,5 +61,4 @@ public class FlatbackLeafSnailModel extends EntityModel<FlatbackLeafSnailRenderS
             this.root.z += Mth.cos((animTime * 360F) * Mth.DEG_TO_RAD) * 0.09F;
         }
     }
-
 }

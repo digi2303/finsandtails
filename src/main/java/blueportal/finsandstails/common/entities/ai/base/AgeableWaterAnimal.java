@@ -91,7 +91,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         if (this.getAge() == 0) {
             this.setAge(this.forcedAge);
         }
-
     }
 
     public void ageUp(int pAmount) {
@@ -105,7 +104,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
             this.entityData.set(DATA_BABY_ID, pAge < 0);
             this.ageBoundaryReached();
         }
-
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
@@ -126,7 +124,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
                 }
             }
         }
-
     }
 
     public boolean isBaby() {
@@ -176,7 +173,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         }
     }
 
-
     //animal
 
     protected static final int PARENT_AGE_AFTER_BREEDING = 6000;
@@ -210,7 +206,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         if (!pPlayer.getAbilities().instabuild) {
             pStack.shrink(1);
         }
-
     }
 
     public boolean canFallInLove() {
@@ -294,7 +289,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         }
     }
 
-
     public void finalizeSpawnChildFromBreeding(ServerLevel pLevel, AgeableWaterAnimal pAnimal, @Nullable AgeableWaterAnimal pBaby) {
         Optional.ofNullable(this.getLoveCause()).or(() -> {
             return Optional.ofNullable(pAnimal.getLoveCause());
@@ -310,7 +304,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         if (pLevel.getGameRules().get(GameRules.MOB_DROPS)) {
             pLevel.addFreshEntity(new ExperienceOrb(pLevel, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
         }
-
     }
 
     public void handleEntityEvent(byte pId) {
@@ -324,7 +317,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
         } else {
             super.handleEntityEvent(pId);
         }
-
     }
 
     @Override

@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import java.util.UUID;
 
 public class CommonModEvents {
-
     public static void register() {
         CommonAbstraction.INSTANCE.registerPotionBrewing((registrar) ->
                 registrar.addPotionRecipe(Potions.AWKWARD, FTItems.NIGHT_LIGHT_SQUID_TENTACLE, Potions.NIGHT_VISION));

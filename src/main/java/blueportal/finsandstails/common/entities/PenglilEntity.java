@@ -407,7 +407,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 p_28357_.discard();
             }
         }
-
     }
 
     static class MorningGiftGoal extends Goal {
@@ -468,7 +467,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 this.penglil.setOrderedToSit(false);
                 this.penglil.getNavigation().moveTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
             }
-
         }
 
         public void stop() {
@@ -495,7 +493,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             for(ItemStack itemstack : loottable.getRandomItems(lootcontext$builder.create(LootContextParamSets.GIFT))) {
                 this.penglil.level().addFreshEntity(new ItemEntity(this.penglil.level(), (double)mutable.getX() - (double)Mth.sin(this.penglil.yBodyRot * ((float)Math.PI / 180F)), (double)mutable.getY(), (double)mutable.getZ() + (double)Mth.cos(this.penglil.yBodyRot * ((float)Math.PI / 180F)), itemstack));
             }
-
         }
 
         public void tick() {
@@ -515,7 +512,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                     this.penglil.setLying(false);
                 }
             }
-
         }
     }
 
@@ -591,7 +587,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 PenglilEntity.this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 this.cooldown = PenglilEntity.this.tickCount + PenglilEntity.this.random.nextInt(100);
             }
-
         }
 
         public void tick() {
@@ -603,7 +598,6 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
             } else if (!list.isEmpty()) {
                 PenglilEntity.this.getNavigation().moveTo(list.get(0), 1.2F);
             }
-
         }
 
         private void drop(ItemStack p_28429_) {

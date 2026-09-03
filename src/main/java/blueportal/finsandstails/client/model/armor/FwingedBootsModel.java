@@ -11,7 +11,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
 public class FwingedBootsModel<T extends HumanoidRenderState> extends HumanoidModel<T> {
-
 	public FwingedBootsModel(ModelPart root) {
 		super(root);
 	}

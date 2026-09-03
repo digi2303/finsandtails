@@ -15,7 +15,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class SpindlyGauntletItem extends CrabGauntletItem {
-
     public SpindlyGauntletItem(ToolMaterial tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -26,13 +25,11 @@ public class SpindlyGauntletItem extends CrabGauntletItem {
             int i = this.getUseDuration(stack, entity) - t;
             if (i < 0) return;
 
-
             List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(40F));
 
             for (LivingEntity potentialTarget : list) {
                 if (player.hasLineOfSight(potentialTarget) && lookAt(player, potentialTarget, 1.0)) {
                     for (int j = 0; j < 20; j++) {
-
                         Vec3 playerPos = player.position();
                         Vec3 targetPos = potentialTarget.position();
 

@@ -2,7 +2,6 @@ package blueportal.finsandstails.common.entities;
 
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,7 +26,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import blueportal.finsandstails.common.entities.ai.goals.WaterJumpGoal;
 import blueportal.finsandstails.common.entities.ai.control.GroundAndSwimmerNavigator;
@@ -60,7 +58,6 @@ public class RubberBellyGliderEntity extends Animal {
                 if (this.mob.isInWater()) {
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, -0.0025D, 0.0D));
                 }
-
             }
         };
         this.lookControl = new SmoothSwimmingLookControl(this, 30);

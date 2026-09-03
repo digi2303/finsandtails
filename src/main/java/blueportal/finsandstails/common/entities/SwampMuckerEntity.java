@@ -10,12 +10,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.goals.WaterJumpGoal;
 import blueportal.finsandstails.registry.FTItems;
 
 public class SwampMuckerEntity  extends AbstractSchoolingFish {
-
     public SwampMuckerEntity(EntityType<? extends SwampMuckerEntity> type, Level world) {
         super(type, world);
     }

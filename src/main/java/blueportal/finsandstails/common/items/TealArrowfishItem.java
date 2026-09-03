@@ -11,13 +11,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.function.Consumer;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
 
-import java.util.List;
 
 public class TealArrowfishItem extends ArrowItem {
-
     public TealArrowfishItem(Properties builder) {
         super(builder);
     }
@@ -30,7 +27,6 @@ public class TealArrowfishItem extends ArrowItem {
         arrow.setBaseDamage(2.25);
         return arrow;
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag flag) {

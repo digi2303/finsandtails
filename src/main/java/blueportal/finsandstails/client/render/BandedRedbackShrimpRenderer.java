@@ -16,8 +16,6 @@ public class BandedRedbackShrimpRenderer extends MobRenderer<BandedRedbackShrimp
         super(ctx, new BandedRedbackShrimpModel(ctx.bakeLayer(FTModelLayers.BANDED_REDBACK_SHRIMP)), 0.3f);
     }
 
-
-
     @Override
     public BandedRedbackShrimpRenderState createRenderState() {
         return new BandedRedbackShrimpRenderState();

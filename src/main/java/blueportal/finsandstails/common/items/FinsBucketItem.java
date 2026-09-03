@@ -29,8 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
-
 
 public class FinsBucketItem extends MobBucketItem {
     private final EntityType<? extends Mob> entityType;
@@ -77,5 +75,4 @@ public class FinsBucketItem extends MobBucketItem {
             tooltip.accept(Component.translatable(this.entityType.getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         }
     }
-
 }

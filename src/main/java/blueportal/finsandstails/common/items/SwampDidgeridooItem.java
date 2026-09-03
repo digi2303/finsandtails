@@ -24,7 +24,6 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public class SwampDidgeridooItem extends Item {
-
     public SwampDidgeridooItem(Properties properties) {
         super(properties);
     }

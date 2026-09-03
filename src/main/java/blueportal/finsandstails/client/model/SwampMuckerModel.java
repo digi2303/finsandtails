@@ -35,8 +35,6 @@ public class SwampMuckerModel extends EntityModel<SwampMuckerRenderState> {
         float limbSwing = state.walkAnimationPos;
         float limbSwingAmount = state.walkAnimationSpeed;
         float ageInTicks = state.ageInTicks;
-        float netHeadYaw = state.yRot;
-        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         //idle

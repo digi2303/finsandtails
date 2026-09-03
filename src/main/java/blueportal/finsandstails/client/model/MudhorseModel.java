@@ -60,7 +60,6 @@ public class MudhorseModel extends EntityModel<MudhorseRenderState> {
         super.setupAnim(state);
         float limbSwing = state.walkAnimationPos;
         float limbSwingAmount = state.walkAnimationSpeed;
-        float ageInTicks = state.ageInTicks;
         float netHeadYaw = state.yRot;
         float headPitch = state.xRot;
         this.root().getAllParts().forEach(ModelPart::resetPose);

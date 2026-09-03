@@ -71,5 +71,4 @@ public class RiverPebbleSnailModel extends EntityModel<RiverPebbleSnailRenderSta
             this.stalks.xRot = (Mth.cos((animTime * 360F) * Mth.DEG_TO_RAD) * 1F) * Mth.DEG_TO_RAD;
         }
     }
-
 }

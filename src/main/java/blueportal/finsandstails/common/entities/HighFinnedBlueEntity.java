@@ -12,7 +12,6 @@ import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.base.IPanickableSchooling;
 import blueportal.finsandstails.common.entities.ai.base.IPrey;
 import blueportal.finsandstails.common.entities.ai.goals.PanickableFollowFlockLeaderGoal;
@@ -77,5 +76,4 @@ public class HighFinnedBlueEntity extends AbstractSchoolingFish implements IPrey
     public ItemStack getPickResult() {
         return new ItemStack(FTItems.HIGH_FINNED_BLUE_SPAWN_EGG);
     }
-
 }

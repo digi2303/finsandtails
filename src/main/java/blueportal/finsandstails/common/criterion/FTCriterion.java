@@ -10,7 +10,6 @@ import net.minecraft.advancements.criterion.PlayerTrigger;
 //?}
 
 public class FTCriterion {
-
     public static final PlayerTrigger THROW_WHERBLING_IN_THE_VOID = register("throw_wherbling_in_the_void");
     public static final PlayerTrigger THROW_WHERBLING = register("throw_wherbling");
 
@@ -20,5 +19,4 @@ public class FTCriterion {
     private static PlayerTrigger register(String name) {
         return Registry.register(BuiltInRegistries.TRIGGER_TYPES, FinsAndTails.id(name), new PlayerTrigger());
     }
-
 }

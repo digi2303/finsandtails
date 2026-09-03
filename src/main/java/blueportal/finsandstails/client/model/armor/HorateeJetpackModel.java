@@ -11,7 +11,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
 public class HorateeJetpackModel<T extends HumanoidRenderState> extends HumanoidModel<T> {
-
 	public HorateeJetpackModel(ModelPart root) {
 		super(root);
 	}

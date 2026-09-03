@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ThrownSplashPotion.class)
 public class ThrownSplashPotionMixin {
-
     @Inject(method = "onHitAsPotion", at = @At("TAIL"))
     private void FT$onHitAsPotion(ServerLevel level, ItemStack stack, HitResult result, CallbackInfo ci) {
         FTEvents.onSplashPotionHit((Projectile) (Object) this, stack);

@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 
 public class PenglilCarryingItemLayer extends RenderLayer<PenglilRenderState, PenglilModel> {
-
    public PenglilCarryingItemLayer(RenderLayerParent<PenglilRenderState, PenglilModel> p_234834_) {
       super(p_234834_);
    }

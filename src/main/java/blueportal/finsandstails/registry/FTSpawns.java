@@ -1,7 +1,6 @@
 package blueportal.finsandstails.registry;
 
 import blueportal.finsandstails.impl.platform.CommonAbstraction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;

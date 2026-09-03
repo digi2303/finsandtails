@@ -10,12 +10,10 @@ import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.registry.FTItems;
 
 public class PhantomNudibranchEntity extends AbstractFish {
-
     public PhantomNudibranchEntity(EntityType<? extends PhantomNudibranchEntity> type, Level world) {
         super(type, world);
         this.moveControl = new FTSmoothSwimmingMoveControl(this, 85, 10, 0.1F, 0.5F, true);

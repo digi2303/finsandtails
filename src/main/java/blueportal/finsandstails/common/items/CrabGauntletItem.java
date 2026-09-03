@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CrabGauntletItem extends Item {
-
     public CrabGauntletItem(ToolMaterial tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(builderIn.attributes(createAttributes(tier, attackDamageIn, attackSpeedIn)));
     }

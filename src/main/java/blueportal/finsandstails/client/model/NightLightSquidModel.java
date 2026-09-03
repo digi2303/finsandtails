@@ -44,8 +44,6 @@ public class NightLightSquidModel extends EntityModel<NightLightSquidRenderState
 	@Override
 	public void setupAnim(NightLightSquidRenderState state) {
 		super.setupAnim(state);
-		float limbSwing = state.walkAnimationPos;
-		float limbSwingAmount = state.walkAnimationSpeed;
 		float ageInTicks = state.ageInTicks;
 		float netHeadYaw = state.yRot;
 		float headPitch = state.xRot;

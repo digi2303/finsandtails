@@ -23,5 +23,4 @@ public class CrabCruncherScreen extends ItemCombinerScreen<CrabCruncherContainer
     @Override
     protected void extractErrorIcon(GuiGraphicsExtractor extractor, int p_266822_, int p_267045_) {
     }
-
 }

@@ -87,6 +87,5 @@ public class WaterJumpGoal extends JumpGoal {
          double d1 = Math.atan2(-vec3.y, d0) * (double)(180F / (float)Math.PI);
          this.entity.setXRot((float)d1);
       }
-
    }
 }

@@ -42,6 +42,5 @@ public class PanickableFollowFlockLeaderGoal extends FollowFlockLeaderGoal {
                 }
             }
         }
-
     }
 }

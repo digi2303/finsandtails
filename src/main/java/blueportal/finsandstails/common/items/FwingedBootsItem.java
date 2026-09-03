@@ -63,5 +63,4 @@ public class FwingedBootsItem extends Item {
             }
         }
     }
-
 }

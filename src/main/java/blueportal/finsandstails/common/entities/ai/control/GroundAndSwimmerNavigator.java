@@ -10,7 +10,6 @@ import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.PathFinder;
 
 public class GroundAndSwimmerNavigator extends WaterBoundPathNavigation {
-
     public GroundAndSwimmerNavigator(PathfinderMob entity, Level world) {
         super(entity, world);
     }

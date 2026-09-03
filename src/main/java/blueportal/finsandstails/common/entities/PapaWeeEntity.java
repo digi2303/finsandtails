@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.common.entities.ai.goals.PapaWeeAttractionGoal;
@@ -24,7 +23,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class PapaWeeEntity extends AbstractFish {
-
     public PapaWeeEntity(EntityType<? extends PapaWeeEntity> type, Level world) {
         super(type, world);
         this.moveControl = new FTSmoothSwimmingMoveControl(this, 85, 10, 0.1F, 0.5F, true);
@@ -95,6 +93,5 @@ public class PapaWeeEntity extends AbstractFish {
             super.travel(p_213352_1_);
         }
     }
-
 }
 

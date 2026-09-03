@@ -62,7 +62,6 @@ public class PapaWeeModel extends EntityModel<PapaWeeRenderState> {
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-
         } else {
             this.lips.xRot = (2.5F + (Mth.cos(((animTime - 0F) * 120F) * Mth.DEG_TO_RAD) * 1F)) * Mth.DEG_TO_RAD;
             this.tail.xRot = (Mth.cos(((animTime - 0.2F) * 120F) * Mth.DEG_TO_RAD) * (-3F)) * Mth.DEG_TO_RAD;

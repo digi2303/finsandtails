@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-
     @Inject(method = "getExperienceReward", at = @At("RETURN"), cancellable = true)
     private void FT$getExperienceReward(ServerLevel level, Entity killer, CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(FTEvents.crabsFavorExperience(level, killer, cir.getReturnValue()));

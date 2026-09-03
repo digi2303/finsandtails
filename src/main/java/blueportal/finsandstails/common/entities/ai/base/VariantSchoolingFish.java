@@ -1,6 +1,5 @@
 package blueportal.finsandstails.common.entities.ai.base;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -96,7 +95,6 @@ public abstract class VariantSchoolingFish extends AbstractFish implements IVari
         return 0;
     }
 
-
     public void addFollowers(Stream<? extends VariantSchoolingFish> p_27534_) {
         p_27534_.limit(this.getMaxSchoolSize() - this.schoolSize).filter((p_27538_) -> {
             return p_27538_ != this;
@@ -126,5 +124,4 @@ public abstract class VariantSchoolingFish extends AbstractFish implements IVari
             this.leader = p_27553_;
         }
     }
-
 }

@@ -27,13 +27,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
 public class SiderolWhiskeredSnailEntity extends Animal {
-
     public SiderolWhiskeredSnailEntity(EntityType<? extends SiderolWhiskeredSnailEntity> type, Level worldIn) {
         super(type, worldIn);
     }

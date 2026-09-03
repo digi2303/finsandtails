@@ -59,15 +59,8 @@ public class WanderingSailorModel extends EntityModel<WanderingSailorRenderState
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-
 	@Override
 	public void setupAnim(WanderingSailorRenderState state) {
 		super.setupAnim(state);
-		float limbSwing = state.walkAnimationPos;
-		float limbSwingAmount = state.walkAnimationSpeed;
-		float ageInTicks = state.ageInTicks;
-		float netHeadYaw = state.yRot;
-		float headPitch = state.xRot;
-
 	}
 }

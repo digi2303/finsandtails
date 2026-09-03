@@ -178,7 +178,6 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
         } else {
             super.travel(travelVector);
         }
-
     }
 
     public void handleEntityEvent(byte id) {

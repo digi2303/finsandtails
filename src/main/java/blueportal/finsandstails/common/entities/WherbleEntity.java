@@ -52,7 +52,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.common.criterion.FTCriterion;
@@ -153,7 +152,6 @@ public class WherbleEntity extends Animal implements Bucketable {
                     if (level().getPlayerByUUID(getThrower()) instanceof ServerPlayer serverPlayer) FTCriterion.THROW_WHERBLING_IN_THE_VOID.trigger(serverPlayer);
                 }
             }
-
         }
 
         if (onGround() || isInWater()) {

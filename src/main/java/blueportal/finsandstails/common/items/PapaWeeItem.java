@@ -9,7 +9,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class PapaWeeItem extends Item {
-
     public PapaWeeItem(Properties properties) {
         super(properties);
     }

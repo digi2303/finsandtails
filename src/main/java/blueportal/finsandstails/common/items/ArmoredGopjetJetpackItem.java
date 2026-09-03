@@ -4,16 +4,13 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.ArmorMaterial;
@@ -24,25 +21,17 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTTags;
-import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.common.FinsPlayerData;
 import blueportal.finsandstails.registry.FTSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -106,7 +95,6 @@ public class ArmoredGopjetJetpackItem extends Item {
             if (persistentData.finsandtails$isFinsFlying()) {
                 if (pos != null) {
                     if (canFly || player.blockPosition().getY() > 0 && world.getBlockState(pos).is(Blocks.WATER)) {
-
                         player.fallDistance = 0;
                         int ticksJumping = persistentData.finsandtails$getFinsFlyingTicks() + 1;
                         if (ticksJumping % 10 == 0) {
@@ -192,6 +180,4 @@ public class ArmoredGopjetJetpackItem extends Item {
             components.accept(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
-
-
 }

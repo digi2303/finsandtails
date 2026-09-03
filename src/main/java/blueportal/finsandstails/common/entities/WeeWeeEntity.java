@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.goals.WeeHurtByEntityGoal;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
@@ -21,7 +20,6 @@ import java.util.List;
 import net.minecraft.world.entity.EntitySpawnReason;
 
 public class WeeWeeEntity extends AbstractSchoolingFish {
-
     public WeeWeeEntity(EntityType<? extends WeeWeeEntity> type, Level world) {
         super(type, world);
     }
@@ -84,5 +82,4 @@ public class WeeWeeEntity extends AbstractSchoolingFish {
             return false;
         }
     }
-
 }

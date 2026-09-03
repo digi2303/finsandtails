@@ -78,5 +78,4 @@ public class SiderolWhiskeredSnailModel extends EntityModel<SiderolWhiskeredSnai
             this.shell.zRot = (-(Mth.cos((animTime * 90F) * Mth.DEG_TO_RAD) * 2F)) * Mth.DEG_TO_RAD;
         }
     }
-
 }

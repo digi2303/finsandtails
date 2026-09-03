@@ -18,7 +18,6 @@ public class TealArrowfishModel extends EntityModel<TealArrowfishRenderState> {
     private final ModelPart rightFin;
     private final ModelPart topFin;
 
-
     public TealArrowfishModel(ModelPart modelPart) {
         super(modelPart);
 
@@ -36,8 +35,6 @@ public class TealArrowfishModel extends EntityModel<TealArrowfishRenderState> {
         float limbSwing = state.walkAnimationPos;
         float limbSwingAmount = state.walkAnimationSpeed;
         float ageInTicks = state.ageInTicks;
-        float netHeadYaw = state.yRot;
-        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         //idle

@@ -9,7 +9,6 @@ import blueportal.finsandstails.client.render.state.PenglilRenderState;
 
 import blueportal.finsandstails.client.render.layer.PenglilCarryingItemLayer;
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

@@ -110,5 +110,4 @@ public class SpindlyGemCrabModel extends EntityModel<SpindlyGemCrabRenderState> 
             this.leftPincher.yRot = (-(-(Mth.sin(((animTime - 0F) * 90F) * Mth.DEG_TO_RAD) * (-5F)))) * Mth.DEG_TO_RAD;
         }
     }
-
 }

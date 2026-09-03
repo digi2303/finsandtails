@@ -2,7 +2,6 @@
 package blueportal.finsandstails.client.render;
 
 import blueportal.finsandstails.client.render.state.WherbleRenderState;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;

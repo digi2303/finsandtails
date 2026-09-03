@@ -44,7 +44,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 
 public class FTEvents {
-
     public static void bumpHitCombo(ServerPlayer player, Entity target) {
         FinsPlayerData data = (FinsPlayerData) player;
         int combo = data.finsandtails$getHitCombo();

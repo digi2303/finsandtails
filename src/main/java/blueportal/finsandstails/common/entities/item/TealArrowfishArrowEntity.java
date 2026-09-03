@@ -1,9 +1,5 @@
 package blueportal.finsandstails.common.entities.item;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.Item;
@@ -39,7 +35,4 @@ public class TealArrowfishArrowEntity extends AbstractArrow {
     protected float getWaterInertia() {
         return 0.99F;
     }
-
-
-
 }

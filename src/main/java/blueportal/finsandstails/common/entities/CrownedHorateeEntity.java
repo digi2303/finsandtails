@@ -14,7 +14,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.world.entity.EntityReference;
@@ -384,7 +383,6 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 			this.setBaby(true);
 			return p_146749_;
 		} else {
-
 			return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_);
 		}
 	}
@@ -483,7 +481,6 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		protected boolean isValidTarget(LevelReader level, BlockPos pos) {
 			return (level.isEmptyBlock(pos.above()) || !level.isEmptyBlock(pos) || !level.getFluidState(pos).isEmpty()) && CrownedHorateeEntity.onSandOrGravel(level, pos);
 		}
-
 	}
 
 	static class GoToWaterGoal extends Goal {
@@ -544,7 +541,6 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	static class BabyTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-
 		public BabyTargetGoal(Mob p_26060_, Class<T> p_26061_) {
 			super(p_26060_, p_26061_, true);
 		}

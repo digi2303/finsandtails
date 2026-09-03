@@ -21,7 +21,6 @@ import blueportal.finsandstails.registry.FTSounds;
 import java.util.UUID;
 
 public class WherblingItem extends MobBucketItem {
-
     public WherblingItem(Item.Properties p_43140_) {
         super(FTEntities.WHERBLE, Fluids.EMPTY, SoundEvents.EMPTY, p_43140_);
     }

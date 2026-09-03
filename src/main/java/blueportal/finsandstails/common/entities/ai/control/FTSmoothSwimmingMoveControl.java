@@ -4,7 +4,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 
 public class FTSmoothSwimmingMoveControl extends SmoothSwimmingMoveControl {
-
     public FTSmoothSwimmingMoveControl(Mob mob, int maxTurnX, int maxTurnY, float inWaterSpeedModifier, float outsideWaterSpeedModifier, boolean applyGravity) {
         super(mob, maxTurnX, maxTurnY, inWaterSpeedModifier, outsideWaterSpeedModifier, applyGravity);
     }

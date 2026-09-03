@@ -59,7 +59,6 @@ public class SmoothWalkGroundAndSwimMoveControl extends MoveControl {
 						this.mob.setSpeed(f1 * this.groundSpeedModifier * 0.35F);
 					}
 				}
-
 			}
 		} else {
 			this.mob.setSpeed(0.0F);

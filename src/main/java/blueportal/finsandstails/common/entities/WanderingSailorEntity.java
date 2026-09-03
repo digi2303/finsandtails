@@ -90,7 +90,6 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
         }
     }
 
-
     @Override
     protected void updateTrades(ServerLevel level) {
         ItemsForItemsTrade[] trade1 = TRADES.get(1);

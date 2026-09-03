@@ -31,7 +31,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.registry.FTItems;
@@ -172,5 +171,4 @@ public class GoldenRiverRayEntity extends AbstractFish {
     public ItemStack getPickResult() {
         return new ItemStack(FTItems.GOLDEN_RIVER_RAY_SPAWN_EGG);
     }
-
 }

@@ -31,12 +31,10 @@ public class GoldenRiverRayRenderer extends MobRenderer<GoldenRiverRayEntity, Go
 
     @Override
     public Identifier getTextureLocation(GoldenRiverRayRenderState state) {
-
         return switch (state.variant) {
             case 1 -> GOLDEN_RIVER_RAY_LOCATION_1;
             case 2 -> GOLDEN_RIVER_RAY_LOCATION_2;
             default -> GOLDEN_RIVER_RAY_LOCATION_0;
         };
     }
-
 }

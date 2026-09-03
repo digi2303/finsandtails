@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,24 +22,17 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.function.Consumer;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTTags;
-import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.common.FinsPlayerData;
 import blueportal.finsandstails.registry.FTSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
-import java.util.List;
 import java.util.Random;
 
 public class GopjetpackItem extends Item {
@@ -102,7 +94,6 @@ public class GopjetpackItem extends Item {
             if (persistentData.finsandtails$isFinsFlying()) {
                 if (pos != null) {
                     if (canFly || player.blockPosition().getY() > 0 && world.getBlockState(pos).is(Blocks.WATER)) {
-
                         player.fallDistance = 0;
                         int ticksJumping = persistentData.finsandtails$getFinsFlyingTicks() + 1;
                         if (ticksJumping % 10 == 0) {
@@ -177,7 +168,6 @@ public class GopjetpackItem extends Item {
         }
     }
 
-
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag flag) {
         super.appendHoverText(stack, context, display, components, flag);
@@ -188,6 +178,4 @@ public class GopjetpackItem extends Item {
             components.accept(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
-
-
 }

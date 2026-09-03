@@ -59,7 +59,6 @@ public class FlatbackSuckerModel extends EntityModel<FlatbackSuckerRenderState> 
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-
         } else {
             this.whiskers.xRot = (Mth.sin(((animTime - 0F) * 720F) * Mth.DEG_TO_RAD) * 5F) * Mth.DEG_TO_RAD;
             this.tail.yRot = (-(Mth.sin(((animTime - 0F) * 90F) * Mth.DEG_TO_RAD) * 16F)) * Mth.DEG_TO_RAD;

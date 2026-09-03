@@ -81,7 +81,6 @@ public class BandedRedbackShrimpModel extends EntityModel<BandedRedbackShrimpRen
         this.legs2.xRot += Mth.cos(limbSwing + 31) * 1.25F * limbSwingAmount;
         this.legs3.xRot += Mth.cos(limbSwing + 32) * 1.25F * limbSwingAmount;
         this.legs4.xRot += Mth.cos(limbSwing + 33) * 1.25F * limbSwingAmount;
-
     }
 
     public static LayerDefinition createBodyLayer() {

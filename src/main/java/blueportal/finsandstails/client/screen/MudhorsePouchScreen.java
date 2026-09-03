@@ -26,5 +26,4 @@ public class MudhorsePouchScreen extends AbstractContainerScreen<MudhorsePouchCo
       int j = (this.height - this.imageHeight) / 2;
       extractor.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_LOCATION, i, j, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
    }
-
 }

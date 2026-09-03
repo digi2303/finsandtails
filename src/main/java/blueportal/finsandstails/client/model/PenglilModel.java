@@ -7,11 +7,9 @@ import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import blueportal.finsandstails.client.animation.MudhorseAnimation;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class PenglilModel extends EntityModel<PenglilRenderState> {
-
 	private final ModelPart all;
 	private final ModelPart body;
 	private final ModelPart tail;
@@ -42,7 +40,6 @@ public class PenglilModel extends EntityModel<PenglilRenderState> {
 		super.setupAnim(state);
 		float limbSwing = state.walkAnimationPos;
 		float limbSwingAmount = state.walkAnimationSpeed;
-		float ageInTicks = state.ageInTicks;
 		float netHeadYaw = state.yRot;
 		float headPitch = state.xRot;
 		this.root().getAllParts().forEach(ModelPart::resetPose);

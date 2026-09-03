@@ -70,7 +70,6 @@ public class AgeableWaterAnimalBreedGoal extends Goal {
         if (this.loveTime >= this.adjustedTickDelay(60) && this.animal.distanceToSqr(this.partner) < 9.0D) {
             this.breed();
         }
-
     }
 
     /**

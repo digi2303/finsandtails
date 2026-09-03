@@ -1,6 +1,5 @@
 package blueportal.finsandstails.common.entities.ai.base;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -85,7 +84,6 @@ public abstract class SchoolingTamableAnimal extends TamableAnimal {
         if (this.isFollower()) {
             this.getNavigation().moveTo(this.leader, 5.0D);
         }
-
     }
 
     public void addFollowers(Stream<? extends SchoolingTamableAnimal> p_27534_) {

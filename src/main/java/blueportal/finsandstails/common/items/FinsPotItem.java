@@ -31,12 +31,7 @@ import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
-import blueportal.finsandstails.common.entities.FlatbackLeafSnailEntity;
-import blueportal.finsandstails.common.entities.RiverPebbleSnailEntity;
-import blueportal.finsandstails.common.entities.SiderolWhiskeredSnailEntity;
 
-import java.util.List;
 
 public class FinsPotItem extends BucketItem {
     private final EntityType<?> entityType;

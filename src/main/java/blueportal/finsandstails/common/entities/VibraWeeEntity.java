@@ -22,7 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.base.IVariant;
 import blueportal.finsandstails.common.entities.ai.base.VariantSchoolingFish;
 import blueportal.finsandstails.common.entities.ai.goals.WeeHurtByEntityGoal;
@@ -163,5 +162,4 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
             return false;
         }
     }
-
 }

@@ -46,7 +46,6 @@ public class ShareTheBubbleGoal extends Goal {
 					}
 				}
 			}
-
 		}
 		return this.owner != null;
 	}

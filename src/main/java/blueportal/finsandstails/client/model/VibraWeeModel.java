@@ -59,7 +59,6 @@ public class VibraWeeModel extends EntityModel<VibraWeeRenderState> {
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-
         } else {
             this.leftPelvicFin.zRot = (-(40F + (Mth.cos(((animTime - 0.3F) * 180F) * Mth.DEG_TO_RAD) * (-4F)))) * Mth.DEG_TO_RAD;
             this.rightPelvicFin.zRot = (-((-40F) + (Mth.cos(((animTime - 0.3F) * 180F) * Mth.DEG_TO_RAD) * 4F))) * Mth.DEG_TO_RAD;

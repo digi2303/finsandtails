@@ -53,7 +53,6 @@ public class HighFinnedBlueModel extends EntityModel<HighFinnedBlueRenderState> 
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
-
         } else {
             this.body.xRot = (Mth.cos((animTime * 90F) * Mth.DEG_TO_RAD) * 2.5F) * Mth.DEG_TO_RAD;
             this.body.y += -(Mth.sin((animTime * 180F) * Mth.DEG_TO_RAD) * 0.25F);

@@ -5,7 +5,6 @@ import net.minecraft.resources.Identifier;
 import blueportal.finsandstails.FinsAndTails;
 
 public class FTModelLayers {
-
     public static final ModelLayerLocation BANDED_REDBACK_SHRIMP = main("banded_redback_shrimp");
     public static final ModelLayerLocation GOLDEN_RIVER_RAY = main("golden_river_ray");
     public static final ModelLayerLocation MUDHORSE = main("mudhorse");

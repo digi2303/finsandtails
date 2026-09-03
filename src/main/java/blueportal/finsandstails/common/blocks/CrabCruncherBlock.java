@@ -23,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import java.util.Map;
 
 public class CrabCruncherBlock extends Block {
-
     public CrabCruncherBlock(Properties properties) {
         super(properties);
     }

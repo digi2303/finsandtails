@@ -2,7 +2,6 @@ package blueportal.finsandstails.common.entities;
 
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -15,7 +14,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.common.entities.ai.goals.SpearMeleeAttackGoal;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.registry.FTItems;
@@ -90,5 +88,4 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
     public ItemStack getPickResult() {
         return new ItemStack(FTItems.TEAL_ARROWFISH_SPAWN_EGG);
     }
-
 }

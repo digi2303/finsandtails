@@ -60,5 +60,4 @@ public class TealArrowfishArrowRenderer extends EntityRenderer<TealArrowfishArro
         poseStack.popPose();
         super.submit(state, poseStack, collector, cameraRenderState);
     }
-
 }

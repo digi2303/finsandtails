@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(net.minecraft.server.level.ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
-
     @Inject(method = "useItemOn", at = @At("HEAD"))
     private void FT$useItemOn(ServerPlayer player, Level level, ItemStack stack, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         FTEvents.onPlayerDismountPenglil(player, hand, hitResult.getBlockPos(), hitResult.getDirection());

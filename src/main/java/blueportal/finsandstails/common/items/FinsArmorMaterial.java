@@ -14,7 +14,6 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public class FinsArmorMaterial {
-
     public static ArmorMaterial create(String name, int durability, int[] defense, int enchantmentValue, Holder<SoundEvent> equipSound, float toughness, TagKey<Item> repairIngredient) {
         return new ArmorMaterial(
                 durability,
