@@ -78,8 +78,4 @@ public class PenglilModel extends EntityModel<PenglilRenderState> {
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
-	@Override
-	public ModelPart root() {
-		return this.all;
-	}
 }

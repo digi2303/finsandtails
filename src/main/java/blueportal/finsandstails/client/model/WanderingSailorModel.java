@@ -59,10 +59,6 @@ public class WanderingSailorModel extends EntityModel<WanderingSailorRenderState
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	@Override
-	public ModelPart root() {
-		return body;
-	}
 
 	@Override
 	public void setupAnim(WanderingSailorRenderState state) {
