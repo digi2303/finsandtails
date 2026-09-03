@@ -1,12 +1,13 @@
 package blueportal.finsandstails.client.model;
 
+import blueportal.finsandstails.client.render.state.WanderingSailorRenderState;
 import blueportal.finsandstails.common.entities.WanderingSailorEntity;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class WanderingSailorModel<T extends WanderingSailorEntity> extends HierarchicalModel<T> {
+public class WanderingSailorModel extends EntityModel<WanderingSailorRenderState> {
 	private final ModelPart body;
 	private final ModelPart head;
 	private final ModelPart tentacles;
@@ -64,7 +65,13 @@ public class WanderingSailorModel<T extends WanderingSailorEntity> extends Hiera
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(WanderingSailorRenderState state) {
+		super.setupAnim(state);
+		float limbSwing = state.walkAnimationPos;
+		float limbSwingAmount = state.walkAnimationSpeed;
+		float ageInTicks = state.ageInTicks;
+		float netHeadYaw = state.yRot;
+		float headPitch = state.xRot;
 
 	}
 }

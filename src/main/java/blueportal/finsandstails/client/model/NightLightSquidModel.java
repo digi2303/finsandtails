@@ -1,14 +1,15 @@
 package blueportal.finsandstails.client.model;
 
+import blueportal.finsandstails.client.render.state.NightLightSquidRenderState;
 import blueportal.finsandstails.client.animation.NightlightSquidAnimation;
 import blueportal.finsandstails.common.entities.NightLightSquidEntity;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class NightLightSquidModel<T extends NightLightSquidEntity> extends HierarchicalModel<T> {
-	private final ModelPart root;
+public class NightLightSquidModel extends EntityModel<NightLightSquidRenderState> {
 	private final ModelPart body;
 	private final ModelPart tentacles;
 	private final ModelPart tentacleNorth;
@@ -20,9 +21,11 @@ public class NightLightSquidModel<T extends NightLightSquidEntity> extends Hiera
 	private final ModelPart finRight;
 	private final ModelPart finLeft;
 
+	private final KeyframeAnimation swimAnimation;
+
 	public NightLightSquidModel(ModelPart root) {
 		this.root = root.getChild("root");
-		this.body = this.root.getChild("body");
+		this.body = this.root().getChild("body");
 		this.tentacles = this.body.getChild("tentacles");
 		this.tentacleNorth = this.tentacles.getChild("tentacleNorth");
 		this.tentacleSouth = this.tentacles.getChild("tentacleSouth");
@@ -35,13 +38,19 @@ public class NightLightSquidModel<T extends NightLightSquidEntity> extends Hiera
 	}
 
 	@Override
-	public void setupAnim(NightLightSquidEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(NightLightSquidRenderState state) {
+		super.setupAnim(state);
+		float limbSwing = state.walkAnimationPos;
+		float limbSwingAmount = state.walkAnimationSpeed;
+		float ageInTicks = state.ageInTicks;
+		float netHeadYaw = state.yRot;
+		float headPitch = state.xRot;
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.body.xRot = headPitch * (float)Math.PI / 180F;
 		this.body.yRot = netHeadYaw * (float)Math.PI / 180F;
 
-		animateWalk(NightlightSquidAnimation.SWIM, ageInTicks * 0.4F, 0.5F, 3.0F, 100.0F);
+		this.swimAnimation.applyWalk( ageInTicks * 0.4F, 0.5F, 3.0F, 100.0F);
 	}
 
 	public static LayerDefinition createBodyLayer() {

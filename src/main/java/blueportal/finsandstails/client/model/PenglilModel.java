@@ -1,7 +1,9 @@
 package blueportal.finsandstails.client.model;
 
+import blueportal.finsandstails.client.render.state.PenglilRenderState;
 import blueportal.finsandstails.client.animation.PenglilAnimation;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,7 +11,7 @@ import blueportal.finsandstails.client.animation.MudhorseAnimation;
 import blueportal.finsandstails.common.entities.PenglilEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class PenglilModel<T extends PenglilEntity> extends HierarchicalModel<T> {
+public class PenglilModel extends EntityModel<PenglilRenderState> {
 
 	private final ModelPart all;
 	private final ModelPart body;
@@ -18,6 +20,9 @@ public class PenglilModel<T extends PenglilEntity> extends HierarchicalModel<T> 
 	private final ModelPart leftWing;
 	private final ModelPart leftFoot;
 	private final ModelPart rightFoot;
+
+	private final KeyframeAnimation swimAnimation;
+	private final KeyframeAnimation walkAnimation;
 
 	public PenglilModel(ModelPart root) {
 		this.all = root.getChild("all");
@@ -30,15 +35,21 @@ public class PenglilModel<T extends PenglilEntity> extends HierarchicalModel<T> 
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(PenglilRenderState state) {
+		super.setupAnim(state);
+		float limbSwing = state.walkAnimationPos;
+		float limbSwingAmount = state.walkAnimationSpeed;
+		float ageInTicks = state.ageInTicks;
+		float netHeadYaw = state.yRot;
+		float headPitch = state.xRot;
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if (entity.isInWater()) {
-			this.animateWalk(PenglilAnimation.SWIM, limbSwing, limbSwingAmount, 3.0F, 100.0F);
+		if (state.isInWater) {
+			this.swimAnimation.applyWalk( limbSwing, limbSwingAmount, 3.0F, 100.0F);
 			all.xRot = headPitch * ((float) Math.PI / 180F) + 0.7F;
 			all.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		}
-		else this.animateWalk(PenglilAnimation.WALK, limbSwing * 1.5F, limbSwingAmount, 3.0F, 100.0F);
+		else this.walkAnimation.applyWalk( limbSwing * 1.5F, limbSwingAmount, 3.0F, 100.0F);
 	}
 
 	public static LayerDefinition createBodyLayer() {
