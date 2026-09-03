@@ -84,14 +84,14 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
             }
 
             if (this.getOffers().isEmpty()) {
-                return InteractionResult.sidedSuccess(this.level().isClientSide());
+                return InteractionResult.SUCCESS;
             } else {
                 if (!this.level().isClientSide()) {
                     this.setTradingPlayer(p_230254_1_);
                     this.openTradingScreen(p_230254_1_, this.getDisplayName(), 0);
                 }
 
-                return InteractionResult.sidedSuccess(this.level().isClientSide());
+                return InteractionResult.SUCCESS;
             }
         } else {
             return super.mobInteract(p_230254_1_, p_230254_2_);

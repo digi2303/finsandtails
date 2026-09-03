@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import com.google.common.collect.Lists;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -217,7 +219,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_30176_) {
+	public void addAdditionalSaveData(ValueOutput p_30176_) {
 		super.addAdditionalSaveData(p_30176_);
 		p_30176_.putBoolean("HasBaby", this.hasBaby());
 		List<UUID> list = this.getTrustedUUIDs();
@@ -233,9 +235,9 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag p_30162_) {
+	public void readAdditionalSaveData(ValueInput p_30162_) {
 		super.readAdditionalSaveData(p_30162_);
-		this.setHasBaby(p_30162_.getBoolean("HasBaby"));
+		this.setHasBaby(p_30162_.getBooleanOr("HasBaby", false));
 		ListTag listtag = p_30162_.getList("Trusted", 11);
 
 		for (int i = 0; i < listtag.size(); ++i) {
@@ -328,15 +330,6 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	@Override
 	protected SoundEvent getDeathSound() {
 		return FTSounds.HORATEE_DEATH;
-	}
-
-	private <E extends GeoAnimatable> PlayState miscPredicate(AnimationState<E> event) {
-		if (this.isBubbleCharge()) {
-			event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.bubble"));
-		} else {
-			return PlayState.STOP;
-		}
-		return PlayState.CONTINUE;
 	}
 
 	@Nullable
@@ -487,7 +480,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 					ageablemob.snapTo(this.crownedHorateeEntity.getX(), this.crownedHorateeEntity.getY(), this.crownedHorateeEntity.getZ(), 0.0F, 0.0F);
 					serverLevel.addFreshEntityWithPassengers(ageablemob);
 					serverLevel.broadcastEntityEvent(this.crownedHorateeEntity, (byte) 18);
-					if (serverLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+					if (serverLevel.getGameRules().get(GameRules.MOB_DROPS)) {
 						serverLevel.addFreshEntity(new ExperienceOrb(serverLevel, this.crownedHorateeEntity.getX(), this.crownedHorateeEntity.getY(), this.crownedHorateeEntity.getZ(), this.crownedHorateeEntity.getRandom().nextInt(7) + 1));
 					}
 				}
@@ -542,7 +535,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 			this.mob.getNavigation().snapTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
 		}
 
-		@javax.annotation.Nullable
+		@org.jetbrains.annotations.Nullable
 		private Vec3 getWaterPos() {
 			RandomSource random = this.mob.getRandom();
 			BlockPos blockpos = this.mob.blockPosition();

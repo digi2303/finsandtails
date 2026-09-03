@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -42,14 +44,14 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
         return super.killedEntity(p_216988_, p_216989_);
     }
 
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("KillCooldownTime")) {
-            this.killCooldown = tag.getInt("KillCooldownTime");
+        if (tag.child("KillCooldownTime").isPresent()) {
+            this.killCooldown = tag.getIntOr("KillCooldownTime", 0);
         }
     }
 
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("KillCooldownTime", this.killCooldown);
     }

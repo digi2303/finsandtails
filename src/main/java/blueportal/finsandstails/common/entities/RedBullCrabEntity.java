@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -102,17 +104,17 @@ public class RedBullCrabEntity extends WaterAnimal {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
         compound.put("Attributes", this.getAttributes().save());
         compound.putFloat("Health", this.getHealth());
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-        if (compound.contains("Attributes", 9) && this.level() != null && !this.level().isClientSide()) {
+        this.setFromBucket(compound.getBooleanOr("FromBucket", false));
+        if (compound.child("Attributes", 9).isPresent() && this.level() != null && !this.level().isClientSide()) {
             this.getAttributes().load(compound.getList("Attributes", 10));
         }
     }
@@ -180,7 +182,7 @@ public class RedBullCrabEntity extends WaterAnimal {
             }
 
             this.discard();
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(p_230254_1_, p_230254_2_);
         }

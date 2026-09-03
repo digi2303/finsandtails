@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import blueportal.finsandstails.common.entities.ai.base.AgeableWaterAnimal;
 import blueportal.finsandstails.common.entities.ai.goals.AgeableWaterAnimalBreedGoal;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -73,7 +75,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     public void ageBoundaryReached() {
         super.ageBoundaryReached();
-        if (!this.isBaby() && this.level().getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+        if (!this.isBaby() && this.level().getGameRules().get(GameRules.MOB_DROPS)) {
             this.spawnAtLocation(FTItems.PEBBLE_SHELL, 1);
         }
     }
@@ -233,17 +235,17 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.fromBucket());
         compound.putInt("Variant", getVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        setVariant(compound.getInt("Variant"));
-        setFromBucket(compound.getBoolean("FromBucket"));
+        setVariant(compound.getIntOr("Variant", 0));
+        setFromBucket(compound.getBooleanOr("FromBucket", false));
     }
 
     public void saveToBucketTag(ItemStack stack) {
@@ -266,16 +268,6 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
 
     public PathNavigation createNavigation(Level world) {
         return new GroundPathNavigation(this, world);
-    }
-
-    private <E extends GeoEntity> PlayState shimmerPredicate(AnimationState<E> event) {
-        if (getVariant() == 5 && getShimmer()) {
-            event.setAnimation(RawAnimation.begin().thenPlay("animation.snail.shimmer"));
-            return PlayState.CONTINUE;
-        }
-        else {
-            return PlayState.STOP;
-        }
     }
 
     static class MoveHelperController extends MoveControl {

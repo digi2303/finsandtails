@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import blueportal.finsandstails.common.entities.ai.base.IKillCooldown;
 import blueportal.finsandstails.common.entities.ai.goals.CooldownMeleeAttackGoal;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +19,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathType;
@@ -69,14 +71,14 @@ public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillC
         return super.killedEntity(p_216988_, p_216989_);
     }
 
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("KillCooldownTime")) {
-            this.killCooldown = tag.getInt("KillCooldownTime");
+        if (tag.child("KillCooldownTime").isPresent()) {
+            this.killCooldown = tag.getIntOr("KillCooldownTime", 0);
         }
     }
 
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("KillCooldownTime", this.killCooldown);
     }
