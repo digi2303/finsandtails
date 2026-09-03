@@ -34,22 +34,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.Tags;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import javax.annotation.Nullable;
 
-public class SpindlyGemCrabEntity extends AbstractFish implements GeoEntity {
+public class SpindlyGemCrabEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SpindlyGemCrabEntity.class, EntityDataSerializers.INT);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public SpindlyGemCrabEntity(EntityType<? extends SpindlyGemCrabEntity> type, Level world) {
         super(type, world);
@@ -161,26 +152,6 @@ public class SpindlyGemCrabEntity extends AbstractFish implements GeoEntity {
     public void tick() {
         super.tick();
         level().broadcastEntityEvent(this, (byte)38);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        boolean walking = !(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F);
-        if (walking){
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.Spindly_crab.move"));
-        } else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.spindly_crab.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
     static class MoveHelperController extends MoveControl {

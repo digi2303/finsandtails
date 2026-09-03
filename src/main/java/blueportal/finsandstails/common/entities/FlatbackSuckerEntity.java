@@ -15,21 +15,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import java.util.List;
 
-public class FlatbackSuckerEntity extends AbstractFish implements GeoEntity {
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+public class FlatbackSuckerEntity extends AbstractFish {
 
     public FlatbackSuckerEntity(EntityType<? extends FlatbackSuckerEntity> type, Level world) {
         super(type, world);
@@ -73,26 +64,6 @@ public class FlatbackSuckerEntity extends AbstractFish implements GeoEntity {
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.FLATBACK_SUCKER_SPAWN_EGG.get());
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        boolean walking = !(event.getLimbSwingAmount() > -0.01F && event.getLimbSwingAmount() < 0.01F);
-        if (walking){
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.flatbacksucker.swim"));
-        } else {
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.flatbacksucker.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
     static class MoveHelperController extends MoveControl {

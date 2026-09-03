@@ -36,22 +36,13 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import javax.annotation.Nullable;
 
-public class RedBullCrabEntity extends WaterAnimal implements GeoEntity {
+public class RedBullCrabEntity extends WaterAnimal {
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(RedBullCrabEntity.class, EntityDataSerializers.BOOLEAN);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public RedBullCrabEntity(EntityType<? extends RedBullCrabEntity> type, Level world) {
         super(type, world);
@@ -199,26 +190,6 @@ public class RedBullCrabEntity extends WaterAnimal implements GeoEntity {
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.bullcrab.walk"));
-        }
-        else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.bullcrab.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
     static class MoveHelperController extends MoveControl {

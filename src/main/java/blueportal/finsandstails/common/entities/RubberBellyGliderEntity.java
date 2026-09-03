@@ -27,14 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.goals.WaterJumpGoal;
 import blueportal.finsandstails.common.entities.ai.control.GroundAndSwimmerNavigator;
 import blueportal.finsandstails.registry.FTEntities;
@@ -44,10 +36,9 @@ import blueportal.finsandstails.registry.FTTags;
 
 import java.util.function.Predicate;
 
-public class RubberBellyGliderEntity extends Animal implements GeoEntity {
+public class RubberBellyGliderEntity extends Animal {
     private static final EntityDataAccessor<Boolean> PUFFED = SynchedEntityData.defineId(RubberBellyGliderEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDimensions PUFFED_SIZE = EntityDimensions.scalable(0.7f, 0.5f);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private int puffTimer;
     private static final Predicate<Entity> ENEMY_MATCHER = (entity) -> {
         if (entity instanceof Player player) {
@@ -263,46 +254,6 @@ public class RubberBellyGliderEntity extends Animal implements GeoEntity {
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(FTTags.SPINDLY_GEM_CRABS);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving() && isInWater()) {
-            if (isPuffed()) {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.swim_puffed"));
-            }
-            else {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.swim"));
-            }
-        }
-        else if (!event.isMoving() && isInWater()) {
-            if (isPuffed()) {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.idle_puffed"));
-            }
-            else {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.idle"));
-            }
-        }
-        else if (!isInWater()) {
-            boolean walking = !(event.getLimbSwingAmount() > -0.1F && event.getLimbSwingAmount() < 0.1F);
-            if (walking) {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.walk"));
-                event.getController().setAnimationSpeed(1.45F);
-            }
-            else {
-                event.setAnimation(RawAnimation.begin().thenLoop("animation.rubber_belly_glider.idle_land"));
-            }
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 
     static class PuffGoal extends Goal {

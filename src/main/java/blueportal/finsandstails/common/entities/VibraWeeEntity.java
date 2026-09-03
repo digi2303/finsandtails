@@ -19,14 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.HitResult;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.base.IVariant;
 import blueportal.finsandstails.common.entities.ai.base.VariantSchoolingFish;
 import blueportal.finsandstails.common.entities.ai.goals.WeeHurtByEntityGoal;
@@ -37,9 +29,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 // todo - fix schooling crash
-public class VibraWeeEntity extends VariantSchoolingFish implements GeoEntity, IVariant {
+public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(VibraWeeEntity.class, EntityDataSerializers.INT);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public VibraWeeEntity(EntityType<? extends VibraWeeEntity> type, Level world) {
         super(type, world);
@@ -159,23 +150,4 @@ public class VibraWeeEntity extends VariantSchoolingFish implements GeoEntity, I
         }
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.vibra_wee.swim"));
-        }
-        else {
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.vibra_wee.idle"));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
 }

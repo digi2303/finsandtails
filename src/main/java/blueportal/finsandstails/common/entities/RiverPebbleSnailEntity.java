@@ -41,22 +41,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
-public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucketable, GeoEntity {
+public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucketable {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(RiverPebbleSnailEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_SHIMMER = SynchedEntityData.defineId(RiverPebbleSnailEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(RiverPebbleSnailEntity.class, EntityDataSerializers.BOOLEAN);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     public int shimmerTime = 20;
     public int shimmerCooldown = this.random.nextInt(100) + 200;
 
@@ -273,25 +264,8 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-
     public PathNavigation createNavigation(Level world) {
         return new GroundPathNavigation(this, world);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "shimmer_controller", 5, this::shimmerPredicate));
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.snail.walk"));
-        }
-        else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.snail.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
     private <E extends GeoEntity> PlayState shimmerPredicate(AnimationState<E> event) {
@@ -302,11 +276,6 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
         else {
             return PlayState.STOP;
         }
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 
     static class MoveHelperController extends MoveControl {

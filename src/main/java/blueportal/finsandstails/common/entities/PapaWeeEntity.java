@@ -17,20 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.common.entities.ai.goals.PapaWeeAttractionGoal;
 import blueportal.finsandstails.registry.FTItems;
 
-public class PapaWeeEntity extends AbstractFish implements GeoEntity {
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+public class PapaWeeEntity extends AbstractFish {
 
     public PapaWeeEntity(EntityType<? extends PapaWeeEntity> type, Level world) {
         super(type, world);
@@ -101,26 +92,6 @@ public class PapaWeeEntity extends AbstractFish implements GeoEntity {
         } else {
             super.travel(p_213352_1_);
         }
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.papa_wee.swim"));
-        }
-        else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.papa_wee.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
 }

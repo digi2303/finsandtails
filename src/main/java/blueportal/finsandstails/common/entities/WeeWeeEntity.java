@@ -13,22 +13,13 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.goals.WeeHurtByEntityGoal;
 import blueportal.finsandstails.registry.FTEntities;
 import blueportal.finsandstails.registry.FTItems;
 
 import java.util.List;
 
-public class WeeWeeEntity extends AbstractSchoolingFish implements GeoEntity {
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+public class WeeWeeEntity extends AbstractSchoolingFish {
 
     public WeeWeeEntity(EntityType<? extends WeeWeeEntity> type, Level world) {
         super(type, world);
@@ -93,23 +84,4 @@ public class WeeWeeEntity extends AbstractSchoolingFish implements GeoEntity {
         }
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.weewee.swim"));
-        }
-        else {
-            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.weewee.idle"));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
 }

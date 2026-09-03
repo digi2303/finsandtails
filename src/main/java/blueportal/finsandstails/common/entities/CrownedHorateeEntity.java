@@ -43,15 +43,6 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.base.IHydrate;
 import blueportal.finsandstails.common.entities.ai.goals.ShareTheBubbleGoal;
 import blueportal.finsandstails.common.entities.ai.goals.SwimWithoutGroundGoal;
@@ -66,7 +57,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CrownedHorateeEntity extends Animal implements GeoEntity, IHydrate, Bucketable {
+public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable {
 	private static final EntityDataAccessor<Boolean> HAS_BABY = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> BUBBLE_CHARGE = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -76,8 +67,6 @@ public class CrownedHorateeEntity extends Animal implements GeoEntity, IHydrate,
 	private static final EntityDataAccessor<Integer> BUBBLE_TARGET = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrownedHorateeEntity.class, EntityDataSerializers.BOOLEAN);
 
-
-	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.SEA_PICKLE);
 
 	public CrownedHorateeEntity(EntityType<? extends CrownedHorateeEntity> p_27523_, Level p_27524_) {
@@ -319,17 +308,6 @@ public class CrownedHorateeEntity extends Animal implements GeoEntity, IHydrate,
 	}
 
 	@Override
-	public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-		controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
-		controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "miscController", 0, this::miscPredicate));
-	}
-
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return factory;
-	}
-
-	@Override
 	public boolean removeWhenFarAway(double p_21542_) {
 		return false;
 	}
@@ -358,35 +336,6 @@ public class CrownedHorateeEntity extends Animal implements GeoEntity, IHydrate,
 		} else {
 			return PlayState.STOP;
 		}
-		return PlayState.CONTINUE;
-	}
-
-	private <E extends GeoAnimatable> PlayState predicate(AnimationState<E> event) {
-		float f = 1.0F;
-
-		if (this.isBaby()) {
-			f += 0.5F;
-		}
-
-		if (event.getLimbSwingAmount() > 0.01F) {
-			if (this.isInWater()) {
-				if (this.onGround()) {
-					f += 0.25F;
-					event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.walk"));
-				} else {
-					event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.swim"));
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.crawl"));
-			}
-		} else {
-			if (this.isInWater()) {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.idle_water"));
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.model.idle_land"));
-			}
-		}
-		event.getController().setAnimationSpeed(f);
 		return PlayState.CONTINUE;
 	}
 

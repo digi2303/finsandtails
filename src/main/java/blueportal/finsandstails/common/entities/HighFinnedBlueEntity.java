@@ -13,14 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.base.IPanickableSchooling;
 import blueportal.finsandstails.common.entities.ai.base.IPrey;
 import blueportal.finsandstails.common.entities.ai.goals.PanickableFollowFlockLeaderGoal;
@@ -29,8 +21,7 @@ import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
 
-public class HighFinnedBlueEntity extends AbstractSchoolingFish implements GeoEntity, IPrey, IPanickableSchooling {
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+public class HighFinnedBlueEntity extends AbstractSchoolingFish implements IPrey, IPanickableSchooling {
     public AvoidEntityGoal<?> avoidGoal;
 
     public HighFinnedBlueEntity(EntityType<? extends HighFinnedBlueEntity> type, Level world) {
@@ -87,23 +78,4 @@ public class HighFinnedBlueEntity extends AbstractSchoolingFish implements GeoEn
         return new ItemStack(FTItems.HIGH_FINNED_BLUE_SPAWN_EGG.get());
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.setAnimation(RawAnimation.begin().thenLoop("animations.high_finned_blue.swim"));
-        }
-        else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animations.high_finned_blue.idle"));
-        }
-        return PlayState.CONTINUE;
-    }
 }
