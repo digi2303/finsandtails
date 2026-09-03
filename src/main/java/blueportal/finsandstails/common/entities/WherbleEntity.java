@@ -2,7 +2,11 @@ package blueportal.finsandstails.common.entities;
 
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+//? if >=26.2 {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+*///?} else {
 import net.minecraft.advancements.CriteriaTriggers;
+//?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -24,7 +28,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+//? if >=26.2 {
+/*import net.minecraft.world.entity.Bucketable;
+*///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
+//?}
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;

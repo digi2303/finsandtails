@@ -2,7 +2,11 @@ package blueportal.finsandstails.common.entities;
 
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+//? if >=26.2 {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+*///?} else {
 import net.minecraft.advancements.CriteriaTriggers;
+//?}
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

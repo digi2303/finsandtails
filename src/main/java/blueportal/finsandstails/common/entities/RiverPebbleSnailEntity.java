@@ -4,7 +4,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import blueportal.finsandstails.common.entities.ai.base.AgeableWaterAnimal;
 import blueportal.finsandstails.common.entities.ai.goals.AgeableWaterAnimalBreedGoal;
+//? if >=26.2 {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+*///?} else {
 import net.minecraft.advancements.CriteriaTriggers;
+//?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -30,7 +34,11 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
+//? if >=26.2 {
+/*import net.minecraft.world.entity.Bucketable;
+*///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
+//?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

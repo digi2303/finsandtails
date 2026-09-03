@@ -1,6 +1,10 @@
 package blueportal.finsandstails.common.criterion;
 
+//? if >=26.2 {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+*///?} else {
 import net.minecraft.advancements.CriteriaTriggers;
+//?}
 import net.minecraftforge.fml.common.Mod;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTCriteriaTriggers;
