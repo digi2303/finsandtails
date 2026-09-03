@@ -7,7 +7,9 @@
   },
   "mixins": [
     "server.EntityMixin",
-    "server.PlayerMixin"
+    "server.PlayerMixin",
+    "server.LivingEntityMixin",
+    "server.ThrownSplashPotionMixin"
   ],
   "client": [
     "client.HumanoidArmorLayerMixin"

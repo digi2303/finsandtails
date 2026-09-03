@@ -1,6 +1,8 @@
 package blueportal.finsandstails.mixin.server;
 
+import blueportal.finsandstails.common.FTEvents;
 import blueportal.finsandstails.common.FinsPlayerData;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -36,6 +38,11 @@ public abstract class PlayerMixin implements FinsPlayerData {
     @Override
     public void finsandtails$setFinsFlying(boolean flying) {
         this.finsandtails$finsFlying = flying;
+    }
+
+    @Inject(method = "attack", at = @At("TAIL"))
+    private void FT$attack(Entity target, CallbackInfo ci) {
+        FTEvents.onPlayerAttack((Player) (Object) this, target);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
