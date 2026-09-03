@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "finsandtails:bugfish_mandibles",
     "finsandtails:fwinged_boots",
     "finsandtails:gem_crab_amulet",
+    "finsandtails:red_claw_gauntlet",
     "finsandtails:spindly_amber_charm",
     "finsandtails:spindly_emerald_charm",
     "finsandtails:spindly_pearl_charm",
     "finsandtails:spindly_ruby_charm",
-    "finsandtails:spindly_sapphire_charm"
+    "finsandtails:spindly_sapphire_charm",
+    "finsandtails:white_claw_gauntlet"
   ]
 }
