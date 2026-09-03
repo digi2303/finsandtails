@@ -15,7 +15,8 @@
     "server.ServerPlayerGameModeMixin"
   ],
   "client": [
-    "client.HumanoidArmorLayerMixin"
+    "client.AvatarRendererMixin",
+    "client.AvatarRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

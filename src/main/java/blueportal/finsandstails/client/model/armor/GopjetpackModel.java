@@ -1,14 +1,18 @@
 package blueportal.finsandstails.client.model.armor;
 
-import net.minecraft.client.Minecraft;
+import blueportal.finsandstails.client.FinsRenderState;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 
-public class GopjetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
+public class GopjetpackModel extends HumanoidModel<AvatarRenderState> {
 	private final ModelPart gopjetpack;
 	private final ModelPart rightJet;
 	private final ModelPart leftJet;
@@ -32,19 +36,16 @@ public class GopjetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
-	public GopjetpackModel<T> withAnimations(T entity) {
-		float partialTick = Minecraft.getInstance().getFrameTime();
-		float limbSwingAmount = entity.walkAnimation.speed(partialTick);
-		float ageInTicks = entity.tickCount + partialTick;
+	@Override
+	public void setupAnim(AvatarRenderState state) {
+		super.setupAnim(state);
 
-		if (entity.getPersistentData().getBoolean("FinsFlying") && entity.level().isClientSide()) {
-			this.rightJet.yScale = Mth.cos(ageInTicks) * 0.5F * 0.25F + 1;
-			this.leftJet.yScale = Mth.sin(ageInTicks) * 0.5F * 0.25F + 1;
+		if (state instanceof FinsRenderState finsState && finsState.finsandtails$isFinsFlying()) {
+			this.rightJet.yScale = Mth.cos(state.ageInTicks) * 0.5F * 0.25F + 1;
+			this.leftJet.yScale = Mth.sin(state.ageInTicks) * 0.5F * 0.25F + 1;
 		} else {
 			this.rightJet.yScale = 1;
 			this.leftJet.yScale = 1;
 		}
-
-        return this;
-    }
+	}
 }

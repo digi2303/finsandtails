@@ -22,6 +22,10 @@ public class FTModelLayers {
     public static final ModelLayerLocation PENGLIL = main("penglil");
     public static final ModelLayerLocation NIGHT_LIGHT_SQUID = main("night_light_squid");
     public static final ModelLayerLocation WANDERING_SAILOR = main("wandering_sailor");
+    public static final ModelLayerLocation HORATEE_JETPACK = main("horatee_jetpack");
+    public static final ModelLayerLocation FWINGED_BOOTS = main("fwinged_boots");
+    public static final ModelLayerLocation SPINDLY_CHARM = main("spindly_charm");
+    public static final ModelLayerLocation SPINDLY_GEM = main("spindly_gem");
 
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, id), name);
