@@ -1,5 +1,6 @@
 package blueportal.finsandstails.client.render;
 
+import blueportal.finsandstails.client.render.state.PhantomNudibranchRenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -10,11 +11,11 @@ import blueportal.finsandstails.client.model.PhantomNudibranchModel;
 import blueportal.finsandstails.common.entities.PhantomNudibranchEntity;
 import blueportal.finsandstails.client.FTModelLayers;
 
-public class PhantomNudibranchRenderer extends MobRenderer<PhantomNudibranchEntity, PhantomNudibranchModel<PhantomNudibranchEntity>> {
+public class PhantomNudibranchRenderer extends MobRenderer<PhantomNudibranchEntity, PhantomNudibranchRenderState, PhantomNudibranchModel> {
     private static final Identifier PHANTOM_NUDIBRANCH_LOCATION = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID,"textures/entity/phantom_nudibranch/phantom_nudibranch.png");
 
     public PhantomNudibranchRenderer(EntityRendererProvider.Context ctx) {
-        super(ctx, new PhantomNudibranchModel<>(ctx.bakeLayer(FTModelLayers.PHANTOM_NUDIBRANCH)), 0.2f);
+        super(ctx, new PhantomNudibranchModel(ctx.bakeLayer(FTModelLayers.PHANTOM_NUDIBRANCH)), 0.2f);
     }
 
     @Nullable
@@ -24,7 +25,17 @@ public class PhantomNudibranchRenderer extends MobRenderer<PhantomNudibranchEnti
     }
 
     @Override
-    public Identifier getTextureLocation(PhantomNudibranchEntity entity) {
+    public PhantomNudibranchRenderState createRenderState() {
+        return new PhantomNudibranchRenderState();
+    }
+
+    @Override
+    public void extractRenderState(PhantomNudibranchEntity entity, PhantomNudibranchRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+    }
+
+    @Override
+    public Identifier getTextureLocation(PhantomNudibranchRenderState state) {
         return PHANTOM_NUDIBRANCH_LOCATION;
     }
 }

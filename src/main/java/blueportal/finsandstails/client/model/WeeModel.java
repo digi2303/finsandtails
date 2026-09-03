@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.WeeRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,18 +11,16 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.WeeEntity;
 
-public class WeeModel<T extends WeeEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class WeeModel extends EntityModel<WeeRenderState> {
     private final ModelPart body;
     private final ModelPart tail;
     private final ModelPart leftFin;
     private final ModelPart rightFin;
 
     public WeeModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
 
         this.tail = this.body.getChild("tail");
         this.leftFin = this.body.getChild("leftFin");
@@ -29,7 +28,13 @@ public class WeeModel<T extends WeeEntity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(WeeRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         //idle
@@ -49,7 +54,7 @@ public class WeeModel<T extends WeeEntity> extends HierarchicalModel<T> {
         this.leftFin.yRot += Mth.cos(limbSwing * 1.5F + 30) * 1.5F * limbSwingAmount;
         this.rightFin.yRot += Mth.cos(limbSwing * 1.5F + 35 + Mth.PI) * 1.5F * limbSwingAmount;
 
-        if (!entityIn.isInWater()) {
+        if (!state.isInWater) {
             this.body.zRot = Mth.PI * 0.5F;
         } else this.body.zRot = 0;
     }
@@ -64,9 +69,5 @@ public class WeeModel<T extends WeeEntity> extends HierarchicalModel<T> {
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(8, -3).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 4.0F), PartPose.offset(0.0F, -0.5F, 1.0F));
 
         return LayerDefinition.create(meshdefinition, 16, 16);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

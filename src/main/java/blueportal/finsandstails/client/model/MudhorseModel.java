@@ -1,6 +1,8 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.AgeableHierarchicalModel;
+import blueportal.finsandstails.client.render.state.MudhorseRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -8,9 +10,7 @@ import blueportal.finsandstails.client.animation.MudhorseAnimation;
 import blueportal.finsandstails.common.entities.MudhorseEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MudhorseModel<T extends MudhorseEntity> extends AgeableHierarchicalModel<T> {
-
-    private final ModelPart root;
+public class MudhorseModel extends EntityModel<MudhorseRenderState> {
     private final ModelPart all;
     private final ModelPart body;
     private final ModelPart torsoFins;
@@ -26,11 +26,13 @@ public class MudhorseModel<T extends MudhorseEntity> extends AgeableHierarchical
     private final ModelPart rightArm;
     private final ModelPart leftArm;
 
-    public MudhorseModel(ModelPart modelPart) {
-        super(0.5F,24.0F);
-        this.root = modelPart;
+    private final KeyframeAnimation walkAnimation;
+    private final KeyframeAnimation babyTransformAnimation;
 
-        this.all = this.root.getChild("all");
+    public MudhorseModel(ModelPart modelPart) {
+        super(modelPart);
+
+        this.all = this.root().getChild("all");
 
         this.body = this.all.getChild("body");
         this.tail = this.all.getChild("tail");
@@ -49,17 +51,26 @@ public class MudhorseModel<T extends MudhorseEntity> extends AgeableHierarchical
         this.rightFin = this.head.getChild("rightFin");
 
         this.tailTip = this.tail.getChild("tailTip");
+
+        this.walkAnimation = MudhorseAnimation.WALK.bake(modelPart);
+        this.babyTransformAnimation = MudhorseAnimation.BABY_TRANSFORM.bake(modelPart);
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(MudhorseRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         this.head.xRot = headPitch * 0.017453292F;
         this.head.yRot = netHeadYaw * 0.017453292F;
 
-        this.animateWalk(MudhorseAnimation.WALK, limbSwing, limbSwingAmount, 3.0F, 100.0F);
-        if (this.young) this.applyStatic(MudhorseAnimation.BABY_TRANSFORM);
+        this.walkAnimation.applyWalk(limbSwing, limbSwingAmount, 3.0F, 100.0F);
+        if (state.isBaby) this.babyTransformAnimation.applyStatic();
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -82,10 +93,5 @@ public class MudhorseModel<T extends MudhorseEntity> extends AgeableHierarchical
         PartDefinition leftArm = all.addOrReplaceChild("leftArm", CubeListBuilder.create().texOffs(24, 42).addBox(-2.0F, 0.0F, -3.0F, 4.0F, 18.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -18.0F, -5.0F));
 
         return LayerDefinition.create(meshdefinition, 80, 80);
-    }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

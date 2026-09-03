@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.OrnateBugfishRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -8,9 +9,7 @@ import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.OrnateBugfishEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class OrnateBugfishModel<T extends OrnateBugfishEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class OrnateBugfishModel extends EntityModel<OrnateBugfishRenderState> {
     private final ModelPart body;
     private final ModelPart leftFin;
     private final ModelPart rightFin;
@@ -21,9 +20,9 @@ public class OrnateBugfishModel<T extends OrnateBugfishEntity> extends Hierarchi
     private final ModelPart rightMandible;
 
     public OrnateBugfishModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
 
         this.tail = this.body.getChild("tail");
         this.leftFin = this.body.getChild("leftFin");
@@ -37,7 +36,13 @@ public class OrnateBugfishModel<T extends OrnateBugfishEntity> extends Hierarchi
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(OrnateBugfishRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.body.xRot = headPitch * (((float)Math.PI / 180F) / 2);
@@ -65,7 +70,7 @@ public class OrnateBugfishModel<T extends OrnateBugfishEntity> extends Hierarchi
         this.leftFin.yRot += Mth.cos(limbSwing * 1.5F + 30) * 1.5F * limbSwingAmount;
         this.rightFin.yRot += Mth.cos(limbSwing * 1.5F + 35 + Mth.PI) * 1.5F * limbSwingAmount;
 
-        if (!entityIn.isInWater()) {
+        if (!state.isInWater) {
             this.body.zRot = Mth.PI * 0.5F;
         } else this.body.zRot = 0;
     }
@@ -84,11 +89,6 @@ public class OrnateBugfishModel<T extends OrnateBugfishEntity> extends Hierarchi
         PartDefinition leftMandible = mandibles.addOrReplaceChild("leftMandible", CubeListBuilder.create().texOffs(33, 23).addBox(-3.0F, -2.5F, -2.0F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(25, 30).addBox(-2.5F, 1.5F, -1.0F, 1.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(2.5F, 1.5F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 48, 48);
-    }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 
 }

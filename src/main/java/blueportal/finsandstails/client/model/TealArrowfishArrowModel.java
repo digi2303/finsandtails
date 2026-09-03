@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.TealArrowfishArrowRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -9,9 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
 
-public class TealArrowfishArrowModel<T extends TealArrowfishArrowEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class TealArrowfishArrowModel extends EntityModel<TealArrowfishArrowRenderState> {
     private final ModelPart body;
     private final ModelPart tail;
     private final ModelPart bottomFin;
@@ -20,9 +19,9 @@ public class TealArrowfishArrowModel<T extends TealArrowfishArrowEntity> extends
     private final ModelPart topFin;
 
     public TealArrowfishArrowModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
         this.tail = this.body.getChild("tail");
         this.bottomFin = this.body.getChild("bottomFin");
         this.leftFin = this.body.getChild("leftFin");
@@ -31,7 +30,13 @@ public class TealArrowfishArrowModel<T extends TealArrowfishArrowEntity> extends
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(TealArrowfishArrowRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -47,9 +52,5 @@ public class TealArrowfishArrowModel<T extends TealArrowfishArrowEntity> extends
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 5).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 5.0F), PartPose.offset(0.0F, -0.5F, 2.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

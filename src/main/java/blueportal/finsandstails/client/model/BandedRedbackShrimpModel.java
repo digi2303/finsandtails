@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.BandedRedbackShrimpRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -8,9 +9,7 @@ import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.BandedRedbackShrimpEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class BandedRedbackShrimpModel<T extends BandedRedbackShrimpEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class BandedRedbackShrimpModel extends EntityModel<BandedRedbackShrimpRenderState> {
     private final ModelPart body;
     private final ModelPart legs1;
     private final ModelPart legs2;
@@ -25,9 +24,9 @@ public class BandedRedbackShrimpModel<T extends BandedRedbackShrimpEntity> exten
     private final ModelPart tailFan;
 
     public BandedRedbackShrimpModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
 
         this.legs1 = this.body.getChild("legs1");
         this.legs2 = this.body.getChild("legs2");
@@ -44,7 +43,13 @@ public class BandedRedbackShrimpModel<T extends BandedRedbackShrimpEntity> exten
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(BandedRedbackShrimpRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.body.xRot = headPitch * (((float)Math.PI / 180F) / 2);
@@ -98,10 +103,5 @@ public class BandedRedbackShrimpModel<T extends BandedRedbackShrimpEntity> exten
         PartDefinition legs1 = body.addOrReplaceChild("legs1", CubeListBuilder.create().texOffs(26, 0).addBox(-1.5F, 0.0F, 0.0F, 3.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, -1.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
-    }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

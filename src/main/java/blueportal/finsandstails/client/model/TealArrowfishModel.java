@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.TealArrowfishRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,9 +11,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.TealArrowfishEntity;
 
-public class TealArrowfishModel<T extends TealArrowfishEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class TealArrowfishModel extends EntityModel<TealArrowfishRenderState> {
     private final ModelPart body;
     private final ModelPart tail;
     private final ModelPart bottomFin;
@@ -22,9 +21,9 @@ public class TealArrowfishModel<T extends TealArrowfishEntity> extends Hierarchi
 
 
     public TealArrowfishModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
         this.tail = this.body.getChild("tail");
         this.bottomFin = this.body.getChild("bottomFin");
         this.leftFin = this.body.getChild("leftFin");
@@ -33,7 +32,13 @@ public class TealArrowfishModel<T extends TealArrowfishEntity> extends Hierarchi
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(TealArrowfishRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         //idle
@@ -53,7 +58,7 @@ public class TealArrowfishModel<T extends TealArrowfishEntity> extends Hierarchi
         this.leftFin.yRot += Mth.cos(limbSwing * 1.5F + 30) * 1.5F * limbSwingAmount;
         this.rightFin.yRot += Mth.cos(limbSwing * 1.5F + 35 + Mth.PI) * 1.5F * limbSwingAmount;
 
-        if (!entityIn.isInWater()) {
+        if (!state.isInWater) {
             this.body.zRot = Mth.PI * 0.5F;
         } else this.body.zRot = 0;
     }
@@ -71,9 +76,5 @@ public class TealArrowfishModel<T extends TealArrowfishEntity> extends Hierarchi
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 5).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 5.0F), PartPose.offset(0.0F, -0.5F, 2.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

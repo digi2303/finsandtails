@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.GoldenRiverRayRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -8,9 +9,7 @@ import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.GoldenRiverRayEntity;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class GoldenRiverRayModel<T extends GoldenRiverRayEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class GoldenRiverRayModel extends EntityModel<GoldenRiverRayRenderState> {
     private final ModelPart body;
     private final ModelPart tail;
     private final ModelPart tailFin;
@@ -21,9 +20,9 @@ public class GoldenRiverRayModel<T extends GoldenRiverRayEntity> extends Hierarc
     private final ModelPart rightWing;
 
     public GoldenRiverRayModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
 
         this.dorsalFin = this.body.getChild("dorsalFin");
         this.tail = this.body.getChild("tail");
@@ -36,7 +35,13 @@ public class GoldenRiverRayModel<T extends GoldenRiverRayEntity> extends Hierarc
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(GoldenRiverRayRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.body.xRot = headPitch * (((float)Math.PI / 180F) / 2);
@@ -78,11 +83,6 @@ public class GoldenRiverRayModel<T extends GoldenRiverRayEntity> extends Hierarc
         PartDefinition rightWing = body.addOrReplaceChild("rightWing", CubeListBuilder.create().texOffs(-6, 19).addBox(-10.0F, 0.0F, -1.5F, 10.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.5F, -1.0F, -1.5F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
-    }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 
 }

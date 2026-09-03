@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.WherbleRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -8,9 +9,7 @@ import net.minecraft.util.Mth;
 import blueportal.finsandstails.client.animation.WherbleAnimation;
 import blueportal.finsandstails.common.entities.WherbleEntity;
 
-public class WherbleModel<T extends WherbleEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class WherbleModel extends EntityModel<WherbleRenderState> {
     private final ModelPart body;
     private final ModelPart torso;
     private final ModelPart tail;
@@ -21,9 +20,9 @@ public class WherbleModel<T extends WherbleEntity> extends HierarchicalModel<T> 
     private final ModelPart rightFoot;
 
     public WherbleModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
         this.leftLeg = this.body.getChild("leftLeg");
         this.leftFoot = this.leftLeg.getChild("leftFoot");
         this.rightLeg = this.body.getChild("rightLeg");
@@ -35,7 +34,13 @@ public class WherbleModel<T extends WherbleEntity> extends HierarchicalModel<T> 
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(WherbleRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.root().getAllParts().forEach(ModelPart::resetPose);
@@ -43,7 +48,7 @@ public class WherbleModel<T extends WherbleEntity> extends HierarchicalModel<T> 
         this.head.xRot = headPitch * 0.017453292F;
         this.head.yRot = netHeadYaw * 0.017453292F;
 
-        if (this.young && entityIn.isProjectile()) this.animateWalk(WherbleAnimation.WHERBLING_SPIN, ageInTicks, 0.5F, 2.0F, 100.0F);
+        if (this.young && state.projectile) this.animateWalk(WherbleAnimation.WHERBLING_SPIN, ageInTicks, 0.5F, 2.0F, 100.0F);
         if (this.young) this.animateWalk(WherbleAnimation.WHERBLING_WALK, limbSwing, limbSwingAmount, 2.0F, 100.0F);
         else this.animateWalk(WherbleAnimation.WALK, limbSwing, limbSwingAmount, 3.0F, 100.0F);
     }
@@ -82,10 +87,5 @@ public class WherbleModel<T extends WherbleEntity> extends HierarchicalModel<T> 
         PartDefinition leftFoot = leftLeg.addOrReplaceChild("leftFoot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -0.5F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
-    }
-    
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

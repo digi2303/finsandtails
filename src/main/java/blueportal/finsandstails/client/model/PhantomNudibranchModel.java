@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.PhantomNudibranchRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,9 +11,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.PhantomNudibranchEntity;
 
-public class PhantomNudibranchModel<T extends PhantomNudibranchEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class PhantomNudibranchModel extends EntityModel<PhantomNudibranchRenderState> {
     private final ModelPart body;
     private final ModelPart leftMantle;
     private final ModelPart rightMantle;
@@ -20,9 +19,9 @@ public class PhantomNudibranchModel<T extends PhantomNudibranchEntity> extends H
     private final ModelPart rightAntenna;
     
     public PhantomNudibranchModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
         this.leftMantle = this.body.getChild("leftMantle");
         this.rightMantle = this.body.getChild("rightMantle");
         this.leftAntenna = this.body.getChild("leftAntenna");
@@ -30,7 +29,13 @@ public class PhantomNudibranchModel<T extends PhantomNudibranchEntity> extends H
     }
     
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(PhantomNudibranchRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.body.xRot = headPitch * (((float)Math.PI / 180F) / 2);
@@ -66,9 +71,5 @@ public class PhantomNudibranchModel<T extends PhantomNudibranchEntity> extends H
         PartDefinition leftMantle = body.addOrReplaceChild("leftMantle", CubeListBuilder.create().texOffs(15, 0).addBox(-2.0F, -0.2F, -1.0F, 5.0F, 0.0F, 7.0F), PartPose.offset(2.0F, 0.5F, -1.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 16);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

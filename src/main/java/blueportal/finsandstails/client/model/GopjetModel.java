@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.GopjetRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,9 +11,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.GopjetEntity;
 
-public class GopjetModel<T extends GopjetEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class GopjetModel extends EntityModel<GopjetRenderState> {
     private final ModelPart body;
     private final ModelPart thruster;
     private final ModelPart tail;
@@ -21,9 +20,9 @@ public class GopjetModel<T extends GopjetEntity> extends HierarchicalModel<T> {
     private final ModelPart rightFin;
 
     public GopjetModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
 
         this.thruster = this.body.getChild("thruster");
         this.tail = this.body.getChild("tail");
@@ -34,7 +33,13 @@ public class GopjetModel<T extends GopjetEntity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(GopjetRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         this.body.xRot = headPitch * (((float)Math.PI / 180F) / 2);
@@ -55,7 +60,7 @@ public class GopjetModel<T extends GopjetEntity> extends HierarchicalModel<T> {
         this.tail.yRot = Mth.cos(limbSwing + 30) * 1.5F * limbSwingAmount;
         this.tail.zRot = Mth.sin(limbSwing + 30) * 0.25F * limbSwingAmount;
 
-        if (entityIn.isBoosting()) {
+        if (state.boosting) {
             this.thruster.xScale = Mth.cos(ageInTicks + 30) * 1.5F * 0.25F + 1;
             this.thruster.yScale = Mth.cos(ageInTicks) * 1.5F * 0.25F + 1;
             this.thruster.zScale = Mth.sin(ageInTicks) * 1.5F * 0.25F + 1;
@@ -84,9 +89,5 @@ public class GopjetModel<T extends GopjetEntity> extends HierarchicalModel<T> {
         PartDefinition rightFin = body.addOrReplaceChild("rightFin", CubeListBuilder.create().texOffs(10, 21).mirror().addBox(-5.0F, 0.0F, -1.0F, 5.0F, 0.0F, 3.0F).mirror(false), PartPose.offsetAndRotation(-4.0F, 2.5F, -0.5F, 0.0F, 0.0F, -0.2618F));
 
         return LayerDefinition.create(meshdefinition, 48, 48);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }

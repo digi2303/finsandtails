@@ -1,6 +1,7 @@
 package blueportal.finsandstails.client.model;
 
-import net.minecraft.client.model.HierarchicalModel;
+import blueportal.finsandstails.client.render.state.SwampMuckerRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,9 +11,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import blueportal.finsandstails.common.entities.SwampMuckerEntity;
 
-public class SwampMuckerModel<T extends SwampMuckerEntity> extends HierarchicalModel<T> {
-
-    private final ModelPart root;
+public class SwampMuckerModel extends EntityModel<SwampMuckerRenderState> {
     private final ModelPart body;
     private final ModelPart tail;
     private final ModelPart leftPelvicFin;
@@ -21,9 +20,9 @@ public class SwampMuckerModel<T extends SwampMuckerEntity> extends HierarchicalM
     private final ModelPart rightFwin;
 
     public SwampMuckerModel(ModelPart modelPart) {
-        this.root = modelPart;
+        super(modelPart);
 
-        this.body = this.root.getChild("body");
+        this.body = this.root().getChild("body");
         this.tail = this.body.getChild("tail");
         this.leftPelvicFin = this.body.getChild("leftPelvicFin");
         this.rightPelvicFin = this.body.getChild("rightPelvicFin");
@@ -32,7 +31,13 @@ public class SwampMuckerModel<T extends SwampMuckerEntity> extends HierarchicalM
     }
 
     @Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(SwampMuckerRenderState state) {
+        super.setupAnim(state);
+        float limbSwing = state.walkAnimationPos;
+        float limbSwingAmount = state.walkAnimationSpeed;
+        float ageInTicks = state.ageInTicks;
+        float netHeadYaw = state.yRot;
+        float headPitch = state.xRot;
         limbSwingAmount = Mth.clamp(limbSwingAmount, -0.45F, 0.45F);
 
         //idle
@@ -67,9 +72,5 @@ public class SwampMuckerModel<T extends SwampMuckerEntity> extends HierarchicalM
         PartDefinition rightFwin = body.addOrReplaceChild("rightFwin", CubeListBuilder.create().texOffs(-4, 11).mirror().addBox(-9.0F, 0.0F, -0.5F, 9.0F, 0.0F, 4.0F).mirror(false), PartPose.offset(-1.5F, -1.5F, -4.5F));
 
         return LayerDefinition.create(meshdefinition, 32, 16);
-    }
-    @Override
-    public ModelPart root() {
-        return this.root;
     }
 }
