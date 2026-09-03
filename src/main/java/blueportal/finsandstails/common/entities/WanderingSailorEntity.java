@@ -1,6 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -17,24 +18,25 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
-import net.minecraft.world.item.trading.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 public class WanderingSailorEntity extends AbstractVillager implements Merchant {
-    public static final Int2ObjectMap<VillagerTrades.ItemListing[]> TRADES = toIntMap(ImmutableMap.of(
-            1, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY, 4), new ItemStack(FTItems.GOPJET_JET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER, 4), new ItemStack(FTItems.FWIN, 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD, 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW, 2), 3, 3, 30)},
-            2, new VillagerTrades.ItemListing[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE, 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL), new ItemStack(FTItems.PAPA_WEE_BUCKET), 3, 3, 30)}));
+    public static final Int2ObjectMap<ItemsForItemsTrade[]> TRADES = toIntMap(ImmutableMap.of(
+            1, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY, 4), new ItemStack(FTItems.GOPJET_JET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER, 4), new ItemStack(FTItems.FWIN, 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD, 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW, 2), 3, 3, 30)},
+            2, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE, 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL), new ItemStack(FTItems.PAPA_WEE_BUCKET), 3, 3, 30)}));
 
     public WanderingSailorEntity(EntityType<? extends AbstractVillager> type, Level worldIn) {
         super(type, worldIn);
@@ -66,16 +68,6 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
     }
 
     @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return 1.2F;
-    }
-
-    @Override
     public InteractionResult mobInteract(Player p_230254_1_, InteractionHand p_230254_2_) {
         ItemStack itemstack = p_230254_1_.getItemInHand(p_230254_2_);
         if (/*itemstack.getItem() != FTItems.WANDERING_SAILOR_SPAWN_EGG && */this.isAlive() && !this.isTrading() && !this.isBaby()) {
@@ -98,20 +90,16 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
         }
     }
 
-    @Override
-    public ItemStack getPickedResult(HitResult target) {
-        return /*new ItemStack(FTItems.WANDERING_SAILOR_SPAWN_EGG)*/ null;
-    }
 
     @Override
-    protected void updateTrades() {
-        VillagerTrades.ItemListing[] trade1 = TRADES.get(1);
-        VillagerTrades.ItemListing[] trade2 = TRADES.get(2);
+    protected void updateTrades(ServerLevel level) {
+        ItemsForItemsTrade[] trade1 = TRADES.get(1);
+        ItemsForItemsTrade[] trade2 = TRADES.get(2);
         if (trade1 != null && trade2 != null) {
             MerchantOffers offers = this.getOffers();
-            this.addOffersFromItemListings(offers, trade1, 2);
+            this.addOffersFromListings(offers, trade1, 2);
             int i = this.random.nextInt(trade2.length);
-            VillagerTrades.ItemListing villagertrades$itrade = trade2[i];
+            ItemsForItemsTrade villagertrades$itrade = trade2[i];
             MerchantOffer merchantoffer = villagertrades$itrade.getOffer(this, this.random);
             if (merchantoffer != null) {
                 offers.add(merchantoffer);
@@ -158,11 +146,31 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
         return null;
     }
 
-    private static Int2ObjectMap<VillagerTrades.ItemListing[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ItemListing[]> p_221238_0_) {
+    private void addOffersFromListings(MerchantOffers offers, ItemsForItemsTrade[] listings, int count) {
+        Set<Integer> set = Sets.newHashSet();
+        if (listings.length > count) {
+            while (set.size() < count) {
+                set.add(this.random.nextInt(listings.length));
+            }
+        } else {
+            for (int i = 0; i < listings.length; ++i) {
+                set.add(i);
+            }
+        }
+
+        for (Integer integer : set) {
+            MerchantOffer merchantoffer = listings[integer].getOffer(this, this.random);
+            if (merchantoffer != null) {
+                offers.add(merchantoffer);
+            }
+        }
+    }
+
+    private static Int2ObjectMap<ItemsForItemsTrade[]> toIntMap(ImmutableMap<Integer, ItemsForItemsTrade[]> p_221238_0_) {
         return new Int2ObjectOpenHashMap<>(p_221238_0_);
     }
 
-    private static class ItemsForItemsTrade implements VillagerTrades.ItemListing {
+    private static class ItemsForItemsTrade {
         private final ItemStack buying1, buying2, selling;
         private final int maxUses, xp;
         private final float priceMultiplier;
@@ -183,15 +191,18 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
             this.priceMultiplier = priceMultiplier;
         }
 
+        private static ItemCost cost(ItemStack stack) {
+            return new ItemCost(stack.getItem(), stack.getCount());
+        }
+
         public ItemsForItemsTrade(ItemStack buying1, ItemStack selling, int maxUses, int xp, float priceMultiplier) {
             this(buying1, ItemStack.EMPTY, selling, maxUses, xp, priceMultiplier);
         }
 
         @Nullable
-        @Override
         public MerchantOffer getOffer(Entity trader, RandomSource rand) {
             ItemStack stack = GEMS.get(rand.nextInt(GEMS.size()));
-            return new MerchantOffer(buying1, buying2, selling, maxUses, xp, priceMultiplier);
+            return new MerchantOffer(cost(buying1), buying2.isEmpty() ? Optional.empty() : Optional.of(cost(buying2)), selling, maxUses, xp, priceMultiplier);
         }
     }
 }
