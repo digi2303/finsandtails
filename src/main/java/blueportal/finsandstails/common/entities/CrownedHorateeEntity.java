@@ -94,10 +94,6 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		return 1.0F;
 	}
 
-	public MobType getMobType() {
-		return MobType.WATER;
-	}
-
 	public boolean checkSpawnObstruction(LevelReader p_30348_) {
 		return p_30348_.isUnobstructed(this);
 	}

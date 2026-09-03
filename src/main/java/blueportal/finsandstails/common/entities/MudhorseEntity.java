@@ -140,11 +140,6 @@ public class MudhorseEntity extends Animal {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return this.isBaby() ? 0.7F : 1.4F;
-    }
-
-    @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.MUDHORSE_SPAWN_EGG);
     }

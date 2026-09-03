@@ -141,10 +141,6 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
         return snail;
     }
 
-    public float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return 0.25F;
-    }
-
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_SPAWN_EGG);

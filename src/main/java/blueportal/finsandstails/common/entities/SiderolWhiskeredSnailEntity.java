@@ -114,10 +114,6 @@ public class SiderolWhiskeredSnailEntity extends Animal {
         return stack.getItem() == Items.BROWN_MUSHROOM;
     }
 
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return isBaby() ? 0.25F : 0.4F;
-    }
-
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_SPAWN_EGG);

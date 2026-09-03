@@ -117,10 +117,6 @@ public class FlatbackLeafSnailEntity extends Animal {
         return stack.getItem() == Items.BROWN_MUSHROOM;
     }
 
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return 0.25F;
-    }
-
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.FLATBACK_LEAF_SNAIL_SPAWN_EGG);

@@ -113,11 +113,6 @@ public class RubberBellyGliderEntity extends Animal {
     }
 
     @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    @Override
     public void baseTick() {
         super.baseTick();
         setAirSupply(300);
@@ -236,11 +231,6 @@ public class RubberBellyGliderEntity extends Animal {
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return FTSounds.RUBBER_BELLY_GLIDER_HURT;
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return isBaby() ? 0.05f : 0.15f;
     }
 
     @Override

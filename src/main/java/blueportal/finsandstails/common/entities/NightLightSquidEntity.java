@@ -62,10 +62,6 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
         return 8;
     }
 
-    public float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return sizeIn.height * 0.5F;
-    }
-
     public SoundEvent getAmbientSound() {
         return SoundEvents.SQUID_AMBIENT;
     }

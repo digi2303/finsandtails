@@ -270,11 +270,6 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     @Override
-    public float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
-        return this.isBaby() ? 0.2F : 0.4F;
-    }
-
-    @Override
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
