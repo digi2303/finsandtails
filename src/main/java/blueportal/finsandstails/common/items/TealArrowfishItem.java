@@ -8,6 +8,8 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import java.util.function.Consumer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.common.entities.item.TealArrowfishArrowEntity;
@@ -31,12 +33,12 @@ public class TealArrowfishItem extends ArrowItem {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, level, components, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, components, flag);
         if (Minecraft.getInstance().hasShiftDown()) {
-            components.add(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
+            components.accept(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
         } else {
-            components.add(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
+            components.accept(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
 public class WherblingItem extends MobBucketItem {
 
     public WherblingItem(Item.Properties p_43140_) {
-        super(FTEntities.WHERBLE, () -> Fluids.EMPTY, () -> SoundEvents.EMPTY, p_43140_);
+        super(FTEntities.WHERBLE, Fluids.EMPTY, SoundEvents.EMPTY, p_43140_);
     }
 
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
@@ -47,7 +47,7 @@ public class WherblingItem extends MobBucketItem {
             }
             level.addFreshEntity(wherble);
         }
-        player.getCooldowns().addCooldown(this, 10);
+        player.getCooldowns().addCooldown(itemstack, 10);
         if (player instanceof ServerPlayer serverPlayer) FTCriterion.THROW_WHERBLING.trigger(serverPlayer);
 
         player.awardStat(Stats.ITEM_USED.get(this));

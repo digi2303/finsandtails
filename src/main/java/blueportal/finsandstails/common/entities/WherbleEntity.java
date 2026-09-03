@@ -11,6 +11,9 @@ import net.minecraft.advancements.CriteriaTriggers;
 //?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,8 +38,8 @@ import net.minecraft.world.entity.animal.Animal;
 *///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
 //?}
-import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.fox.Fox;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -285,6 +288,16 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     public void setProjectile(boolean projectile) {
         this.entityData.set(IS_PROJECTILE, projectile);
+    }
+
+    public CompoundTag serializeNBT() {
+        TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, this.registryAccess());
+        this.save(output);
+        return output.buildResult();
+    }
+
+    public void deserializeNBT(CompoundTag tag) {
+        this.load(TagValueInput.create(ProblemReporter.DISCARDING, this.registryAccess(), tag));
     }
 
     @Override

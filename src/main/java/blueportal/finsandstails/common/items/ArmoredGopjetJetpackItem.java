@@ -173,14 +173,14 @@ public class ArmoredGopjetJetpackItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, level, components, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, components, flag);
 
         if (Minecraft.getInstance().hasShiftDown()) {
-            components.add(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
-            components.add(Component.translatable(stack.getItem().getDescriptionId() + ".desc.2").withStyle(ChatFormatting.DARK_AQUA));
+            components.accept(Component.translatable(stack.getItem().getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_AQUA));
+            components.accept(Component.translatable(stack.getItem().getDescriptionId() + ".desc.2").withStyle(ChatFormatting.DARK_AQUA));
         } else {
-            components.add(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
+            components.accept(Component.translatable("finsandtails.info").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

@@ -17,10 +17,13 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import java.util.function.Consumer;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -28,31 +31,27 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.function.Supplier;
 
 public class FinsBucketItem extends MobBucketItem {
-    private final Supplier<? extends EntityType<?>> entityTypeSupplier;
+    private final EntityType<? extends Mob> entityType;
     private final boolean hasTooltip;
 
-    public FinsBucketItem(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Properties builder) {
+    public FinsBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, Properties builder) {
         this(entityType, fluid, builder, false);
     }
 
-    public FinsBucketItem(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Properties builder, boolean hasTooltip) {
-        super(entityType, fluid, () -> SoundEvents.BUCKET_EMPTY_FISH,builder);
+    public FinsBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, Properties builder, boolean hasTooltip) {
+        super(entityType, fluid, SoundEvents.BUCKET_EMPTY_FISH, builder);
         this.hasTooltip = hasTooltip;
-        this.entityTypeSupplier = entityType;
+        this.entityType = entityType;
     }
 
     @Override
     public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        if (this.getFluid() == Fluids.EMPTY) {
+        if (this.getContent() == Fluids.EMPTY) {
             //for penglil
             ItemStack itemstack = playerIn.getItemInHand(handIn);
             BlockHitResult result = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.NONE);
-            InteractionResult ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, result);
-            if (ret != null) return ret;
             if (result.getType() == BlockHitResult.Type.MISS) {
                 return InteractionResult.PASS;
             } else if (result.getType() != BlockHitResult.Type.BLOCK) {
@@ -72,10 +71,10 @@ public class FinsBucketItem extends MobBucketItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, tooltip, flag);
         if (hasTooltip && stack.has(DataComponents.CUSTOM_DATA)) {
-            tooltip.add(Component.translatable(this.entityTypeSupplier.get().getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            tooltip.accept(Component.translatable(this.entityType.getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         }
     }
 
