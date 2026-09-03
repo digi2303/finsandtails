@@ -19,8 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.client.model.armor.SpindlyCharmModel;
-import blueportal.finsandstails.client.render.ArmorItemRenderer;
 
 import java.util.List;
 import java.util.function.Consumer;

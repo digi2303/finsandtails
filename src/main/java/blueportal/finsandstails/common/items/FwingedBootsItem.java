@@ -27,8 +27,6 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.Lazy;
 import org.jetbrains.annotations.NotNull;
 import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.client.model.armor.FwingedBootsModel;
-import blueportal.finsandstails.client.render.ArmorItemRenderer;
 import blueportal.finsandstails.registry.FTEnchantments;
 
 import java.util.function.Consumer;

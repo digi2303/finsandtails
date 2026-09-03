@@ -32,8 +32,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.client.model.armor.HorateeJetpackModel;
-import blueportal.finsandstails.client.render.ArmorItemRenderer;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
