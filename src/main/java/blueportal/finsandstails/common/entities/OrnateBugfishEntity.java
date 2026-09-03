@@ -123,7 +123,7 @@ public class OrnateBugfishEntity extends AbstractSchoolingFish implements IKillC
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.ORNATE_BUGFISH_SPAWN_EGG);
     }
 

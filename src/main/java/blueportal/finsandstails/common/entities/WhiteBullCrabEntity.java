@@ -108,7 +108,7 @@ public class WhiteBullCrabEntity extends WaterAnimal {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.WHITE_BULL_CRAB_SPAWN_EGG);
     }
 

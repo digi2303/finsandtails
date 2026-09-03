@@ -118,7 +118,7 @@ public class FlatbackLeafSnailEntity extends Animal {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.FLATBACK_LEAF_SNAIL_SPAWN_EGG);
     }
 

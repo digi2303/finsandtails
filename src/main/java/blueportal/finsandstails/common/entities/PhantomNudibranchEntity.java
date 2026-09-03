@@ -51,7 +51,7 @@ public class PhantomNudibranchEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.PHANTOM_NUDIBRANCH_SPAWN_EGG);
     }
 }

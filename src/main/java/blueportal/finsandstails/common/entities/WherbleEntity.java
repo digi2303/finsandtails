@@ -11,7 +11,10 @@ import net.minecraft.advancements.CriteriaTriggers;
 //?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -65,7 +68,7 @@ public class WherbleEntity extends Animal implements Bucketable {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WherbleEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(WherbleEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_PROJECTILE = SynchedEntityData.defineId(WherbleEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Optional<UUID>> THROWER = SynchedEntityData.defineId(WherbleEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> THROWER = SynchedEntityData.defineId(WherbleEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
 
     public WherbleEntity(EntityType<? extends Animal> p_i48568_1_, Level p_i48568_2_) {
         super(p_i48568_1_, p_i48568_2_);
@@ -103,8 +106,8 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        return source != this.level().damageSources().freeze() && super.hurt(source, amount);
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        return source != this.level().damageSources().freeze() && super.hurtServer(level, source, amount);
     }
 
     public int getVariant() {
@@ -116,11 +119,11 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     public UUID getThrower() {
-        return this.entityData.get(THROWER).orElse(null);
+        return this.entityData.get(THROWER).map(EntityReference::getUUID).orElse(null);
     }
 
     public void setThrower(UUID uuid) {
-        this.entityData.set(THROWER, Optional.ofNullable(uuid));
+        this.entityData.set(THROWER, uuid == null ? Optional.empty() : Optional.of(EntityReference.of(uuid)));
     }
 
     @Override
@@ -142,7 +145,7 @@ public class WherbleEntity extends Animal implements Bucketable {
         if (isProjectile()) {
             List<Entity> entities = level().getEntities(this, getBoundingBox(), Entity::canBeHitByProjectile);
             for (var entity : entities) {
-                if (getBoundingBox().intersects(entity.getBoundingBox()) && entity.hurt(damageSources().mobProjectile(this, getThrower() != null ? level().getPlayerByUUID(getThrower()) : this), 1.0F)) {
+                if (getBoundingBox().intersects(entity.getBoundingBox()) && entity.hurtOrSimulate(damageSources().mobProjectile(this, getThrower() != null ? level().getPlayerByUUID(getThrower()) : this), 1.0F)) {
                     setProjectile(false);
                 }
                 if (entity instanceof Player player && player.getUUID().equals(UUID.fromString("c7e2fbc4-e21e-40be-b8e1-8ac69ad53416"))) {
@@ -238,7 +241,7 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Override
     public void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CHICKEN_STEP.value(), 0.15F, 1.0F);
     }
 
     @Nullable
@@ -258,8 +261,8 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     @Override
-    protected void actuallyHurt(DamageSource damageSource, float amount) {
-        super.actuallyHurt(damageSource, amount);
+    protected void actuallyHurt(ServerLevel level, DamageSource damageSource, float amount) {
+        super.actuallyHurt(level, damageSource, amount);
 
         if (damageSource.is(DamageTypes.FELL_OUT_OF_WORLD) && this.isProjectile() && amount > this.getHealth()) {
             Player player = level().getPlayerByUUID(getThrower());
@@ -268,7 +271,7 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.WHERBLE_SPAWN_EGG);
     }
 

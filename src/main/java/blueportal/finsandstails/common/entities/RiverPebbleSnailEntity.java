@@ -142,7 +142,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.RIVER_PEBBLE_SNAIL_SPAWN_EGG);
     }
 

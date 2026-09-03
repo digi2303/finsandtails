@@ -38,7 +38,7 @@ public class PapaWeeEntity extends AbstractFish {
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        boolean flag = entityIn.hurt(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+        boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
             this.doEnchantDamageEffects(this, entityIn);
         }
@@ -76,7 +76,7 @@ public class PapaWeeEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.PAPA_WEE_SPAWN_EGG);
     }
 

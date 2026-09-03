@@ -201,7 +201,7 @@ public class RubberBellyGliderEntity extends Animal {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.RUBBER_BELLY_GLIDER_SPAWN_EGG);
     }
 
@@ -213,7 +213,7 @@ public class RubberBellyGliderEntity extends Animal {
     @Override
     public void playerTouch(Player entityIn) {
         if (entityIn instanceof ServerPlayer && isPuffed()) {
-            entityIn.hurt(this.level().damageSources().mobAttack(this), 2);
+            entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), 2);
             entityIn.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0));
         }
     }

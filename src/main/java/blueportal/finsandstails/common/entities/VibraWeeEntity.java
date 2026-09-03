@@ -131,7 +131,7 @@ public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.VIBRA_WEE_SPAWN_EGG);
     }
 

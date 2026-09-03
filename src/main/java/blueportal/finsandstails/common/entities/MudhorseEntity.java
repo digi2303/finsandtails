@@ -83,7 +83,7 @@ public class MudhorseEntity extends Animal {
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         this.level().broadcastEntityEvent(this, (byte) 4);
-        boolean flag = entityIn.hurt(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
+        boolean flag = entityIn.hurtOrSimulate(this.level().damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE));
         if (flag) {
             entityIn.setDeltaMovement(entityIn.getDeltaMovement().add(0.0D, 0.3F, 0.0D));
             this.doEnchantDamageEffects(this, entityIn);
@@ -140,7 +140,7 @@ public class MudhorseEntity extends Animal {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.MUDHORSE_SPAWN_EGG);
     }
 

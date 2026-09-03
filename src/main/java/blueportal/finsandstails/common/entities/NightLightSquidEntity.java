@@ -137,8 +137,8 @@ public class NightLightSquidEntity extends AbstractSchoolingFish {
         setVariant(compound.getIntOr("Variant", 0));
     }
 
-    public boolean hurt(DamageSource source, float amount) {
-        if (super.hurt(source, amount) && this.getLastHurtByMob() != null) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        if (super.hurtServer(level, source, amount) && this.getLastHurtByMob() != null) {
             this.squirtInk();
             return true;
         } else {

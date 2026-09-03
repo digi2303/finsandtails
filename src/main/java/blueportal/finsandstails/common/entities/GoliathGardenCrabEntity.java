@@ -68,7 +68,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
         this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
-        boolean flag = p_70652_1_.hurt(this.level().damageSources().mobAttack(this), f1);
+        boolean flag = p_70652_1_.hurtOrSimulate(this.level().damageSources().mobAttack(this), f1);
         if (flag) {
             p_70652_1_.setDeltaMovement(p_70652_1_.getDeltaMovement().add(0.0D, (double)0.4F, 0.0D));
             this.doEnchantDamageEffects(this, p_70652_1_);
@@ -115,7 +115,7 @@ public class GoliathGardenCrabEntity extends WaterAnimal {
     }
 
 /*    @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.GOLIATH_GARDEN_CRAB_SPAWN_EGG);
     }*/
 

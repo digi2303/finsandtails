@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -66,13 +67,13 @@ public class GoldenRiverRayEntity extends AbstractFish {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         Entity attacker = source.getDirectEntity();
         if (attacker instanceof LivingEntity) {
             ((LivingEntity) attacker).addEffect(new MobEffectInstance(MobEffects.POISON, 200, 0));
-            attacker.hurt(this.level().damageSources().mobAttack(this), 1);
+            attacker.hurtOrSimulate(this.level().damageSources().mobAttack(this), 1);
         }
-        return super.hurt(source, amount);
+        return super.hurtServer(level, source, amount);
     }
 
     @Override
@@ -163,7 +164,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.GOLDEN_RIVER_RAY_SPAWN_EGG);
     }
 

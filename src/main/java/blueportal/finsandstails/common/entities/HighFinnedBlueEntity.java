@@ -74,7 +74,7 @@ public class HighFinnedBlueEntity extends AbstractSchoolingFish implements IPrey
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.HIGH_FINNED_BLUE_SPAWN_EGG);
     }
 

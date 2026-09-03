@@ -115,7 +115,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.SIDEROL_WHISKERED_SNAIL_SPAWN_EGG);
     }
 

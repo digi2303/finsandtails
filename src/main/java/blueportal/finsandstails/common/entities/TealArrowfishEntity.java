@@ -87,7 +87,7 @@ public class TealArrowfishEntity extends AbstractSchoolingFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.TEAL_ARROWFISH_SPAWN_EGG);
     }
 

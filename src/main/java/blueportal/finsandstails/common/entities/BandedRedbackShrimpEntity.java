@@ -57,7 +57,7 @@ public class BandedRedbackShrimpEntity extends AbstractSchoolingFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_SPAWN_EGG);
     }
 }

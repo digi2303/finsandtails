@@ -62,7 +62,7 @@ public class FlatbackSuckerEntity extends AbstractFish {
     }
 
     @Override
-    public ItemStack getPickedResult(HitResult target) {
+    public ItemStack getPickResult() {
         return new ItemStack(FTItems.FLATBACK_SUCKER_SPAWN_EGG);
     }
 
