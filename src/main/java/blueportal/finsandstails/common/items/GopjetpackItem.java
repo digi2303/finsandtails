@@ -34,7 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTTags;
-import blueportal.finsandstails.client.render.item.FTArmorRenderProperties;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.common.FinsPlayerData;
 import blueportal.finsandstails.registry.FTSounds;

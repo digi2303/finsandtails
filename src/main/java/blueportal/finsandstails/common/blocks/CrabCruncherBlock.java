@@ -39,11 +39,11 @@ public class CrabCruncherBlock extends Block {
         );
 
         if (crabToGem.containsKey(stack.getItem())) {
-            ItemStack outputStack = new ItemStack(crabToGem.get(stack.getItem()), level.random.nextIntBetweenInclusive(3, 5));
+            ItemStack outputStack = new ItemStack(crabToGem.get(stack.getItem()), level.getRandom().nextIntBetweenInclusive(3, 5));
 
             popResourceFromFace(level, pos, hit.getDirection(), outputStack);
 
-            ExperienceOrb exp = new ExperienceOrb(level, pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D, level.random.nextIntBetweenInclusive(2, 4));
+            ExperienceOrb exp = new ExperienceOrb(level, pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D, level.getRandom().nextIntBetweenInclusive(2, 4));
 
             level.addFreshEntity(exp);
 
@@ -56,10 +56,10 @@ public class CrabCruncherBlock extends Block {
                 double d2 = 0.0D;
                 double d3 = 0.0D;
                 double d4 = 0.0D;
-                double d6 = (double) pos.getX() + level.random.nextDouble() * d0 * 2.0D;
-                double d7 = (double) pos.getY() + level.random.nextDouble() * d1;
-                double d8 = (double) pos.getZ() + level.random.nextDouble() * d0 * 2.0D;
-                server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), d6, d7, d8, 100, d2, d3, d4, 0.1D);
+                double d6 = (double) pos.getX() + level.getRandom().nextDouble() * d0 * 2.0D;
+                double d7 = (double) pos.getY() + level.getRandom().nextDouble() * d1;
+                double d8 = (double) pos.getZ() + level.getRandom().nextDouble() * d0 * 2.0D;
+                server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack.getItem()), d6, d7, d8, 100, d2, d3, d4, 0.1D);
             }
 
             stack.shrink(1);

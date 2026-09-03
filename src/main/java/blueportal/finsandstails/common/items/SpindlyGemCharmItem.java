@@ -20,9 +20,14 @@ import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerLevel;
 
 public class SpindlyGemCharmItem extends Item {
-    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create(FinsAndTails.MOD_ID + ":gem_crab_amulet", 1, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, FTTags.REPAIRS_SPINDLY_CHARM);
+    public static final ArmorMaterial MATERIAL = FinsArmorMaterial.create("gem_crab_amulet", 1, new int[]{1, 2, 3, 1}, 3, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, FTTags.REPAIRS_SPINDLY_CHARM);
 
     public SpindlyGemCharmItem(Properties properties) {
         super(properties.durability(2).rarity(Rarity.RARE).humanoidArmor(MATERIAL, ArmorType.CHESTPLATE));
@@ -41,14 +46,19 @@ public class SpindlyGemCharmItem extends Item {
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
+    public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
+        super.inventoryTick(stack, world, entity, slot);
+        if (slot != EquipmentSlot.CHEST || !(entity instanceof Player player)) {
+            return;
+        }
+
         if (player.isAlive() && isUsable(stack) && player.getHealth() <= 8.0F) {
             player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0, false, false, true));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0, false, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 600, 0, false, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 1200, 0, false, false, true));
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0, false, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, 0, false, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 0, false, false, true));
-            stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+            stack.hurtAndBreak(1, player, EquipmentSlot.CHEST);
         }
     }
 

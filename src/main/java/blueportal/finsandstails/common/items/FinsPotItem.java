@@ -31,37 +31,33 @@ import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.Nullable;
 import blueportal.finsandstails.common.entities.FlatbackLeafSnailEntity;
 import blueportal.finsandstails.common.entities.RiverPebbleSnailEntity;
 import blueportal.finsandstails.common.entities.SiderolWhiskeredSnailEntity;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class FinsPotItem extends BucketItem {
-    private final Supplier<? extends EntityType<?>> entityTypeSupplier;
-    private final Supplier<? extends Fluid> fluid;
+    private final EntityType<?> entityType;
+    private final Fluid fluid;
     private final boolean hasTooltip;
 
-    public FinsPotItem(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Properties builder) {
+    public FinsPotItem(EntityType<?> entityType, Fluid fluid, Properties builder) {
         this(entityType, fluid, builder, true);
     }
 
-    public FinsPotItem(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Properties builder, boolean hasTooltip) {
+    public FinsPotItem(EntityType<?> entityType, Fluid fluid, Properties builder, boolean hasTooltip) {
         super(fluid, builder);
         this.fluid = fluid;
         this.hasTooltip = hasTooltip;
-        this.entityTypeSupplier = entityType;
+        this.entityType = entityType;
     }
 
     @Override
     public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         BlockHitResult result = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.NONE);
-        InteractionResult ret = ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, result);
-        if (ret != null) return ret;
         if (result.getType() == BlockHitResult.Type.MISS) {
             return InteractionResult.PASS;
         } else if (result.getType() != BlockHitResult.Type.BLOCK) {
@@ -72,15 +68,11 @@ public class FinsPotItem extends BucketItem {
             BlockPos blockpos1 = blockpos.relative(direction);
             if (worldIn.mayInteract(playerIn, blockpos) && playerIn.mayUseItemAt(blockpos1, direction, itemstack)) {
                 BlockState blockstate = worldIn.getBlockState(blockpos);
-                BlockPos blockpos2 = blockstate.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) blockstate.getBlock()).canPlaceLiquid(worldIn, blockpos, blockstate, fluid.get()) ? blockpos : blockpos1;
+                BlockPos blockpos2 = blockstate.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) blockstate.getBlock()).canPlaceLiquid(playerIn, worldIn, blockpos, blockstate, fluid) ? blockpos : blockpos1;
                 this.emptyContents(playerIn, worldIn, blockpos2, result);
                 if (worldIn instanceof ServerLevel) this.placeEntity((ServerLevel)worldIn, itemstack, blockpos2);
                 if (playerIn instanceof ServerPlayer) {
                     CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) playerIn, blockpos2, itemstack);
-
-                    if (entityTypeSupplier instanceof FlatbackLeafSnailEntity || entityTypeSupplier instanceof RiverPebbleSnailEntity || entityTypeSupplier instanceof SiderolWhiskeredSnailEntity) {
-
-                    }
                 }
 
                 playerIn.awardStat(Stats.ITEM_USED.get(this));
@@ -95,16 +87,12 @@ public class FinsPotItem extends BucketItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, display, tooltip, flag);
         if (hasTooltip && stack.has(DataComponents.CUSTOM_DATA)) {
-            tooltip.accept(Component.translatable(getEntityType().getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            tooltip.accept(Component.translatable(this.entityType.getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         }
     }
 
     private void placeEntity(ServerLevel worldIn, ItemStack stack, BlockPos pos) {
-        this.entityTypeSupplier.get().spawn(worldIn, stack, null, pos, EntitySpawnReason.BUCKET, true, false);
-    }
-
-    private EntityType<?> getEntityType() {
-        return entityTypeSupplier.get();
+        this.entityType.spawn(worldIn, stack, null, pos, EntitySpawnReason.BUCKET, true, false);
     }
 
     private ItemStack getEmptyItem(ItemStack stack, Player player) {
