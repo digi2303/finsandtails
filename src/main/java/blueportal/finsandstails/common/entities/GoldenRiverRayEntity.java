@@ -28,22 +28,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 import blueportal.finsandstails.common.entities.ai.control.FTSmoothSwimmingMoveControl;
 import blueportal.finsandstails.registry.FTItems;
 
 import javax.annotation.Nullable;
 
-public class GoldenRiverRayEntity extends AbstractFish implements GeoEntity {
+public class GoldenRiverRayEntity extends AbstractFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GoldenRiverRayEntity.class, EntityDataSerializers.INT);
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public GoldenRiverRayEntity(EntityType<? extends GoldenRiverRayEntity> type, Level world) {
         super(type, world);
@@ -165,26 +156,6 @@ public class GoldenRiverRayEntity extends AbstractFish implements GeoEntity {
     @Override
     public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(FTItems.GOLDEN_RIVER_RAY_SPAWN_EGG.get());
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoEntity>(this, "controller", 5, this::predicate));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
-    }
-
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> event) {
-        if (event.isMoving()) {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.golden_river_ray.swim"));
-        }
-        else {
-            event.setAnimation(RawAnimation.begin().thenLoop("animation.golden_river_ray.idle"));
-        }
-        return PlayState.CONTINUE;
     }
 
 }
