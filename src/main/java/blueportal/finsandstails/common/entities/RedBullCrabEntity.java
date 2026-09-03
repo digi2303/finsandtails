@@ -112,16 +112,12 @@ public class RedBullCrabEntity extends WaterAnimal {
     public void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.isFromBucket());
-        compound.put("Attributes", this.getAttributes().save());
         compound.putFloat("Health", this.getHealth());
     }
 
     public void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
         this.setFromBucket(compound.getBooleanOr("FromBucket", false));
-        if (compound.child("Attributes", 9).isPresent() && this.level() != null && !this.level().isClientSide()) {
-            this.getAttributes().load(compound.getList("Attributes", 10));
-        }
     }
 
     @Nullable

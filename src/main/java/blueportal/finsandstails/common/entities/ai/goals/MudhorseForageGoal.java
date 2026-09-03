@@ -6,10 +6,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.ForgeEventFactory;
 import blueportal.finsandstails.common.entities.MudhorseEntity;
 
 import java.util.EnumSet;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.gamerules.GameRules;
 
 public class MudhorseForageGoal extends Goal {
     // private static final Identifier FORAGING_LOOT = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "gameplay/mudhorse_foraging");
@@ -55,7 +56,7 @@ public class MudhorseForageGoal extends Goal {
                     if (this.timer == 20) {
                         BlockPos pos = mudhorse.blockPosition();
                         if (this.level.getBlockState(pos.below()).is(Blocks.SAND) && this.level.getBlockState(pos).is(Blocks.WATER)) {
-                            if (ForgeEventFactory.getMobGriefingEvent(this.level, this.mudhorse)) {
+                            if (this.level instanceof ServerLevel serverLevel && serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
                                 this.level.levelEvent(2001, pos, Block.getId(Blocks.SAND.defaultBlockState()));
                             }
                         }

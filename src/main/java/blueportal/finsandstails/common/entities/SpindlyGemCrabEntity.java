@@ -54,7 +54,7 @@ public class SpindlyGemCrabEntity extends AbstractFish {
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(0, new TemptGoal(this, 1.0D, Ingredient.of(FTTags.GEMS), false));
+        this.goalSelector.addGoal(0, new TemptGoal(this, 1.0D, (stack) -> stack.is(FTTags.GEMS), false));
         this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));

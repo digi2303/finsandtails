@@ -382,8 +382,7 @@ public class FTItems {
     }
 
     private static Item bannerPattern(String name, net.minecraft.tags.TagKey<net.minecraft.world.level.block.entity.BannerPattern> pattern) {
-        return register(name, new Item.Properties().stacksTo(1)
-                .component(DataComponents.PROVIDES_BANNER_PATTERNS, net.minecraft.core.HolderSet.emptyNamed(BuiltInRegistries.BANNER_PATTERN, pattern)));
+        return register(name, new Item.Properties().stacksTo(1));
     }
 
     private static Item blockItem(String name, Block block) {
