@@ -9,7 +9,10 @@
     "server.EntityMixin",
     "server.PlayerMixin",
     "server.LivingEntityMixin",
-    "server.ThrownSplashPotionMixin"
+    "server.ThrownSplashPotionMixin",
+    "server.ProjectileMixin",
+    "server.MobMixin",
+    "server.ServerPlayerGameModeMixin"
   ],
   "client": [
     "client.HumanoidArmorLayerMixin"
