@@ -1,0 +1,20 @@
+{
+  "description": {
+    "translate": "enchantment.finsandtails.crabs_favor"
+  },
+  "supported_items": "#finsandtails:enchantable/crabs_favor",
+  "weight": 2,
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand"
+  ]
+}

@@ -1,20 +1,22 @@
 package blueportal.finsandstails.registry;
 
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import blueportal.finsandstails.FinsAndTails;
-import blueportal.finsandstails.common.enchantments.CrabsFavorEnchantment;
-import blueportal.finsandstails.common.enchantments.FlukedEdgeEnchantment;
-import blueportal.finsandstails.common.enchantments.UppercuttingEnchantment;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class FTEnchantments {
-    public static final DeferredRegister<Enchantment> REGISTER = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FinsAndTails.MOD_ID);
+    public static final ResourceKey<Enchantment> FLUKED_EDGE = createKey("fluked_edge");
+    public static final ResourceKey<Enchantment> UPPERCUTTING = createKey("uppercutting");
+    public static final ResourceKey<Enchantment> CRABS_FAVOR = createKey("crabs_favor");
 
-    public static final RegistryObject<Enchantment> FLUKED_EDGE = REGISTER.register("fluked_edge", () -> new FlukedEdgeEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[] {EquipmentSlot.FEET}));
-    public static final RegistryObject<Enchantment> UPPERCUTTING = REGISTER.register("uppercutting", () -> new UppercuttingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND}));
-    public static final RegistryObject<Enchantment> CRABS_FAVOR = REGISTER.register("crabs_favor", () -> new CrabsFavorEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND}));
+    public static Holder<Enchantment> get(HolderLookup.Provider registries, ResourceKey<Enchantment> key) {
+        return registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
+
+    private static ResourceKey<Enchantment> createKey(String name) {
+        return ResourceKey.create(Registries.ENCHANTMENT, FinsAndTails.id(name));
+    }
 }
