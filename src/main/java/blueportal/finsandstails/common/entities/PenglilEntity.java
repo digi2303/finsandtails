@@ -1,5 +1,9 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import blueportal.finsandstails.registry.FTEntities;
@@ -50,14 +54,13 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
 import blueportal.finsandstails.common.entities.ai.base.SchoolingTamableAnimal;
 import blueportal.finsandstails.common.entities.ai.control.GroundAndSwimmerNavigator;
 import blueportal.finsandstails.common.entities.ai.goals.TamableFollowLeaderGoal;
 import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
@@ -142,8 +145,8 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         return worldIn.getBlockState(pos.below()).getBlock() == Blocks.SAND && worldIn.getRawBrightness(pos, 0) > 8;
     }
 
-    public void setTame(boolean tamed) {
-        super.setTame(tamed);
+    public void setTame(boolean tamed, boolean applyTamingSideEffects) {
+        super.setTame(tamed, applyTamingSideEffects);
         if (tamed) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
             this.setHealth(20.0F);
@@ -163,13 +166,13 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     }
 
     @Override
-    @Nonnull
+    @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(FTItems.PENGLIL_BUCKET);
     }
 
     @Override
-    @Nonnull
+    @NotNull
     public SoundEvent getPickupSound() {
         return SoundEvents.ITEM_FRAME_ADD_ITEM;
     }
@@ -216,7 +219,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 heldItem.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+            if (this.random.nextInt(3) == 0) {
                 this.tame(player);
                 this.navigation.stop();
                 this.setTarget(null);
@@ -245,33 +248,27 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     }
 
     @Override
-    public double getMyRidingOffset() {
-        return 1.0D;
-    }
-
-    @Override
     public int getAmbientSoundInterval() {
         return 480;
     }
 
     @Override
     public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("Variant", this.getVariant());
-        if (isTame()) {
-            compoundnbt.putUUID("Owner", getOwnerUUID());
-        }
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, tag -> {
+            tag.putInt("Variant", this.getVariant());
+            if (this.isTame() && this.getOwnerReference() != null) {
+                tag.store("Owner", UUIDUtil.CODEC, this.getOwnerReference().getUUID());
+            }
+        });
         if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
+            bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
     }
 
     @Override
     public void loadFromBucketTag(CompoundTag compoundTag) {
-        this.setVariant(compoundTag.getInt("Variant"));
-        if (compoundTag.contains("Owner")) {
-            this.setOwnerUUID(compoundTag.getUUID("Owner"));
-        }
+        this.setVariant(compoundTag.getIntOr("Variant", 0));
+        compoundTag.read("Owner", UUIDUtil.CODEC).ifPresent(uuid -> this.setOwnerReference(EntityReference.of(uuid)));
     }
 
     @Override
@@ -328,26 +325,16 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (dataTag == null) {
-            setVariant(random.nextInt(8));
-        } else {
-            if (dataTag.contains("Variant", 3)){
-                this.setVariant(dataTag.getInt("Variant"));
-            }
-            if (dataTag.hasUUID("Owner")) {
-                this.setOwnerUUID(dataTag.getUUID("Owner"));
-                this.setTame(true);
-            }
-        }
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
+        setVariant(random.nextInt(8));
         return spawnDataIn;
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob p_241840_2_) {
-        return FTEntities.PENGLIL.create(level);
+        return FTEntities.PENGLIL.create(level, EntitySpawnReason.BREEDING);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -392,7 +379,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
 
     @Override
     public boolean canTakeItem(ItemStack p_28376_) {
-        EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(p_28376_);
+        EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(p_28376_);
         if (!this.getItemBySlot(equipmentslot).isEmpty()) {
             return false;
         } else {
@@ -471,7 +458,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void start() {
             if (this.bedPos != null) {
                 this.penglil.setOrderedToSit(false);
-                this.penglil.getNavigation().snapTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
+                this.penglil.getNavigation().moveTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
             }
 
         }
@@ -506,7 +493,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void tick() {
             if (this.owner != null && this.bedPos != null) {
                 this.penglil.setOrderedToSit(false);
-                this.penglil.getNavigation().snapTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
+                this.penglil.getNavigation().moveTo(this.bedPos.getX(), this.bedPos.getY(), this.bedPos.getZ(), 1.1F);
                 if (this.penglil.distanceToSqr(this.owner) < 2.5D) {
                     ++this.tickCounter;
                     if (this.tickCounter > 16) {
@@ -582,7 +569,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
         public void start() {
             List<ItemEntity> list = PenglilEntity.this.level().getEntitiesOfClass(ItemEntity.class, PenglilEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), Dolphin.ALLOWED_ITEMS);
             if (!list.isEmpty()) {
-                PenglilEntity.this.getNavigation().snapTo(list.get(0), 1.2F);
+                PenglilEntity.this.getNavigation().moveTo(list.get(0), 1.2F);
                 PenglilEntity.this.playSound(FTSounds.PENGLIL_AMBIENT, 1.0F, 1.0F);
             }
 
@@ -606,7 +593,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
                 this.drop(itemstack);
                 PenglilEntity.this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
             } else if (!list.isEmpty()) {
-                PenglilEntity.this.getNavigation().snapTo(list.get(0), 1.2F);
+                PenglilEntity.this.getNavigation().moveTo(list.get(0), 1.2F);
             }
 
         }

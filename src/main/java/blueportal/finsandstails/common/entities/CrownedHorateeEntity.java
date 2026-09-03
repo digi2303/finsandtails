@@ -532,7 +532,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		}
 
 		public void start() {
-			this.mob.getNavigation().snapTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+			this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
 		}
 
 		@org.jetbrains.annotations.Nullable

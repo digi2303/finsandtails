@@ -87,7 +87,7 @@ public abstract class VariantSchoolingFish extends AbstractFish implements IVari
 
     public void pathToLeader() {
         if (this.isFollower()) {
-            this.getNavigation().snapTo(this.leader, 1.0D);
+            this.getNavigation().moveTo(this.leader, 1.0D);
         }
     }
 

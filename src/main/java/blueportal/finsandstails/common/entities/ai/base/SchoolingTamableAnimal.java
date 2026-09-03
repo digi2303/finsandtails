@@ -83,7 +83,7 @@ public abstract class SchoolingTamableAnimal extends TamableAnimal {
 
     public void pathToLeader() {
         if (this.isFollower()) {
-            this.getNavigation().snapTo(this.leader, 5.0D);
+            this.getNavigation().moveTo(this.leader, 5.0D);
         }
 
     }

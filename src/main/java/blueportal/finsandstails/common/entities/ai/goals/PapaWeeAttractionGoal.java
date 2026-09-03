@@ -28,7 +28,7 @@ public class PapaWeeAttractionGoal extends Goal {
         super.start();
         for (Mob mob : entity.level().getEntitiesOfClass(Mob.class, entity.getBoundingBox().inflate(12.0D), e -> e != entity && e.getVehicle() == null)) {
             if (mob instanceof WeeWeeEntity || mob instanceof VibraWeeEntity || mob instanceof WeeEntity) {
-                mob.getNavigation().snapTo(entity, mob.getSpeed() * 1.25D);
+                mob.getNavigation().moveTo(entity, mob.getSpeed() * 1.25D);
             }
         }
     }

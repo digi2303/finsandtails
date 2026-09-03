@@ -65,7 +65,7 @@ public class AgeableWaterAnimalBreedGoal extends Goal {
      */
     public void tick() {
         this.animal.getLookControl().setLookAt(this.partner, 10.0F, (float)this.animal.getMaxHeadXRot());
-        this.animal.getNavigation().snapTo(this.partner, this.speedModifier);
+        this.animal.getNavigation().moveTo(this.partner, this.speedModifier);
         ++this.loveTime;
         if (this.loveTime >= this.adjustedTickDelay(60) && this.animal.distanceToSqr(this.partner) < 9.0D) {
             this.breed();

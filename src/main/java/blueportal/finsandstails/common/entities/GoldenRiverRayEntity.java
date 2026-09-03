@@ -89,7 +89,7 @@ public class GoldenRiverRayEntity extends AbstractFish {
 
             Path path = nav.createPath(getTarget(), 1);
 
-            nav.snapTo(path, 5.0D);
+            nav.moveTo(path, 5.0D);
         }
         super.travel(p_27490_);
     }
