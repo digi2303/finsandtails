@@ -22,6 +22,8 @@ public interface ClientAbstraction {
         }
     });
 
+    void onClientTick(Runnable handler);
+
     <T extends Entity> void registerEntityRenderer(EntityType<? extends T> type, EntityRendererProvider<T> provider);
 
     void registerEntityModelLayer(ModelLayerLocation location, Supplier<LayerDefinition> supplier);
