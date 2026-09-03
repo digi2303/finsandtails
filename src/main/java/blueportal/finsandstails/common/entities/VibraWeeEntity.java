@@ -31,7 +31,11 @@ import blueportal.finsandstails.registry.FTItems;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
+//? if >=26.2 {
+/*import net.minecraft.world.entity.Bucketable;
+*///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
+//?}
 
 // todo - fix schooling crash
 public class VibraWeeEntity extends VariantSchoolingFish implements IVariant {

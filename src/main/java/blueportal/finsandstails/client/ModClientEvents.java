@@ -81,7 +81,6 @@ public class ModClientEvents {
     private static void setupClient() {
         ClientAbstraction.INSTANCE.registerScreen(FTContainers.MUDHORSE_POUCH, MudhorsePouchScreen::new);
         ClientAbstraction.INSTANCE.registerScreen(FTContainers.CRAB_CRUNCHER, CrabCruncherScreen::new);
-        FTItemProperties.setupItemProperties();
     }
 
 }

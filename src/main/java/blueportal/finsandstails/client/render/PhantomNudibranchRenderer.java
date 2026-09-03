@@ -10,6 +10,7 @@ import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.PhantomNudibranchModel;
 import blueportal.finsandstails.common.entities.PhantomNudibranchEntity;
 import blueportal.finsandstails.client.FTModelLayers;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 public class PhantomNudibranchRenderer extends MobRenderer<PhantomNudibranchEntity, PhantomNudibranchRenderState, PhantomNudibranchModel> {
     private static final Identifier PHANTOM_NUDIBRANCH_LOCATION = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID,"textures/entity/phantom_nudibranch/phantom_nudibranch.png");
@@ -20,8 +21,8 @@ public class PhantomNudibranchRenderer extends MobRenderer<PhantomNudibranchEnti
 
     @Nullable
     @Override
-    protected RenderType getRenderType(PhantomNudibranchEntity p_115322_, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
-        return RenderType.dragonExplosionAlpha(PHANTOM_NUDIBRANCH_LOCATION);
+    protected RenderType getRenderType(PhantomNudibranchRenderState p_115322_, boolean p_115323_, boolean p_115324_, boolean p_115325_) {
+        return RenderTypes.entityTranslucent(PHANTOM_NUDIBRANCH_LOCATION);
     }
 
     @Override

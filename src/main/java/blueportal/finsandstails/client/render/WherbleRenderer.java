@@ -3,7 +3,6 @@ package blueportal.finsandstails.client.render;
 
 import blueportal.finsandstails.client.render.state.WherbleRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.Identifier;
@@ -22,12 +21,6 @@ public class WherbleRenderer extends MobRenderer<WherbleEntity, WherbleRenderSta
     }
 
     @Override
-    public void render(WherbleEntity entity, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
-        this.model = state.isBaby ? this.babyModel : this.adultModel;
-        super.render(entity, f, g, poseStack, multiBufferSource, i);
-    }
-
-    @Override
     public WherbleRenderState createRenderState() {
         return new WherbleRenderState();
     }
@@ -37,6 +30,7 @@ public class WherbleRenderer extends MobRenderer<WherbleEntity, WherbleRenderSta
         super.extractRenderState(entity, state, partialTicks);
         state.variant = entity.getVariant();
         state.projectile = entity.isProjectile();
+        this.model = state.isBaby ? this.babyModel : this.adultModel;
     }
 
     @Override

@@ -30,7 +30,11 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTTags;
 
 import java.util.List;
+//? if >=26.2 {
+/*import net.minecraft.world.entity.Bucketable;
+*///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
+//?}
 
 public class WeeEntity extends AbstractSchoolingFish {
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WeeEntity.class, EntityDataSerializers.INT);

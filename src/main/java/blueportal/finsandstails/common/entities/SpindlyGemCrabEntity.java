@@ -41,7 +41,11 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import org.jetbrains.annotations.Nullable;
+//? if >=26.2 {
+/*import net.minecraft.world.entity.Bucketable;
+*///?} else {
 import net.minecraft.world.entity.animal.Bucketable;
+//?}
 import blueportal.finsandstails.registry.FTTags;
 
 public class SpindlyGemCrabEntity extends AbstractFish {
