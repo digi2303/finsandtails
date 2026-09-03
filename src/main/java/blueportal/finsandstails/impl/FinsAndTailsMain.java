@@ -1,5 +1,7 @@
 package blueportal.finsandstails.impl;
 
+import blueportal.finsandstails.FTConfig;
+import blueportal.finsandstails.common.FTLootModifications;
 import blueportal.finsandstails.network.FTMessages;
 import blueportal.finsandstails.registry.FTBlocks;
 import blueportal.finsandstails.registry.FTContainers;
@@ -15,6 +17,7 @@ import dev.yumi.mc.core.api.entrypoint.ModInitializer;
 public class FinsAndTailsMain implements ModInitializer {
     @Override
     public void onInitialize(ModContainer modContainer) {
+        FTConfig.load();
         FTSounds.register();
         FTEntities.register();
         FTBlocks.register();
@@ -26,5 +29,6 @@ public class FinsAndTailsMain implements ModInitializer {
         FTSpawnPlacements.register();
         FTSpawns.register();
         FTMessages.register();
+        FTLootModifications.register();
     }
 }

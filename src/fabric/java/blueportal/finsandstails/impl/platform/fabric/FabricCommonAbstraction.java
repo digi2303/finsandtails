@@ -69,10 +69,10 @@ public record FabricCommonAbstraction() implements CommonAbstraction {
     }
 
     @Override
-    public void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected) {
+    public void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected, int weight, int quality) {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (key == target) {
-                tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(injected)));
+                tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(injected).setWeight(weight).setQuality(quality)));
             }
         });
     }

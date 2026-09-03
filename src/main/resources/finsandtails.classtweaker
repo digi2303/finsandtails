@@ -7,3 +7,5 @@ accessible	method	net/minecraft/world/level/block/StairBlock	<init>	(Lnet/minecr
 accessible	method	net/minecraft/world/inventory/MenuType	<init>	(Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
 accessible	class	net/minecraft/world/inventory/MenuType$MenuSupplier
 accessible	method	net/minecraft/world/entity/SpawnPlacements	register	(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible	field	net/minecraft/world/level/storage/loot/LootTable	pools	Ljava/util/List;
+mutable	field	net/minecraft/world/level/storage/loot/LootTable	pools	Ljava/util/List;

@@ -16,7 +16,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
@@ -61,8 +64,14 @@ public record NeoCommonAbstraction(List<Consumer<IEventBus>> lateActions) implem
     }
 
     @Override
-    public void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected) {
-        throw new UnsupportedOperationException("NeoForge loot injection is applied from generated global loot modifiers");
+    public void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected, int weight, int quality) {
+        NeoForge.EVENT_BUS.addListener(LootTableLoadEvent.class, event -> {
+            if (target.equals(event.getKey())) {
+                List<LootPool> pools = new ArrayList<>(event.getTable().pools);
+                pools.add(LootPool.lootPool().add(NestedLootTable.lootTableReference(injected).setWeight(weight).setQuality(quality)).build());
+                event.getTable().pools = List.copyOf(pools);
+            }
+        });
     }
 
     @Override

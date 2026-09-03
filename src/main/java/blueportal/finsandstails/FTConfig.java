@@ -1,47 +1,41 @@
 package blueportal.finsandstails;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.IConfigSpec;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import org.apache.commons.lang3.tuple.Pair;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import dev.yumi.mc.core.api.YumiMods;
 
-@Mod.EventBusSubscriber(modid = FinsAndTails.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
 public class FTConfig {
-    public static boolean finsFishingLoot;
+    private static final Path CONFIG_PATH = YumiMods.get().getConfigDirectory().resolve("finsandtails.json");
+    public static FTConfig instance = new FTConfig();
 
-    @SubscribeEvent
-    public static void configLoad(ModConfigEvent.Reloading event) {
+    @SerializedName("fins_fishing_loot")
+    public boolean finsFishingLoot = true;
+
+    public static void load() {
         try {
-            IConfigSpec spec = event.getConfig().getSpec();
-            if (spec == Common.SPEC) Common.reload();
-        }
-        catch (Throwable e) {
-            FinsAndTails.LOGGER.error("Something went wrong updating the Fins and Tails config, using previous or default values! {}", e.toString());
+            if (Files.exists(CONFIG_PATH)) {
+                var gson = new GsonBuilder().disableHtmlEscaping().create();
+                var config = gson.fromJson(Files.readString(CONFIG_PATH), FTConfig.class);
+                if (config != null) {
+                    instance = config;
+                }
+            }
+            save();
+        } catch (Throwable e) {
+            FinsAndTails.LOGGER.warn("Failed to load Fins and Tails config!", e);
         }
     }
 
-    public static class Common {
-        public static final Common INSTANCE;
-        public static final ForgeConfigSpec SPEC;
-
-        static {
-            Pair<Common, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(Common::new);
-            INSTANCE = pair.getLeft();
-            SPEC = pair.getRight();
-        }
-
-        public final ForgeConfigSpec.BooleanValue finsFishingLoot;
-
-        Common(ForgeConfigSpec.Builder builder) {
-            builder.push("General");
-            finsFishingLoot = builder.comment("Should Fins and Tails fish should appear in the fishing loot table?").define("fins_fishing_loot", true);
-            builder.pop();
-        }
-
-        public static void reload() {
-            FTConfig.finsFishingLoot = INSTANCE.finsFishingLoot.get();
+    public static void save() {
+        try {
+            var gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+            Files.writeString(CONFIG_PATH, gson.toJson(instance), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (Throwable e) {
+            FinsAndTails.LOGGER.warn("Failed to save Fins and Tails config!", e);
         }
     }
 }

@@ -48,7 +48,7 @@ public interface CommonAbstraction {
 
     void onServerAboutToStart(Consumer<MinecraftServer> consumer);
 
-    void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected);
+    void injectLoot(ResourceKey<LootTable> target, ResourceKey<LootTable> injected, int weight, int quality);
 
     <T extends CustomPacketPayload> void registerServerbound(CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf, T> codec, BiConsumer<T, ServerPlayer> handler);
 
