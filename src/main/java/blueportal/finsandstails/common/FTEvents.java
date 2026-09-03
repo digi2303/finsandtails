@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
@@ -71,7 +72,9 @@ public class FTEvents {
             Entity owner = fishArrow.getOwner();
 
             if (owner instanceof Player player) {
-                List<PenglilEntity> penglils = player.level().getNearbyEntities(PenglilEntity.class, TargetingConditions.forNonCombat(), player, player.getBoundingBox().inflate(32.0D));
+                TargetingConditions conditions = TargetingConditions.forNonCombat();
+                List<PenglilEntity> penglils = player.level().getEntities(EntityTypeTest.forClass(PenglilEntity.class), player.getBoundingBox().inflate(32.0D),
+                        candidate -> !(player.level() instanceof ServerLevel serverLevel) || conditions.test(serverLevel, player, candidate));
 
                 for (PenglilEntity penglil : penglils) {
                     if (penglil.isTame() && penglil.getOwnerReference() != null && !penglil.getOwnerReference().getUUID().equals(target.getUUID())) {
