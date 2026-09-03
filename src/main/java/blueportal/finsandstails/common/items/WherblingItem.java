@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.items;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -32,7 +34,7 @@ public class WherblingItem extends MobBucketItem {
         if (!level.isClientSide()) {
             WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE, level);
             UUID id = wherble.getUUID();
-            wherble.deserializeNBT(itemstack.getOrCreateTag().getCompound("WherbleData"));
+            wherble.deserializeNBT(itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompoundOrEmpty("WherbleData"));
             wherble.setUUID(id);
             wherble.snapTo(player.getEyePosition());
             wherble.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);

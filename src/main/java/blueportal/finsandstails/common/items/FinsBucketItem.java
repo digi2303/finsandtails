@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.items;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.ChatFormatting;
 //? if >=26.2 {
 /*import net.minecraft.advancements.triggers.CriteriaTriggers;
@@ -72,8 +74,8 @@ public class FinsBucketItem extends MobBucketItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
-        if (hasTooltip && stack.hasTag()) {
-            tooltip.add(Component.translatable(this.entityTypeSupplier.get().getDescriptionId() + "." + stack.getTag().getInt("Variant")).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        if (hasTooltip && stack.has(DataComponents.CUSTOM_DATA)) {
+            tooltip.add(Component.translatable(this.entityTypeSupplier.get().getDescriptionId() + "." + stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         }
     }
 

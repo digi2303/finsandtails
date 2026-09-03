@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.items;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -76,7 +78,7 @@ public class ArmoredGopjetJetpackItem extends Item {
                         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                             ItemStack inventoryStack = player.getInventory().getItem(i);
                             Item item = inventoryStack.getItem();
-                            int ticksJumping = inventoryStack.hasTag() ? inventoryStack.getTag().getInt("FinsFlyingTicks") : 0;
+                            int ticksJumping = inventoryStack.has(DataComponents.CUSTOM_DATA) ? inventoryStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("FinsFlyingTicks", 0) : 0;
                             if (item == Items.WATER_BUCKET) {
                                 flyingTicksRemaining = 100 - ticksJumping;
                             } else if (item == Items.POTION && PotionUtils.getPotion(inventoryStack) == Potions.WATER) {
@@ -158,11 +160,10 @@ public class ArmoredGopjetJetpackItem extends Item {
                                     } else if (!player.getInventory().add(newStack)) {
                                         player.drop(newStack, false);
                                     }
-                                    flyingStack.getOrCreateTag().remove("FinsFlyingTicks");
+                                    CustomData.update(DataComponents.CUSTOM_DATA, flyingStack, tag -> tag.remove("FinsFlyingTicks"));
                                 }
                             } else {
-                                CompoundTag tag = flyingStack.getOrCreateTag();
-                                tag.putInt("FinsFlyingTicks", tag.getInt("FinsFlyingTicks") + 1);
+                                CustomData.update(DataComponents.CUSTOM_DATA, flyingStack, tag -> tag.putInt("FinsFlyingTicks", tag.getIntOr("FinsFlyingTicks", 0) + 1));
                             }
                         }
                     }

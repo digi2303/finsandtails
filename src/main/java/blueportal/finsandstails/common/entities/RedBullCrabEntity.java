@@ -1,5 +1,6 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 //? if >=26.2 {
@@ -194,7 +195,7 @@ public class RedBullCrabEntity extends WaterAnimal {
 
     public void setBucketData(ItemStack stack) {
         if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+            stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
     }
 

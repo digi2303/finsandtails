@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
@@ -44,7 +46,7 @@ public class CommonModEvents {
 
                 WherbleEntity wherble = new WherbleEntity(FTEntities.WHERBLE, level);
                 UUID id = wherble.getUUID();
-                wherble.deserializeNBT(stack.getOrCreateTag().getCompound("WherbleData"));
+                wherble.deserializeNBT(stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompoundOrEmpty("WherbleData"));
                 wherble.setUUID(id);
                 wherble.snapTo(pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F);
                 wherble.setProjectile(true);

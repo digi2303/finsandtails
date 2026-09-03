@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 //? if >=26.2 {
 /*import net.minecraft.advancements.triggers.CriteriaTriggers;
 *///?} else {
@@ -79,7 +81,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
             this.setBucketData(itemstack1);
             if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
-                heldItem.getOrCreateTag().putInt("Age", getAge());
+                CustomData.update(DataComponents.CUSTOM_DATA, heldItem, tag -> tag.putInt("Age", getAge()));
             }
             if (heldItem.isEmpty()) {
                 player.setItemInHand(hand, itemstack1);
@@ -94,7 +96,7 @@ public class SiderolWhiskeredSnailEntity extends Animal {
 
     private void setBucketData(ItemStack bucket) {
         if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
+            bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
     }
 

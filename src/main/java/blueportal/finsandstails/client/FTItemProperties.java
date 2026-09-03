@@ -1,5 +1,7 @@
 package blueportal.finsandstails.client;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -22,7 +24,7 @@ public class FTItemProperties {
     }
 
     private static void registerVariant(Item item) {
-        ItemProperties.register(item, Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "variant"), (stack, world, player, i) -> stack.hasTag() ? stack.getTag().getInt("Variant") : 0);
+        ItemProperties.register(item, Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "variant"), (stack, world, player, i) -> stack.has(DataComponents.CUSTOM_DATA) ? stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Variant", 0) : 0);
     }
 
     private static void registerBroken(Item item) {

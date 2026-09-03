@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import blueportal.finsandstails.common.entities.ai.base.AgeableWaterAnimal;
@@ -168,7 +170,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
             this.saveToBucketTag(bucket);
             if (!this.level().isClientSide()) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucket);
-                heldItem.getOrCreateTag().putInt("Age", getAge());
+                CustomData.update(DataComponents.CUSTOM_DATA, heldItem, tag -> tag.putInt("Age", getAge()));
             }
             if (heldItem.isEmpty()) {
                 player.setItemInHand(hand, bucket);
@@ -257,13 +259,15 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     public void saveToBucketTag(ItemStack stack) {
-        CompoundTag compoundnbt = stack.getOrCreateTag();
+        CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.putInt("Variant", this.getVariant());
         if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+            stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
 
         Bucketable.saveDefaultDataToBucketTag(this, stack);
+
+        stack.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(compoundnbt));
     }
 
     public void loadFromBucketTag(CompoundTag p_148708_) {

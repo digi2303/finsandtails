@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import com.google.common.collect.Lists;
@@ -363,7 +365,7 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 	@Override
 	public void saveToBucketTag(ItemStack p_27494_) {
 		Bucketable.saveDefaultDataToBucketTag(this, p_27494_);
-		CompoundTag compoundtag = p_27494_.getOrCreateTag();
+		CompoundTag compoundtag = new CompoundTag();
 		compoundtag.putInt("Age", this.getAge());
 		List<UUID> list = this.getTrustedUUIDs();
 		ListTag listtag = new ListTag();
@@ -375,7 +377,9 @@ public class CrownedHorateeEntity extends Animal implements IHydrate, Bucketable
 		}
 
 		compoundtag.put("Trusted", listtag);
-	}
+
+        p_27494_.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(compoundtag));
+    }
 
 	public void loadFromBucketTag(CompoundTag p_148708_) {
 		Bucketable.loadDefaultDataFromBucketTag(this, p_148708_);

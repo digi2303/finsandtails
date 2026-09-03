@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 //? if >=26.2 {
@@ -292,12 +294,14 @@ public class WherbleEntity extends Animal implements Bucketable {
 
     @Override
     public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        CompoundTag compoundnbt = new CompoundTag();
         compoundnbt.put("WherbleData", serializeNBT());
 
         if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
+            bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
+
+        bucket.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(compoundnbt));
     }
 
     @Override

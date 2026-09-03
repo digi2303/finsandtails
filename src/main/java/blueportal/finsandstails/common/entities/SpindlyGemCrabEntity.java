@@ -1,5 +1,7 @@
 package blueportal.finsandstails.common.entities;
 
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.particles.ParticleTypes;
@@ -79,8 +81,10 @@ public class SpindlyGemCrabEntity extends AbstractFish {
     }
 
     public void saveToBucketTag(ItemStack bucket) {
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("Variant", this.getVariant()); 
+        CompoundTag compoundnbt = new CompoundTag();
+        compoundnbt.putInt("Variant", this.getVariant());
+
+        bucket.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(compoundnbt));
     }
 
     @Override
