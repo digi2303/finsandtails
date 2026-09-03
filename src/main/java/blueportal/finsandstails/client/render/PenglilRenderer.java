@@ -1,5 +1,11 @@
 
 package blueportal.finsandstails.client.render;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.culling.Frustum;
+import blueportal.finsandstails.client.render.state.PenglilRenderState;
 
 import blueportal.finsandstails.client.render.layer.PenglilCarryingItemLayer;
 import com.google.common.collect.Maps;
@@ -17,7 +23,7 @@ import blueportal.finsandstails.common.entities.PenglilEntity;
 import blueportal.finsandstails.client.FTModelLayers;
 
 import java.util.Map;
-public class PenglilRenderer extends MobRenderer<PenglilEntity, PenglilModel<PenglilEntity>> {
+public class PenglilRenderer extends MobRenderer<PenglilEntity, PenglilRenderState, PenglilModel> {
     public static final Map<Integer, Identifier> TEXTURES = Util.make(Maps.newHashMap(), (hashMap) -> {
         hashMap.put(0, Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/entity/penglil/penglil_1.png"));
         hashMap.put(1, Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/entity/penglil/penglil_2.png"));
@@ -32,33 +38,51 @@ public class PenglilRenderer extends MobRenderer<PenglilEntity, PenglilModel<Pen
         hashMap.put(10, Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/entity/penglil/penglil_sus.png"));
     });
 
+    private final ItemModelResolver itemModelResolver;
+
     public PenglilRenderer(EntityRendererProvider.Context ctx) {
-        super(ctx, new PenglilModel<>(ctx.bakeLayer(FTModelLayers.PENGLIL)), 0.2F);
-        addLayer(new PenglilCarryingItemLayer(this, ctx.getItemInHandRenderer()));
+        super(ctx, new PenglilModel(ctx.bakeLayer(FTModelLayers.PENGLIL)), 0.2F);
+        this.itemModelResolver = ctx.getItemModelResolver();
+        addLayer(new PenglilCarryingItemLayer(this));
     }
 
     @Override
-    public void render(PenglilEntity penglil, float p_115456_, float p_115457_, PoseStack p_115458_, MultiBufferSource p_115459_, int p_115460_) {
+    public boolean shouldRender(PenglilEntity penglil, Frustum frustum, double x, double y, double z) {
         Minecraft mc = Minecraft.getInstance();
 
         if (penglil.isPassenger() && penglil.getVehicle() instanceof Player player) {
             if (player.is(mc.player) && mc.options.getCameraType().isFirstPerson()) {
-                return;
+                return false;
             }
         }
 
-        super.render(penglil, p_115456_, p_115457_, p_115458_, p_115459_, p_115460_);
+        return super.shouldRender(penglil, frustum, x, y, z);
     }
 
     @Override
-    public Identifier getTextureLocation(PenglilEntity entity) {
-        String s = entity.getName().getString();
+    public PenglilRenderState createRenderState() {
+        return new PenglilRenderState();
+    }
+
+    @Override
+    public void extractRenderState(PenglilEntity entity, PenglilRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        state.variant = entity.getVariant();
+        state.penglilName = entity.getName().getString();
+        state.mainArmRight = entity.getMainArm() == HumanoidArm.RIGHT;
+        ItemStack carried = state.mainArmRight ? entity.getMainHandItem() : entity.getOffhandItem();
+        this.itemModelResolver.updateForLiving(state.carriedItem, carried, ItemDisplayContext.GROUND, entity);
+    }
+
+    @Override
+    public Identifier getTextureLocation(PenglilRenderState state) {
+        String s = state.penglilName;
 
         return switch (s) {
             case "Lord", "Lord Penglil", "Lord_Penglil" -> TEXTURES.get(8);
             case "Pomegranits" -> TEXTURES.get(9);
             case "Sus", "Amogus", "Impostor", "Among Us" -> TEXTURES.get(10);
-            default -> TEXTURES.getOrDefault(entity.getVariant(), TEXTURES.get(0));
+            default -> TEXTURES.getOrDefault(state.variant, TEXTURES.get(0));
         };
     }
 }

@@ -26,7 +26,7 @@ public class GopjetRenderer extends MobRenderer<GopjetEntity, GopjetRenderState,
     @Override
     public void extractRenderState(GopjetEntity entity, GopjetRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        state.boosting = state.boosting;
+        state.boosting = entity.isBoosting();
     }
 
     @Override

@@ -1,38 +1,35 @@
 package blueportal.finsandstails.client.render.layer;
 
 import blueportal.finsandstails.client.model.PenglilModel;
-import blueportal.finsandstails.common.entities.PenglilEntity;
+import blueportal.finsandstails.client.render.state.PenglilRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-public class PenglilCarryingItemLayer extends RenderLayer<PenglilEntity, PenglilModel<PenglilEntity>> {
-   private final ItemInHandRenderer itemInHandRenderer;
 
-   public PenglilCarryingItemLayer(RenderLayerParent<PenglilEntity, PenglilModel<PenglilEntity>> p_234834_, ItemInHandRenderer p_234835_) {
+public class PenglilCarryingItemLayer extends RenderLayer<PenglilRenderState, PenglilModel> {
+
+   public PenglilCarryingItemLayer(RenderLayerParent<PenglilRenderState, PenglilModel> p_234834_) {
       super(p_234834_);
-      this.itemInHandRenderer = p_234835_;
    }
 
-   public void render(PoseStack p_116897_, MultiBufferSource p_116898_, int p_116899_, PenglilEntity p_116900_, float p_116901_, float p_116902_, float p_116903_, float p_116904_, float p_116905_, float p_116906_) {
-      boolean flag = p_116900_.getMainArm() == HumanoidArm.RIGHT;
+   @Override
+   public void submit(PoseStack p_116897_, SubmitNodeCollector p_116898_, int p_116899_, PenglilRenderState p_116900_, float p_116901_, float p_116902_) {
+      if (p_116900_.carriedItem.isEmpty()) {
+         return;
+      }
+
       p_116897_.pushPose();
-      float f = 1.0F;
-      float f1 = -1.0F;
-      float f2 = Mth.abs(p_116900_.getXRot()) / 60.0F;
-      if (p_116900_.getXRot() < 0.0F) {
+      float f2 = Mth.abs(p_116900_.xRot) / 60.0F;
+      if (p_116900_.xRot < 0.0F) {
          p_116897_.translate(0.0F, 1.0F - f2 * 0.5F, -1.0F + f2 * 0.5F);
       } else {
          p_116897_.translate(0.0F, 1.0F + f2 * 0.8F, -1.0F + f2 * 0.2F);
       }
 
-      ItemStack itemstack = flag ? p_116900_.getMainHandItem() : p_116900_.getOffhandItem();
-      this.itemInHandRenderer.renderItem(p_116900_, itemstack, ItemDisplayContext.GROUND, false, p_116897_, p_116898_, p_116899_);
+      p_116900_.carriedItem.submit(p_116897_, p_116898_, p_116899_, OverlayTexture.NO_OVERLAY, -1);
       p_116897_.popPose();
    }
 }
