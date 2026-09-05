@@ -13,6 +13,19 @@ import blueportal.finsandstails.client.screen.MudhorsePouchScreen;
 import blueportal.finsandstails.impl.platform.ClientAbstraction;
 import blueportal.finsandstails.registry.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import blueportal.finsandstails.client.model.CrownedHorateeModel;
+import blueportal.finsandstails.client.model.FlatbackLeafSnailModel;
+import blueportal.finsandstails.client.model.FlatbackSuckerModel;
+import blueportal.finsandstails.client.model.HighFinnedBlueModel;
+import blueportal.finsandstails.client.model.PapaWeeModel;
+import blueportal.finsandstails.client.model.RedBullCrabModel;
+import blueportal.finsandstails.client.model.RiverPebbleSnailModel;
+import blueportal.finsandstails.client.model.RubberBellyGliderModel;
+import blueportal.finsandstails.client.model.SiderolWhiskeredSnailModel;
+import blueportal.finsandstails.client.model.SpindlyGemCrabModel;
+import blueportal.finsandstails.client.model.VibraWeeModel;
+import blueportal.finsandstails.client.model.WeeWeeModel;
+import blueportal.finsandstails.client.model.WhiteBullCrabModel;
 
 public class ModClientEvents {
     public static void register() {
@@ -42,6 +55,19 @@ public class ModClientEvents {
         ClientAbstraction.INSTANCE.registerEntityModelLayer(FTModelLayers.FWINGED_BOOTS, () -> FwingedBootsModel.createArmorLayer(FTArmorLayer.armorDeformation()));
         ClientAbstraction.INSTANCE.registerEntityModelLayer(FTModelLayers.SPINDLY_CHARM, () -> SpindlyCharmModel.createArmorLayer(FTArmorLayer.armorDeformation()));
         ClientAbstraction.INSTANCE.registerEntityModelLayer(FTModelLayers.SPINDLY_GEM, () -> SpindlyGemModel.createArmorLayer(FTArmorLayer.armorDeformation()));
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(CrownedHorateeModel.LAYER_LOCATION, CrownedHorateeModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(FlatbackLeafSnailModel.LAYER_LOCATION, FlatbackLeafSnailModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(FlatbackSuckerModel.LAYER_LOCATION, FlatbackSuckerModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(HighFinnedBlueModel.LAYER_LOCATION, HighFinnedBlueModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(PapaWeeModel.LAYER_LOCATION, PapaWeeModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(RedBullCrabModel.LAYER_LOCATION, RedBullCrabModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(RiverPebbleSnailModel.LAYER_LOCATION, RiverPebbleSnailModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(RubberBellyGliderModel.LAYER_LOCATION, RubberBellyGliderModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(SiderolWhiskeredSnailModel.LAYER_LOCATION, SiderolWhiskeredSnailModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(SpindlyGemCrabModel.LAYER_LOCATION, SpindlyGemCrabModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(VibraWeeModel.LAYER_LOCATION, VibraWeeModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(WeeWeeModel.LAYER_LOCATION, WeeWeeModel::createBodyLayer);
+        ClientAbstraction.INSTANCE.registerEntityModelLayer(WhiteBullCrabModel.LAYER_LOCATION, WhiteBullCrabModel::createBodyLayer);
     }
 
     private static void registerEntityRenders() {

@@ -8,7 +8,7 @@
   "key": {
     "#": "finsandtails:mudhorse_scale",
     "S": "minecraft:seagrass",
-    "C": "#forge:chests/wooden"
+    "C": "#c:chests/wooden"
   },
   "result": {
     "id": "finsandtails:mudhorse_pouch",
