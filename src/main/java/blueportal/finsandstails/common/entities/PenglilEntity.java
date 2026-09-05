@@ -278,7 +278,10 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     @Override
     public void loadFromBucketTag(CompoundTag compoundTag) {
         this.setVariant(compoundTag.getIntOr("Variant", 0));
-        compoundTag.read("Owner", UUIDUtil.CODEC).ifPresent(uuid -> this.setOwnerReference(EntityReference.of(uuid)));
+        compoundTag.read("Owner", UUIDUtil.CODEC).ifPresent(uuid -> {
+            this.setOwnerReference(EntityReference.of(uuid));
+            this.setTame(true, false);
+        });
     }
 
     @Override
