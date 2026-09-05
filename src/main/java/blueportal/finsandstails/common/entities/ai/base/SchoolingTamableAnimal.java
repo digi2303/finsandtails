@@ -12,6 +12,7 @@ import blueportal.finsandstails.common.entities.ai.goals.TamableFollowLeaderGoal
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
+import net.minecraft.world.entity.AgeableMob;
 
 public abstract class SchoolingTamableAnimal extends TamableAnimal {
     @Nullable
@@ -106,10 +107,11 @@ public abstract class SchoolingTamableAnimal extends TamableAnimal {
         return p_27531_;
     }
 
-    public static class SchoolSpawnGroupData implements SpawnGroupData {
+    public static class SchoolSpawnGroupData extends AgeableMob.AgeableMobGroupData {
         public final SchoolingTamableAnimal leader;
 
         public SchoolSpawnGroupData(SchoolingTamableAnimal leader) {
+            super(true);
             this.leader = leader;
         }
     }

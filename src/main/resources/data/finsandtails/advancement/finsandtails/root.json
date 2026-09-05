@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "finsandtails:wee"
+      "id": "finsandtails:wee"
     },
     "show_toast": false,
     "title": {

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     "finsandtails:night_light_squid_tentacle",
-    "minecraft:chain"
+    "minecraft:iron_chain"
   ],
   "result": {
     "id": "finsandtails:chained_tentacle",

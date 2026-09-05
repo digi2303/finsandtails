@@ -4,6 +4,10 @@
   "addition": "finsandtails:spindly_gem_block",
   "result": {
     "id": "minecraft:enchanted_book",
-    "nbt": "{StoredEnchantments:[{id:\"finsandtails:crabs_favor\", lvl:1}]}"
+    "components": {
+      "minecraft:stored_enchantments": {
+        "finsandtails:crabs_favor": 1
+      }
+    }
   }
 }

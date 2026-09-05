@@ -124,6 +124,7 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.withType(Jar).configureEach {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+	includeEmptyDirs = false
 }
 
 java {

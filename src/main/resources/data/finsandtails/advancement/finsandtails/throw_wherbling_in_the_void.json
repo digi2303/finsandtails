@@ -2,7 +2,7 @@
   "parent": "finsandtails:finsandtails/throw_wherbling",
   "display": {
     "icon": {
-      "item": "finsandtails:wherbling"
+      "id": "finsandtails:wherbling"
     },
     "title": {
       "translate": "advancements.finsandtails.throw_wherbling_in_the_void.title"

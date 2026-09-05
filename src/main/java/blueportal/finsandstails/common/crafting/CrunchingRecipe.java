@@ -16,13 +16,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class CrunchingRecipe implements Recipe<CrunchingRecipeInput> {
     private final Ingredient base;
     private final Ingredient addition;
-    private final ItemStack result;
+    private final ItemStackTemplate result;
 
-    public CrunchingRecipe(Ingredient base, Ingredient addition, ItemStack result) {
+    public CrunchingRecipe(Ingredient base, Ingredient addition, ItemStackTemplate result) {
         this.base = base;
         this.addition = addition;
         this.result = result;
@@ -31,13 +32,13 @@ public class CrunchingRecipe implements Recipe<CrunchingRecipeInput> {
     public static final MapCodec<CrunchingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
             Ingredient.CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
     ).apply(instance, CrunchingRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CrunchingRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.base,
             Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.addition,
-            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ItemStackTemplate.STREAM_CODEC, recipe -> recipe.result,
             CrunchingRecipe::new
     );
 
@@ -48,11 +49,11 @@ public class CrunchingRecipe implements Recipe<CrunchingRecipeInput> {
 
     @Override
     public ItemStack assemble(CrunchingRecipeInput input) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     public ItemStack getResult() {
-        return this.result;
+        return this.result.create();
     }
 
     public Ingredient getBase() {
