@@ -6,15 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "finsandtails:vibra_wee"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "minecraft:bone_meal"
         }
       ],

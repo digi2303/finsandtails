@@ -1,0 +1,8 @@
+{
+  "comparator_output": 1,
+  "description": {
+    "translate": "jukebox_song.finsandtails.crashing_tides"
+  },
+  "length_in_seconds": 200.0,
+  "sound_event": "finsandtails:music_disc.crashing_tides"
+}

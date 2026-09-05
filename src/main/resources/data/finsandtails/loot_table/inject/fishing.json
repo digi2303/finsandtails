@@ -25,11 +25,6 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "finsandtails:ornate_bugfish"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 15,
           "name": "finsandtails:flatback_sucker"
         },
@@ -42,11 +37,6 @@
           "type": "minecraft:item",
           "weight": 10,
           "name": "finsandtails:teal_arrowfish"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 7,
-          "name": "finsandtails:vibra_wee"
         },
         {
           "type": "minecraft:item",
@@ -77,11 +67,6 @@
           "type": "minecraft:item",
           "weight": 2,
           "name": "finsandtails:sapphire_spindly_gem_crab"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "finsandtails:night_light_squid"
         }
       ]
     }

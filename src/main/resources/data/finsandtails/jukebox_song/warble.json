@@ -1,0 +1,8 @@
+{
+  "comparator_output": 13,
+  "description": {
+    "translate": "jukebox_song.finsandtails.warble"
+  },
+  "length_in_seconds": 174.0,
+  "sound_event": "finsandtails:music_disc.warble"
+}
