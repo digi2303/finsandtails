@@ -98,6 +98,6 @@ public class FTArmorLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
             model.leftArm.visible = true;
         }
 
-        collector.submitModel(model, state, poseStack, RenderTypes.armorCutoutNoCull(texture), light, LivingEntityRenderer.getOverlayCoords(state, 0.0F), -1, null);
+        collector.submitModel(model, state, poseStack, RenderTypes.armorCutoutNoCull(texture), light, LivingEntityRenderer.getOverlayCoords(state, 0.0F), state.outlineColor, null);
     }
 }

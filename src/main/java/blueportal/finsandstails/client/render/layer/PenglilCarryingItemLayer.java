@@ -28,7 +28,7 @@ public class PenglilCarryingItemLayer extends RenderLayer<PenglilRenderState, Pe
          p_116897_.translate(0.0F, 1.0F + f2 * 0.8F, -1.0F + f2 * 0.2F);
       }
 
-      p_116900_.carriedItem.submit(p_116897_, p_116898_, p_116899_, OverlayTexture.NO_OVERLAY, -1);
+      p_116900_.carriedItem.submit(p_116897_, p_116898_, p_116899_, OverlayTexture.NO_OVERLAY, p_116900_.outlineColor);
       p_116897_.popPose();
    }
 }

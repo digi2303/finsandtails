@@ -3,7 +3,6 @@ package blueportal.finsandstails.client.render;
 import blueportal.finsandstails.client.render.state.NightLightSquidRenderState;
 import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.client.model.NightLightSquidModel;
-import blueportal.finsandstails.client.render.layer.FTGlowLayer;
 import blueportal.finsandstails.common.entities.NightLightSquidEntity;
 import blueportal.finsandstails.client.FTModelLayers;
 import com.google.common.collect.Maps;
@@ -14,6 +13,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 import java.util.Map;
+import net.minecraft.client.renderer.entity.layers.LivingEntityEmissiveLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 public class NightLightSquidRenderer extends MobRenderer<NightLightSquidEntity, NightLightSquidRenderState, NightLightSquidModel> {
     public static final Map<Integer, Identifier> NIGHT_LIGHT_SQUID_LOCATIONS = Util.make(Maps.newHashMap(), (hashMap) -> {
@@ -26,9 +27,9 @@ public class NightLightSquidRenderer extends MobRenderer<NightLightSquidEntity, 
 
     public NightLightSquidRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new NightLightSquidModel(ctx.bakeLayer(FTModelLayers.NIGHT_LIGHT_SQUID)), 0.25f);
-        addLayer(new FTGlowLayer<>(this, NIGHT_LIGHT_SQUID_GLOW_LOCATION, (p_234793_) -> {
-            return Math.max(0.0F, Mth.cos(p_234793_.ageInTicks * 0.1F));
-        }));
+        addLayer(new LivingEntityEmissiveLayer<>(this, (p_234792_) -> NIGHT_LIGHT_SQUID_GLOW_LOCATION, (p_234793_, p_234794_) -> {
+            return Math.max(0.0F, Mth.cos(p_234794_ * 0.1F));
+        }, this.getModel(), RenderTypes::entityTranslucentEmissive, false));
     }
 
     @Override

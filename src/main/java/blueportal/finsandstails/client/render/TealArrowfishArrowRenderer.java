@@ -53,7 +53,7 @@ public class TealArrowfishArrowRenderer extends EntityRenderer<TealArrowfishArro
             poseStack.mulPose(Axis.XP.rotationDegrees(f10));
         }
 
-        collector.submitModel(this.model, state, poseStack, this.model.renderType(this.getTextureLocation(state)), state.lightCoords, OverlayTexture.NO_OVERLAY, -1, null);
+        collector.submitModel(this.model, state, poseStack, this.model.renderType(this.getTextureLocation(state)), state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
 
         poseStack.scale(0.05625F, 0.05625F, 0.05625F);
 

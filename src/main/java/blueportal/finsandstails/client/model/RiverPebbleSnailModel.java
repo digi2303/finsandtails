@@ -59,6 +59,15 @@ public class RiverPebbleSnailModel extends EntityModel<RiverPebbleSnailRenderSta
 
         this.sparkle.visible = state.variant == 5 && state.shimmer;
 
+        if (state.variant == 5 && state.shimmer) {
+            float t800 = animTime % 1.5F;
+            this.rotate.zRot = (FTKeyframes.keyframe(t800, new float[]{0F, 0.75F}, new float[]{-(0F), -(360F)}, new Easing[]{Easing.LINEAR, Easing.LINEAR})) * Mth.DEG_TO_RAD;
+            float t801 = animTime % 1.5F;
+            this.rotate.xScale = FTKeyframes.keyframe(t801, new float[]{0F, 0.375F, 0.75F}, new float[]{0F, 1.5F, 0F}, new Easing[]{Easing.LINEAR, Easing.LINEAR, Easing.LINEAR});
+            this.rotate.yScale = FTKeyframes.keyframe(t801, new float[]{0F, 0.375F, 0.75F}, new float[]{0F, 1.5F, 0F}, new Easing[]{Easing.LINEAR, Easing.LINEAR, Easing.LINEAR});
+            this.rotate.zScale = FTKeyframes.keyframe(t801, new float[]{0F, 0.375F, 0.75F}, new float[]{0F, 1.5F, 0F}, new Easing[]{Easing.LINEAR, Easing.LINEAR, Easing.LINEAR});
+        }
+
         if (state.moving) {
             this.root.z += Mth.cos((animTime * 360F) * Mth.DEG_TO_RAD) * 0.09F;
             this.shell.xRot = (Mth.sin((animTime * 360F) * Mth.DEG_TO_RAD) * 2F) * Mth.DEG_TO_RAD;
