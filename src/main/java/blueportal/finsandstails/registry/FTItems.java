@@ -387,7 +387,7 @@ public class FTItems {
     }
 
     private static Item blockItem(String name, Block block) {
-        return register(name, p -> new BlockItem(block, p), new Item.Properties());
+        return register(name, p -> new BlockItem(block, p), new Item.Properties().useBlockDescriptionPrefix());
     }
 
     private static Item register(String name, Item.Properties properties) {
