@@ -89,15 +89,14 @@ public class FTArmorLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         }
 
         model.setupAnim(state);
-        model.allParts().forEach((part) -> part.visible = false);
-        if (slot == EquipmentSlot.FEET) {
-            model.rightLeg.visible = true;
-            model.leftLeg.visible = true;
-        } else {
-            model.body.visible = true;
-            model.rightArm.visible = true;
-            model.leftArm.visible = true;
-        }
+        boolean feet = slot == EquipmentSlot.FEET;
+        model.head.visible = false;
+        model.hat.visible = false;
+        model.body.visible = !feet;
+        model.rightArm.visible = !feet;
+        model.leftArm.visible = !feet;
+        model.rightLeg.visible = feet;
+        model.leftLeg.visible = feet;
 
         collector.submitModel(model, state, poseStack, RenderTypes.armorCutoutNoCull(texture), light, LivingEntityRenderer.getOverlayCoords(state, 0.0F), state.outlineColor, null);
     }

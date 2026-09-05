@@ -18,6 +18,7 @@ public class SpindlyGemModel<T extends HumanoidRenderState> extends HumanoidMode
 	public static LayerDefinition createArmorLayer(CubeDeformation deformation) {
 		MeshDefinition meshdefinition = HumanoidModel.createMesh(deformation, 0.0F);
 		PartDefinition partdefinition = meshdefinition.getRoot();
+		partdefinition.clearRecursively();
 
 		PartDefinition head = partdefinition.getChild("head");
 		PartDefinition body = partdefinition.getChild("body");
