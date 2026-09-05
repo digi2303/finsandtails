@@ -82,7 +82,7 @@ public class RiverPebbleSnailEntity extends AgeableWaterAnimal implements Bucket
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.STEP_HEIGHT, 1.0);
+        return Mob.createMobAttributes().add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.MAX_HEALTH, 4).add(Attributes.MOVEMENT_SPEED, 0.15).add(Attributes.STEP_HEIGHT, 1.0);
     }
 
     @Override

@@ -88,7 +88,7 @@ public class WherbleEntity extends Animal implements Bucketable {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8).add(Attributes.MOVEMENT_SPEED, 0.2);
+        return Mob.createMobAttributes().add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.MAX_HEALTH, 8).add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
     public static boolean checkWherbleSpawnRules(EntityType<? extends WherbleEntity> p_223316_0_, LevelAccessor p_223316_1_, EntitySpawnReason p_223316_2_, BlockPos p_223316_3_, RandomSource p_223316_4_) {

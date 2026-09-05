@@ -127,7 +127,7 @@ public class PenglilEntity extends SchoolingTamableAnimal implements Bucketable 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10).add(Attributes.ATTACK_DAMAGE, 1).add(Attributes.MOVEMENT_SPEED, 0.15);
+        return Mob.createMobAttributes().add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.MAX_HEALTH, 10).add(Attributes.ATTACK_DAMAGE, 1).add(Attributes.MOVEMENT_SPEED, 0.15);
     }
 
     @Override

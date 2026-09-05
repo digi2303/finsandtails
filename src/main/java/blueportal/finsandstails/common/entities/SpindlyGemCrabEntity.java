@@ -141,7 +141,7 @@ public class SpindlyGemCrabEntity extends AbstractFish {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D);
+        return Mob.createMobAttributes().add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.MAX_HEALTH, 8.0D);
     }
 
     @Nullable

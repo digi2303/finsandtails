@@ -53,7 +53,7 @@ public class FlatbackLeafSnailEntity extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8).add(Attributes.MOVEMENT_SPEED, 0.15);
+        return Mob.createMobAttributes().add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.MAX_HEALTH, 8).add(Attributes.MOVEMENT_SPEED, 0.15);
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {

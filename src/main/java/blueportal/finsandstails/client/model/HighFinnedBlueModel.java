@@ -53,6 +53,13 @@ public class HighFinnedBlueModel extends EntityModel<HighFinnedBlueRenderState> 
         float animTime = state.ageInTicks / 20.0F;
 
         if (state.moving) {
+            this.body.yRot = (-(Mth.cos((animTime * 480F) * Mth.DEG_TO_RAD) * 2.5F)) * Mth.DEG_TO_RAD;
+            this.body.y += -(Mth.cos((animTime * 180F) * Mth.DEG_TO_RAD) * 0.5F);
+            this.pectoralfinleft.zRot = (-(Mth.sin((animTime * 480F) * Mth.DEG_TO_RAD) * (-7.5F))) * Mth.DEG_TO_RAD;
+            this.tail.yRot = (-(Mth.sin((animTime * 480F) * Mth.DEG_TO_RAD) * 7F)) * Mth.DEG_TO_RAD;
+            this.dorsalfin.zRot = (-(Mth.cos((animTime * 480F) * Mth.DEG_TO_RAD) * (-15F))) * Mth.DEG_TO_RAD;
+            this.pectoralfinright.zRot = (-(Mth.sin((animTime * 480F) * Mth.DEG_TO_RAD) * 7.5F)) * Mth.DEG_TO_RAD;
+            this.analfin.zRot = (-(Mth.cos((animTime * 480F) * Mth.DEG_TO_RAD) * 15F)) * Mth.DEG_TO_RAD;
         } else {
             this.body.xRot = (Mth.cos((animTime * 90F) * Mth.DEG_TO_RAD) * 2.5F) * Mth.DEG_TO_RAD;
             this.body.y += -(Mth.sin((animTime * 180F) * Mth.DEG_TO_RAD) * 0.25F);
