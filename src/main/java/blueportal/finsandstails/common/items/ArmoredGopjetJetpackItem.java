@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import blueportal.finsandstails.FinsAndTails;
 import blueportal.finsandstails.registry.FTTags;
 import blueportal.finsandstails.common.FinsPlayerData;
 import blueportal.finsandstails.registry.FTSounds;

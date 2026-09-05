@@ -21,7 +21,6 @@ import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;

@@ -2,10 +2,8 @@ package blueportal.finsandstails.common.entities;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
-import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.Util;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.Stats;
@@ -29,7 +27,6 @@ import blueportal.finsandstails.registry.FTItems;
 import blueportal.finsandstails.registry.FTSounds;
 
 import org.jetbrains.annotations.Nullable;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
