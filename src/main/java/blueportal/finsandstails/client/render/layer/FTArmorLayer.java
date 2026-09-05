@@ -27,6 +27,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import blueportal.finsandstails.client.FinsRenderState;
 
 public class FTArmorLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
     private static final Identifier GOPJETPACK_LOCATION = Identifier.fromNamespaceAndPath(FinsAndTails.MOD_ID, "textures/models/armor/gopjet_jetpack_layer_1.png");
@@ -59,8 +60,8 @@ public class FTArmorLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
             return;
         }
 
-        this.submitPiece(poseStack, collector, light, state, state.chestEquipment, EquipmentSlot.CHEST);
-        this.submitPiece(poseStack, collector, light, state, state.feetEquipment, EquipmentSlot.FEET);
+        this.submitPiece(poseStack, collector, light, state, ((FinsRenderState) state).finsandtails$getChestItem(), EquipmentSlot.CHEST);
+        this.submitPiece(poseStack, collector, light, state, ((FinsRenderState) state).finsandtails$getFeetItem(), EquipmentSlot.FEET);
     }
 
     private void submitPiece(PoseStack poseStack, SubmitNodeCollector collector, int light, AvatarRenderState state, ItemStack stack, EquipmentSlot slot) {

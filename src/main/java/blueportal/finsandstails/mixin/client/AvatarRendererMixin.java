@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.world.entity.EquipmentSlot;
 
 @Mixin(AvatarRenderer.class)
 public abstract class AvatarRendererMixin<T extends Avatar> extends LivingEntityRenderer<T, AvatarRenderState, PlayerModel> {
@@ -30,5 +31,9 @@ public abstract class AvatarRendererMixin<T extends Avatar> extends LivingEntity
         if (entity instanceof FinsPlayerData data) {
             ((FinsRenderState) state).finsandtails$setFinsFlying(data.finsandtails$isFinsFlying());
         }
+
+        FinsRenderState finsState = (FinsRenderState) state;
+        finsState.finsandtails$setChestItem(entity.getItemBySlot(EquipmentSlot.CHEST));
+        finsState.finsandtails$setFeetItem(entity.getItemBySlot(EquipmentSlot.FEET));
     }
 }
