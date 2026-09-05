@@ -2,7 +2,7 @@ plugins {
     id("dev.kikugie.stonecutter")
 }
 
-stonecutter active "yumi-26.1" /* [SC] DO NOT EDIT */
+stonecutter active "26.1" /* [SC] DO NOT EDIT */
 
 tasks.register("chiseledBuild") {
     group = "project"

@@ -16,8 +16,8 @@ stonecutter {
     kotlinController = true
     centralScript = "build.gradle"
     create(rootProject) {
-        version("yumi-26.1", "26.1.2")
-        version("yumi-26.2", "26.2")
+        version("26.1", "26.1.2")
+        version("26.2", "26.2")
     }
 }
 
