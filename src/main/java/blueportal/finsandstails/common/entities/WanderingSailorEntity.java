@@ -34,9 +34,17 @@ import java.util.Optional;
 import java.util.Set;
 
 public class WanderingSailorEntity extends AbstractVillager implements Merchant {
-    public static final Int2ObjectMap<ItemsForItemsTrade[]> TRADES = toIntMap(ImmutableMap.of(
-            1, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY, 4), new ItemStack(FTItems.GOPJET_JET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER, 4), new ItemStack(FTItems.FWIN, 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD, 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW, 2), 3, 3, 30)},
-            2, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE, 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL), new ItemStack(FTItems.PAPA_WEE_BUCKET), 3, 3, 30)}));
+    private static Int2ObjectMap<ItemsForItemsTrade[]> trades;
+
+    private static Int2ObjectMap<ItemsForItemsTrade[]> trades() {
+        if (trades == null) {
+            trades = toIntMap(ImmutableMap.of(
+                    1, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD), new ItemStack(FTItems.BANDED_REDBACK_SHRIMP_BUCKET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_RUBY, 4), new ItemStack(FTItems.GOPJET_JET), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_AMBER, 4), new ItemStack(FTItems.FWIN, 1), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_EMERALD, 2), new ItemStack(FTItems.WHITE_BULL_CRAB_CLAW, 2), 3, 3, 30)},
+                    2, new ItemsForItemsTrade[]{new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_SAPPHIRE), new ItemStack(FTItems.NIGHT_LIGHT_SQUID_TENTACLE, 5), 3, 3, 30), new ItemsForItemsTrade(new ItemStack(FTItems.SPINDLY_PEARL), new ItemStack(FTItems.PAPA_WEE_BUCKET), 3, 3, 30)}));
+        }
+
+        return trades;
+    }
 
     public WanderingSailorEntity(EntityType<? extends AbstractVillager> type, Level worldIn) {
         super(type, worldIn);
@@ -92,8 +100,8 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
 
     @Override
     protected void updateTrades(ServerLevel level) {
-        ItemsForItemsTrade[] trade1 = TRADES.get(1);
-        ItemsForItemsTrade[] trade2 = TRADES.get(2);
+        ItemsForItemsTrade[] trade1 = trades().get(1);
+        ItemsForItemsTrade[] trade2 = trades().get(2);
         if (trade1 != null && trade2 != null) {
             MerchantOffers offers = this.getOffers();
             this.addOffersFromListings(offers, trade1, 2);
@@ -173,14 +181,6 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
         private final ItemStack buying1, buying2, selling;
         private final int maxUses, xp;
         private final float priceMultiplier;
-        public static final Map<Integer, ItemStack> GEMS = Util.make(Maps.newHashMap(), (hashMap) -> {
-            hashMap.put(0, new ItemStack(FTItems.SPINDLY_EMERALD));
-            hashMap.put(1, new ItemStack(FTItems.SPINDLY_AMBER));
-            hashMap.put(2, new ItemStack(FTItems.SPINDLY_PEARL));
-            hashMap.put(3, new ItemStack(FTItems.SPINDLY_RUBY));
-            hashMap.put(4, new ItemStack(FTItems.SPINDLY_SAPPHIRE));
-        });
-
         public ItemsForItemsTrade(ItemStack buying1, ItemStack buying2, ItemStack selling, int maxUses, int xp, float priceMultiplier) {
             this.buying1 = buying1;
             this.buying2 = buying2;
@@ -200,7 +200,7 @@ public class WanderingSailorEntity extends AbstractVillager implements Merchant 
 
         @Nullable
         public MerchantOffer getOffer(Entity trader, RandomSource rand) {
-            ItemStack stack = GEMS.get(rand.nextInt(GEMS.size()));
+            rand.nextInt(5);
             return new MerchantOffer(cost(buying1), buying2.isEmpty() ? Optional.empty() : Optional.of(cost(buying2)), selling, maxUses, xp, priceMultiplier);
         }
     }

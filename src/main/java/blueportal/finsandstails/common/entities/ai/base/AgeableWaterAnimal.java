@@ -35,7 +35,6 @@ import java.util.UUID;
 
 public abstract class AgeableWaterAnimal extends WaterAnimal {
     private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(AgeableWaterAnimal.class, EntityDataSerializers.BOOLEAN);
-    private static final Ingredient FOOD_ITEMS = Ingredient.of();
     public static final int BABY_START_AGE = -24000;
     protected int age;
     protected int forcedAge;
@@ -416,6 +415,6 @@ public abstract class AgeableWaterAnimal extends WaterAnimal {
     }
 
     public boolean isFood(ItemStack pStack) {
-        return FOOD_ITEMS.test(pStack);
+        return false;
     }
 }
