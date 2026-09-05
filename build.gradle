@@ -126,6 +126,27 @@ processResources {
 	}
 }
 
+// pure renames between 26.x and the older targets; structural differences use //? directives
+if (!project.minecraft_version.startsWith("26.")) {
+	stonecutter.replacements {
+		string {
+			id = "identifier"
+			direction = true
+			replace("net.minecraft.resources.Identifier", "net.minecraft.resources.ResourceLocation")
+		}
+		string {
+			id = "identifier_type"
+			direction = true
+			replace("Identifier", "ResourceLocation")
+		}
+		string {
+			id = "spawn_reason"
+			direction = true
+			replace("EntitySpawnReason", "MobSpawnType")
+		}
+	}
+}
+
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 	it.options.release = 25
